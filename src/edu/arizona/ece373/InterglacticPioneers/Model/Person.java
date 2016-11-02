@@ -95,7 +95,7 @@ public class Person {
 	}
 	
 	public Boolean repairSpaceship(Person p){
-		if(!p.isEngineer())return false
+		if(!p.isEngineer())return false;
 		return Journey.getSpaceship().repair(this);
 	}
 }

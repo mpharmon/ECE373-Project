@@ -2,14 +2,16 @@ package edu.arizona.ece373.InterglacticPioneers.Model;
 
 import java.util.ArrayList;
 
-public class Event {
-	private String title;
-	private String description;
-	private ArrayList<EventOption> options;
+abstract class Event {
+	protected String title;
+	protected String description;
+	protected ArrayList<EventOption> options;
+	protected Integer distanceFromStart;
 	
 	// Constructor(s)
-	public Event(){
-		
+	public Event(String t, String d){
+		this.title = t;
+		this.description = d;
 	}
 	
 	// Get'ers and Set'ers
@@ -20,7 +22,12 @@ public class Event {
 	class EventOption{
 		private String description;
 		
-		//Get'ers and Set'ers
+		// Constructor(s)
+		public EventOption(String d){
+			this.description = d;
+		}
+		
+		// Get'ers and Set'ers
 		public String getDescription(){return this.description;}
 	}
 }
