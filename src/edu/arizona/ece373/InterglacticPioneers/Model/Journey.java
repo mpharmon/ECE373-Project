@@ -11,6 +11,6 @@ public class Journey {
 	public static ArrayList<Waypoint> getWaypoints(){return Journey.waypoints;};
 	
 	public static void buildPath(Waypoint Destination){
-		
+		Journey.waypoints.add(new Waypoint("Earth"));
 	}
 }
