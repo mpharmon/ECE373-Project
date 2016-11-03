@@ -18,27 +18,37 @@ import java.awt.event.MouseEvent;
 public class StartMenu extends JFrame {
 
 	private JPanel contentPane;
+	
+	private boolean StartBtn;
+	private boolean HighScoreBtn;
+	private boolean ExitBtn;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StartMenu frame = new StartMenu();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					StartMenu frame = new StartMenu();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
 	 */
 	public StartMenu() {
+		
+		//Initialize button tracking variables
+		StartBtn = false;
+		HighScoreBtn = false;
+		ExitBtn = false;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -62,6 +72,7 @@ public class StartMenu extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Start");
+				StartBtn = true;
 			}
 		});
 		btnStartButton.setBounds(1053, 356, 97, 37);
@@ -84,6 +95,7 @@ public class StartMenu extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				System.out.println("High Scores");
+				HighScoreBtn = true;
 			}
 		});
 		btnHighScores.setBounds(1054, 460, 171, 37);
@@ -100,6 +112,7 @@ public class StartMenu extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Exit");
+				ExitBtn = true;
 			}
 		});
 		btnExit.setBounds(1053, 566, 77, 37);
@@ -109,6 +122,15 @@ public class StartMenu extends JFrame {
 		});
 		btnExit.setFont(new Font("Slider", Font.PLAIN, 24));
 		contentPane.add(btnExit);
+	}
+	
+	//Checks whether any of the three buttons were clicked
+	public int checkButtons(){
+		
+		if(StartBtn && !HighScoreBtn && !ExitBtn) return 1;
+		else if(!StartBtn && HighScoreBtn && !ExitBtn) return 2;
+		else if(ExitBtn) return 3;
+		else return 0;
 	}
 
 }
