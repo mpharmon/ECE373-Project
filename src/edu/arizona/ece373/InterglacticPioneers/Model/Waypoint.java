@@ -1,36 +1,25 @@
 package edu.arizona.ece373.InterglacticPioneers.Model;
 
-public class Waypoint {
-	private String name;
-	private Integer distanceFromStart;
+public class Waypoint extends Event{
 	private Boolean hasStore;
 	private Store store;
 	
 	// Constructors
-	public Waypoint(String name){
-		this.name = name;
-		this.distanceFromStart = 0;
+	public Waypoint(String t, String d){
+		super(t,d);
+		this.title = t;
+		this.description = d;
 		this.hasStore = false;
 	}
-	public Waypoint(String name, Integer distance){
-		this.distanceFromStart = distance;
-		this.hasStore = false;
-	}
-	public Waypoint(String name, Boolean hasStore){
+	public Waypoint(String t, String d, Boolean hasStore){
+		super(t,d);
 		this.distanceFromStart = 0;
 		this.hasStore = hasStore;
 		if(this.hasStore)this.store = new Store((this.distanceFromStart / 1.0) / (Journey.getTotalDistance() / 1.0));
 	}
-	public Waypoint(String name, Integer distance, Boolean hasStore){
-		this.distanceFromStart = distance;
-		this.hasStore = hasStore;
-		if(this.hasStore)this.store = new Store((this.distanceFromStart / 1.0) / (Journey.getTotalDistance() / 1.0));
-	};
 	
 	//Get'ers and Set'ers
-	public String getName(){return this.name;}
 	public Integer getDistanceFromStart(){return this.distanceFromStart;}
 	public Boolean getHasStore(){return this.hasStore;}
 	public Store getStore(){return this.store;}
-	
 }
