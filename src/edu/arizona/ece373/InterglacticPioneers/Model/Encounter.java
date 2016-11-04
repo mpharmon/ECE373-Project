@@ -1,8 +1,9 @@
 package edu.arizona.ece373.InterglacticPioneers.Model;
 
-public class Encounter extends Event{
+public abstract class Encounter extends Event{
+	//final public static String ALIEN_ENCOUNTER_DESCRIPTION = "";
 	// Constructor(s)
-	public Encounter(String t, String d, Object c){
-		super(t,d);
-	}
+	//public <C extends EncounterType> Encounter(Class <C> c){
+	//	super(c.getTitle(), c.getDescription());
+	//}
 }

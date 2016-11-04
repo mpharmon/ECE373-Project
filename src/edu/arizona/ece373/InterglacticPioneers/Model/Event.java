@@ -12,6 +12,7 @@ abstract class Event {
 	public Event(String t, String d){
 		this.title = t;
 		this.description = d;
+		this.options = new ArrayList<EventOption>();
 	}
 	
 	// Get'ers and Set'ers

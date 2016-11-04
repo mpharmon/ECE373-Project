@@ -12,12 +12,15 @@ public class Journey {
 	
 	//Get'ers and Set'ers
 	public static Integer getTotalDistance(){return Journey.totalDistance;};
-	//public static ArrayList<Event> getWaypoints(){return Journey.waypoints;};
+	public static ArrayList<Event> getEvents(){return Journey.events;};
 	public static Spaceship getSpaceship(){return Journey.ship;}
+	
+	public static void setDifficulty(Integer d){Journey.difficulty = d;}
 	public static Integer getDifficulty(){return Journey.difficulty;}
 	
 	public static void buildEvents(){
-		//TODO - Add Additional Events
+		Journey.events.add(new Waypoint("Earth", "Planet Earth", true));
+		//TODO - Add Events
 	}
 	
 	public static Boolean addPerson(String Name){
