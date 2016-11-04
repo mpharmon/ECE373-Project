@@ -40,6 +40,7 @@ public class GameDriver implements Runnable {
 							difficultyWindow.setVisible(true);
 							currentWindow = difficultyWindow.getWindowId();
 						}
+						break;
 					case 1:
 						if(difficultyWindow.checkButtons() == 1){
 							difficultyWindow.setVisible(false);
