@@ -15,24 +15,46 @@ public class GameDriver implements Runnable {
 	
 	public void run() {
 		
-		StartMenu frame_1 = new StartMenu();
-		DifficultySet frame_2 = new DifficultySet();
+		//Instantiate Windows
+		StartMenu startWindow = new StartMenu();
+		DifficultySet difficultyWindow = new DifficultySet();
+		PreparationStage preparationWindow = new PreparationStage();
+		SelectCrew selectCrewWindow = new SelectCrew();
+		
+		int currentWindow = startWindow.getWindowId();
+		
 		
 		while (running){
 			try {
 				//Thread.sleep(1000);
 				//System.out.println("test");
 				
-				if(frame_1.checkButtons() == 0){
-					frame_1.setVisible(true);
-				}else if(frame_1.checkButtons() == 3){
-					running = false;
-				}else if(frame_1.checkButtons() == 1){
-					frame_1.setVisible(false);
-					frame_2.setVisible(true);
-				}
-				
-				
+				switch(currentWindow){
+					case 0:
+						if(startWindow.checkButtons() == 0){
+							startWindow.setVisible(true);
+						}else if(startWindow.checkButtons() == 3){
+							running = false;
+						}else if(startWindow.checkButtons() == 1){
+							startWindow.setVisible(false);
+							difficultyWindow.setVisible(true);
+							currentWindow = difficultyWindow.getWindowId();
+						}
+					case 1:
+						if(difficultyWindow.checkButtons() == 1){
+							difficultyWindow.setVisible(false);
+							preparationWindow.setVisible(true);
+							currentWindow = preparationWindow.getWindowId();
+						}
+						break;
+					case 2:
+						if(preparationWindow.checkButtons() == 1){
+							preparationWindow.setVisible(false);
+							selectCrewWindow.setVisible(true);
+							currentWindow = selectCrewWindow.getWindowId();
+						}
+						break;
+				}	
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

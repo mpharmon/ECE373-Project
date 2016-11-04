@@ -21,9 +21,15 @@ import javax.swing.ButtonGroup;
 
 public class DifficultySet extends JFrame {
 
+	private int difficulty;
 	private JPanel contentPane;
-	private final ButtonGroup buttonGroup = new ButtonGroup();
-
+	private final ButtonGroup Difficulty_buttonGroup = new ButtonGroup();
+	
+	private int windowId;
+	final private static int Easy = 1;
+	final private static int Normal = 2;
+	final private static int Hard = 3;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -44,6 +50,10 @@ public class DifficultySet extends JFrame {
 	 * Create the frame.
 	 */
 	public DifficultySet() {
+		
+		difficulty = 0;
+		setWindowId(1);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -55,39 +65,45 @@ public class DifficultySet extends JFrame {
 		* Create buttons for difficulty settings
 		*/
 		JToggleButton tglbtnSuicideMission = new JToggleButton("Suicide Mission");
-		buttonGroup.add(tglbtnSuicideMission);
+		tglbtnSuicideMission.setToolTipText("Limited supplies, more critical event encounters, and a longer realistic trip length.");
+		Difficulty_buttonGroup.add(tglbtnSuicideMission);
 		tglbtnSuicideMission.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				difficulty = Hard;
 				System.out.println("Suicide Mission");
 			}
 		});
 		tglbtnSuicideMission.setFont(new Font("Slider", Font.PLAIN, 18));
-		tglbtnSuicideMission.setBounds(895, 442, 181, 54);
+		tglbtnSuicideMission.setBounds(954, 581, 181, 54);
 		contentPane.add(tglbtnSuicideMission);
 		
 		JToggleButton tglbtnSpacePioneer = new JToggleButton("Space Pioneer");
-		buttonGroup.add(tglbtnSpacePioneer);
+		tglbtnSpacePioneer.setToolTipText("Standard amount of supplies, event encounters, and trip length.");
+		Difficulty_buttonGroup.add(tglbtnSpacePioneer);
 		tglbtnSpacePioneer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				difficulty = Normal;
 				System.out.println("Space Pioneer");
 			}
 		});
 		tglbtnSpacePioneer.setFont(new Font("Slider", Font.PLAIN, 18));
-		tglbtnSpacePioneer.setBounds(513, 442, 181, 54);
+		tglbtnSpacePioneer.setBounds(533, 581, 181, 54);
 		contentPane.add(tglbtnSpacePioneer);
 		
 		JToggleButton tglbtnSpaceCruise = new JToggleButton("Space Cruise");
-		buttonGroup.add(tglbtnSpaceCruise);
+		tglbtnSpaceCruise.setToolTipText("Extra supplies, fewer event encounters, and a shorter trip.");
+		Difficulty_buttonGroup.add(tglbtnSpaceCruise);
 		tglbtnSpaceCruise.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				difficulty = Easy;
 				System.out.println("Space Cruise");
 			}
 		});
 		tglbtnSpaceCruise.setFont(new Font("Slider", Font.PLAIN, 18));
-		tglbtnSpaceCruise.setBounds(122, 442, 181, 54);
+		tglbtnSpaceCruise.setBounds(136, 581, 181, 54);
 		contentPane.add(tglbtnSpaceCruise);
 		
 		JLabel lblGameInfo = new JLabel("Game Info");
@@ -106,27 +122,49 @@ public class DifficultySet extends JFrame {
 		JLabel lblDifficulty = new JLabel("Difficulty");
 		lblDifficulty.setForeground(Color.WHITE);
 		lblDifficulty.setFont(new Font("Slider", Font.PLAIN, 36));
-		lblDifficulty.setBounds(538, 281, 176, 54);
+		lblDifficulty.setBounds(538, 249, 176, 54);
 		contentPane.add(lblDifficulty);
 		
 		JLabel lblHardimage = new JLabel("");
 		lblHardimage.setIcon(new ImageIcon(DifficultySet.class.getResource("/images/deadAstronaut.jpg")));
-		lblHardimage.setBounds(843, 364, 387, 260);
+		lblHardimage.setBounds(836, 302, 387, 260);
 		contentPane.add(lblHardimage);
 		
 		JLabel lblEasyImage = new JLabel("");
 		lblEasyImage.setIcon(new ImageIcon(DifficultySet.class.getResource("/images/SpaceMonkey.jpg")));
-		lblEasyImage.setBounds(51, 364, 361, 270);
+		lblEasyImage.setBounds(51, 302, 361, 270);
 		contentPane.add(lblEasyImage);
 		
 		JLabel lblNormalimage = new JLabel("");
 		lblNormalimage.setIcon(new ImageIcon(DifficultySet.class.getResource("/images/SpacePioneer.jpg")));
-		lblNormalimage.setBounds(453, 362, 321, 262);
+		lblNormalimage.setBounds(452, 302, 321, 262);
 		contentPane.add(lblNormalimage);
 		
 		JLabel labelBackground = new JLabel("");
 		labelBackground.setIcon(new ImageIcon(DifficultySet.class.getResource("/images/Space.jpg")));
 		labelBackground.setBounds(0, 0, 1264, 682);
 		contentPane.add(labelBackground);
+	}
+	
+	public int checkButtons(){
+		if(difficulty != 0) return 1;
+		else return 0;
+	}
+	
+	public int getDifficulty(){
+		return difficulty;
+	}
+	
+	public void setDifficulty(int setting){
+		if( (difficulty >= 0) && (difficulty < 4) )
+			difficulty = setting;
+	}
+
+	public int getWindowId() {
+		return windowId;
+	}
+
+	public void setWindowId(int windowId) {
+		this.windowId = windowId;
 	}
 }

@@ -23,6 +23,7 @@ public class StartMenu extends JFrame {
 	private boolean StartBtn;
 	private boolean HighScoreBtn;
 	private boolean ExitBtn;
+	private int windowId;
 
 	/**
 	 * Launch the application.
@@ -44,6 +45,8 @@ public class StartMenu extends JFrame {
 	 * Create the frame.
 	 */
 	public StartMenu() {
+		
+		setWindowId(0);
 		
 		//Initialize button tracking variables
 		StartBtn = false;
@@ -136,6 +139,14 @@ public class StartMenu extends JFrame {
 		else if(!StartBtn && HighScoreBtn && !ExitBtn) return 2;
 		else if(ExitBtn) return 3;
 		else return 0;
+	}
+
+	public int getWindowId() {
+		return windowId;
+	}
+
+	public void setWindowId(int windowId) {
+		this.windowId = windowId;
 	}
 
 }
