@@ -20,8 +20,8 @@ public class GameDriver implements Runnable {
 		
 		while (running){
 			try {
-				Thread.sleep(1000);
-				System.out.println("test");
+				//Thread.sleep(1000);
+				//System.out.println("test");
 				
 				if(frame_1.checkButtons() == 0){
 					frame_1.setVisible(true);

@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.UIManager;
 
 public class StartMenu extends JFrame {
 
@@ -52,7 +53,7 @@ public class StartMenu extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.WHITE);
+		contentPane.setBackground(UIManager.getColor("Button.background"));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -62,12 +63,14 @@ public class StartMenu extends JFrame {
 		contentPane.add(label_1);
 		
 		JLabel label = new JLabel("   INTERPLANETARY PIONEERS");
-		label.setBounds(287, 25, 682, 51);
-		label.setFont(new Font("Slider", Font.PLAIN, 44));
+		label.setForeground(new Color(0, 255, 255));
+		label.setBounds(135, 81, 1007, 73);
+		label.setFont(new Font("Slider", Font.PLAIN, 60));
 		contentPane.add(label);
 		
 		//START Button
 		JButton btnStartButton = new JButton("Start");
+		btnStartButton.setBackground(new Color(0, 255, 255));
 		btnStartButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -75,7 +78,7 @@ public class StartMenu extends JFrame {
 				StartBtn = true;
 			}
 		});
-		btnStartButton.setBounds(1053, 356, 97, 37);
+		btnStartButton.setBounds(518, 320, 219, 60);
 		btnStartButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -83,14 +86,9 @@ public class StartMenu extends JFrame {
 		btnStartButton.setFont(new Font("Slider", Font.PLAIN, 24));
 		contentPane.add(btnStartButton);
 		
-		//Main Menu Image
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(9, 123, 960, 540);
-		lblNewLabel.setIcon(new ImageIcon(StartMenu.class.getResource("/images/superNova_1C.jpg")));
-		contentPane.add(lblNewLabel);
-		
 		//High Score Button
 		JButton btnHighScores = new JButton("High Scores\r\n");
+		btnHighScores.setBackground(new Color(0, 255, 255));
 		btnHighScores.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -98,7 +96,7 @@ public class StartMenu extends JFrame {
 				HighScoreBtn = true;
 			}
 		});
-		btnHighScores.setBounds(1054, 460, 171, 37);
+		btnHighScores.setBounds(518, 425, 219, 60);
 		btnHighScores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -108,6 +106,7 @@ public class StartMenu extends JFrame {
 		
 		//Exit Button
 		JButton btnExit = new JButton("Exit");
+		btnExit.setBackground(new Color(0, 255, 255));
 		btnExit.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -115,13 +114,19 @@ public class StartMenu extends JFrame {
 				ExitBtn = true;
 			}
 		});
-		btnExit.setBounds(1053, 566, 77, 37);
+		btnExit.setBounds(518, 537, 219, 60);
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		btnExit.setFont(new Font("Slider", Font.PLAIN, 24));
 		contentPane.add(btnExit);
+		
+		//Main Menu Image
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBounds(0, 0, 1264, 682);
+		lblNewLabel.setIcon(new ImageIcon(StartMenu.class.getResource("/images/Deep-Space-Cloud3_0.jpg")));
+		contentPane.add(lblNewLabel);
 	}
 	
 	//Checks whether any of the three buttons were clicked

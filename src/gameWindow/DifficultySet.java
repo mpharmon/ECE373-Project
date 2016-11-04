@@ -17,10 +17,12 @@ import javax.swing.JToggleButton;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.ButtonGroup;
 
 public class DifficultySet extends JFrame {
 
 	private JPanel contentPane;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
 
 	/**
 	 * Launch the application.
@@ -53,6 +55,7 @@ public class DifficultySet extends JFrame {
 		* Create buttons for difficulty settings
 		*/
 		JToggleButton tglbtnSuicideMission = new JToggleButton("Suicide Mission");
+		buttonGroup.add(tglbtnSuicideMission);
 		tglbtnSuicideMission.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -64,6 +67,7 @@ public class DifficultySet extends JFrame {
 		contentPane.add(tglbtnSuicideMission);
 		
 		JToggleButton tglbtnSpacePioneer = new JToggleButton("Space Pioneer");
+		buttonGroup.add(tglbtnSpacePioneer);
 		tglbtnSpacePioneer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -75,6 +79,7 @@ public class DifficultySet extends JFrame {
 		contentPane.add(tglbtnSpacePioneer);
 		
 		JToggleButton tglbtnSpaceCruise = new JToggleButton("Space Cruise");
+		buttonGroup.add(tglbtnSpaceCruise);
 		tglbtnSpaceCruise.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
