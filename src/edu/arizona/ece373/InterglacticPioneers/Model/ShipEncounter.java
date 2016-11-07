@@ -1,6 +1,6 @@
 package edu.arizona.ece373.InterglacticPioneers.Model;
 
-public class ShipEncounter implements EncounterType{
+public class ShipEncounter implements EncounterData{
 	final public static String ENCOUNTER_TITLE = "";
 	final public static String ENCOUNTER_DESCRIPTION = "";
 	
