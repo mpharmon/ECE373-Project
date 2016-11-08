@@ -19,7 +19,7 @@ import javax.swing.UIManager;
 public class StartMenu extends JFrame {
 
 	private JPanel contentPane;
-	
+
 	private boolean StartBtn;
 	private boolean HighScoreBtn;
 	private boolean ExitBtn;
@@ -28,31 +28,31 @@ public class StartMenu extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					StartMenu frame = new StartMenu();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	// public static void main(String[] args) {
+	// EventQueue.invokeLater(new Runnable() {
+	// public void run() {
+	// try {
+	// StartMenu frame = new StartMenu();
+	// frame.setVisible(true);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// });
+	// }
 
 	/**
 	 * Create the frame.
 	 */
 	public StartMenu() {
-		
+
 		setWindowId(0);
-		
-		//Initialize button tracking variables
+
+		// Initialize button tracking variables
 		StartBtn = false;
 		HighScoreBtn = false;
 		ExitBtn = false;
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -60,18 +60,18 @@ public class StartMenu extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JLabel label_1 = new JLabel("");
 		label_1.setBounds(9, 10, 0, 0);
 		contentPane.add(label_1);
-		
+
 		JLabel label = new JLabel("   INTERPLANETARY PIONEERS");
 		label.setForeground(new Color(0, 255, 255));
 		label.setBounds(135, 81, 1007, 73);
 		label.setFont(new Font("Slider", Font.PLAIN, 60));
 		contentPane.add(label);
-		
-		//START Button
+
+		// START Button
 		JButton btnStartButton = new JButton("Start");
 		btnStartButton.setBackground(new Color(0, 255, 255));
 		btnStartButton.addMouseListener(new MouseAdapter() {
@@ -88,8 +88,8 @@ public class StartMenu extends JFrame {
 		});
 		btnStartButton.setFont(new Font("Slider", Font.PLAIN, 24));
 		contentPane.add(btnStartButton);
-		
-		//High Score Button
+
+		// High Score Button
 		JButton btnHighScores = new JButton("High Scores\r\n");
 		btnHighScores.setBackground(new Color(0, 255, 255));
 		btnHighScores.addMouseListener(new MouseAdapter() {
@@ -106,8 +106,8 @@ public class StartMenu extends JFrame {
 		});
 		btnHighScores.setFont(new Font("Slider", Font.PLAIN, 24));
 		contentPane.add(btnHighScores);
-		
-		//Exit Button
+
+		// Exit Button
 		JButton btnExit = new JButton("Exit");
 		btnExit.setBackground(new Color(0, 255, 255));
 		btnExit.addMouseListener(new MouseAdapter() {
@@ -124,21 +124,25 @@ public class StartMenu extends JFrame {
 		});
 		btnExit.setFont(new Font("Slider", Font.PLAIN, 24));
 		contentPane.add(btnExit);
-		
-		//Main Menu Image
+
+		// Main Menu Image
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(0, 0, 1264, 682);
 		lblNewLabel.setIcon(new ImageIcon(StartMenu.class.getResource("/images/Deep-Space-Cloud3_0.jpg")));
 		contentPane.add(lblNewLabel);
 	}
-	
-	//Checks whether any of the three buttons were clicked
-	public int checkButtons(){
-		
-		if(StartBtn && !HighScoreBtn && !ExitBtn) return 1;
-		else if(!StartBtn && HighScoreBtn && !ExitBtn) return 2;
-		else if(ExitBtn) return 3;
-		else return 0;
+
+	// Checks whether any of the three buttons were clicked
+	public int checkButtons() {
+
+		if (StartBtn && !HighScoreBtn && !ExitBtn)
+			return 1;
+		else if (!StartBtn && HighScoreBtn && !ExitBtn)
+			return 2;
+		else if (ExitBtn)
+			return 3;
+		else
+			return 0;
 	}
 
 	public int getWindowId() {

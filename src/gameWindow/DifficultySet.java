@@ -24,36 +24,36 @@ public class DifficultySet extends JFrame {
 	private int difficulty;
 	private JPanel contentPane;
 	private final ButtonGroup Difficulty_buttonGroup = new ButtonGroup();
-	
+
 	private int windowId;
 	final private static int Easy = 1;
 	final private static int Normal = 2;
 	final private static int Hard = 3;
-	
+
 	/**
 	 * Launch the application.
 	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					DifficultySet frame = new DifficultySet();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	// public static void main(String[] args) {
+	// EventQueue.invokeLater(new Runnable() {
+	// public void run() {
+	// try {
+	// DifficultySet frame = new DifficultySet();
+	// frame.setVisible(true);
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// }
+	// }
+	// });
+	// }
 
 	/**
 	 * Create the frame.
 	 */
 	public DifficultySet() {
-		
+
 		difficulty = 0;
 		setWindowId(1);
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		contentPane = new JPanel();
@@ -62,10 +62,11 @@ public class DifficultySet extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		/**
-		* Create buttons for difficulty settings
-		*/
+		 * Create buttons for difficulty settings
+		 */
 		JToggleButton tglbtnSuicideMission = new JToggleButton("Suicide Mission");
-		tglbtnSuicideMission.setToolTipText("Limited supplies, more critical event encounters, and a longer realistic trip length.");
+		tglbtnSuicideMission.setToolTipText(
+				"Limited supplies, more critical event encounters, and a longer realistic trip length.");
 		Difficulty_buttonGroup.add(tglbtnSuicideMission);
 		tglbtnSuicideMission.addMouseListener(new MouseAdapter() {
 			@Override
@@ -77,7 +78,7 @@ public class DifficultySet extends JFrame {
 		tglbtnSuicideMission.setFont(new Font("Slider", Font.PLAIN, 18));
 		tglbtnSuicideMission.setBounds(954, 581, 181, 54);
 		contentPane.add(tglbtnSuicideMission);
-		
+
 		JToggleButton tglbtnSpacePioneer = new JToggleButton("Space Pioneer");
 		tglbtnSpacePioneer.setToolTipText("Standard amount of supplies, event encounters, and trip length.");
 		Difficulty_buttonGroup.add(tglbtnSpacePioneer);
@@ -91,7 +92,7 @@ public class DifficultySet extends JFrame {
 		tglbtnSpacePioneer.setFont(new Font("Slider", Font.PLAIN, 18));
 		tglbtnSpacePioneer.setBounds(533, 581, 181, 54);
 		contentPane.add(tglbtnSpacePioneer);
-		
+
 		JToggleButton tglbtnSpaceCruise = new JToggleButton("Space Cruise");
 		tglbtnSpaceCruise.setToolTipText("Extra supplies, fewer event encounters, and a shorter trip.");
 		Difficulty_buttonGroup.add(tglbtnSpaceCruise);
@@ -105,58 +106,61 @@ public class DifficultySet extends JFrame {
 		tglbtnSpaceCruise.setFont(new Font("Slider", Font.PLAIN, 18));
 		tglbtnSpaceCruise.setBounds(136, 581, 181, 54);
 		contentPane.add(tglbtnSpaceCruise);
-		
+
 		JLabel lblGameInfo = new JLabel("Game Info");
 		lblGameInfo.setForeground(Color.WHITE);
 		lblGameInfo.setFont(new Font("Slider", Font.PLAIN, 32));
 		lblGameInfo.setBounds(538, 11, 176, 41);
 		contentPane.add(lblGameInfo);
-		
+
 		JTextPane txtpnYourAmongThe = new JTextPane();
 		txtpnYourAmongThe.setBackground(Color.LIGHT_GRAY);
 		txtpnYourAmongThe.setFont(new Font("Slider", Font.PLAIN, 18));
-		txtpnYourAmongThe.setText("Your among the first to boldly go where no has gone before. As founder of the space exploration agency you will decide what other world humanity will colonize first. Its up to you to plan accordingly for your voyage. Space is a hostile place and there is no way to get help from earth. Once you select your destination you will select what space craft, crew, and supplies will be neccessary to ensure mission success. As captain you will have to manage the ship, crew, and resources during the voyage.  Humanity hopes you succeed and that you will lead us into the future where we have colonized our solar system.");
+		txtpnYourAmongThe.setText(
+				"Your among the first to boldly go where no has gone before. As founder of the space exploration agency you will decide what other world humanity will colonize first. Its up to you to plan accordingly for your voyage. Space is a hostile place and there is no way to get help from earth. Once you select your destination you will select what space craft, crew, and supplies will be neccessary to ensure mission success. As captain you will have to manage the ship, crew, and resources during the voyage.  Humanity hopes you succeed and that you will lead us into the future where we have colonized our solar system.");
 		txtpnYourAmongThe.setBounds(74, 76, 1075, 162);
 		contentPane.add(txtpnYourAmongThe);
-		
+
 		JLabel lblDifficulty = new JLabel("Difficulty");
 		lblDifficulty.setForeground(Color.WHITE);
 		lblDifficulty.setFont(new Font("Slider", Font.PLAIN, 36));
 		lblDifficulty.setBounds(538, 249, 176, 54);
 		contentPane.add(lblDifficulty);
-		
+
 		JLabel lblHardimage = new JLabel("");
 		lblHardimage.setIcon(new ImageIcon(DifficultySet.class.getResource("/images/deadAstronaut.jpg")));
 		lblHardimage.setBounds(836, 302, 387, 260);
 		contentPane.add(lblHardimage);
-		
+
 		JLabel lblEasyImage = new JLabel("");
 		lblEasyImage.setIcon(new ImageIcon(DifficultySet.class.getResource("/images/SpaceMonkey.jpg")));
 		lblEasyImage.setBounds(51, 302, 361, 270);
 		contentPane.add(lblEasyImage);
-		
+
 		JLabel lblNormalimage = new JLabel("");
 		lblNormalimage.setIcon(new ImageIcon(DifficultySet.class.getResource("/images/SpacePioneer.jpg")));
 		lblNormalimage.setBounds(452, 302, 321, 262);
 		contentPane.add(lblNormalimage);
-		
+
 		JLabel labelBackground = new JLabel("");
 		labelBackground.setIcon(new ImageIcon(DifficultySet.class.getResource("/images/Space.jpg")));
 		labelBackground.setBounds(0, 0, 1264, 682);
 		contentPane.add(labelBackground);
 	}
-	
-	public int checkButtons(){
-		if(difficulty != 0) return 1;
-		else return 0;
+
+	public int checkButtons() {
+		if (difficulty != 0)
+			return 1;
+		else
+			return 0;
 	}
-	
-	public int getDifficulty(){
+
+	public int getDifficulty() {
 		return difficulty;
 	}
-	
-	public void setDifficulty(int setting){
-		if( (difficulty >= 0) && (difficulty < 4) )
+
+	public void setDifficulty(int setting) {
+		if ((difficulty >= 0) && (difficulty < 4))
 			difficulty = setting;
 	}
 
