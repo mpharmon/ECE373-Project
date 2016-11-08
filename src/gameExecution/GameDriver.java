@@ -20,6 +20,7 @@ public class GameDriver implements Runnable {
 		PreparationStage preparationWindow = new PreparationStage();
 		SelectCrew selectCrewWindow = new SelectCrew();
 		SupplyStage supplyWindow = new SupplyStage();
+		TransferStage transferWindow = new TransferStage();
 
 		int currentWindow = startWindow.getWindowId();
 
@@ -60,7 +61,18 @@ public class GameDriver implements Runnable {
 						supplyWindow.setVisible(true);
 						currentWindow = supplyWindow.getWindowId();
 					}
+					break;
+				case 4:
+					if (supplyWindow.checkButtons() == 1) {
+						supplyWindow.setVisible(false);
+						transferWindow.setVisible(true);
+						currentWindow = transferWindow.getWindowId();
+					}
 					supplyWindow.updateProgress();
+					break;
+				case 5:
+					Thread.sleep(5);
+					transferWindow.moveSpace(1);
 					break;
 				}
 			} catch (Exception e) {
