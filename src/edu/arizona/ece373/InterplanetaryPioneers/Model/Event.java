@@ -2,7 +2,8 @@ package edu.arizona.ece373.InterplanetaryPioneers.Model;
 
 import java.util.ArrayList;
 
-abstract class Event {
+public abstract class Event {
+	
 	protected String title;
 	protected String description;
 	protected ArrayList<EventOption> options;

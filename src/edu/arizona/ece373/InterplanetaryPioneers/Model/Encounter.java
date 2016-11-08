@@ -1,6 +1,6 @@
 package edu.arizona.ece373.InterplanetaryPioneers.Model;
 
-public abstract class Encounter extends Event {
+public class Encounter extends Event {
 
 	public Encounter(String t, String d) {
 		super(t, d);
