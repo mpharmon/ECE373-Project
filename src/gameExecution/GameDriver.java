@@ -26,9 +26,9 @@ public class GameDriver implements Runnable {
 
 		while (running) {
 			try {
-				//Thread.sleep(500);
-				// System.out.println("test");
-
+				//More efficient on computer resources to limit loop to 1 KHz
+				Thread.sleep(1);
+				
 				switch (currentWindow) {
 				case 0:
 					if (startWindow.checkButtons() == 0) {
@@ -71,8 +71,7 @@ public class GameDriver implements Runnable {
 					supplyWindow.updateProgress();
 					break;
 				case 5:
-					Thread.sleep(5);
-					transferWindow.moveSpace(1);
+					transferWindow.moveSpace();
 					break;
 				}
 			} catch (Exception e) {
