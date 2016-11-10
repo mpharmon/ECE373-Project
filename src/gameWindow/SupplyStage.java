@@ -47,6 +47,10 @@ public class SupplyStage extends JFrame {
 	JSlider Food_Slider;
 	JSlider H2O_Slider;
 	JSlider Parts_Slider;
+	JLabel lblFuelStatus;
+	JLabel lblFoodStatus;
+	JLabel lblWaterStatus;
+	JLabel lblPartStatus;
 	JProgressBar progressBar;
 	JTextArea textArea;
 
@@ -99,6 +103,7 @@ public class SupplyStage extends JFrame {
 		 * Fuel Slider
 		 */
 		Fuel_Slider = new JSlider();
+		Fuel_Slider.setToolTipText("Minimum is 25 units for planetary transfer. \r\nAdditional fuel is required for course corrections.");
 		Fuel_Slider.setBorder(new LineBorder(new Color(0, 255, 0), 2, true));
 		Fuel_Slider.setSnapToTicks(true);
 		Fuel_Slider.addChangeListener(new ChangeListener() {
@@ -224,25 +229,25 @@ public class SupplyStage extends JFrame {
 		textArea.setBounds(533, 554, 242, 22);
 		contentPane.add(textArea);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(SupplyStage.class.getResource("/images/Fuel_Icon_small.png")));
-		lblNewLabel.setBounds(135, 149, 151, 164);
-		contentPane.add(lblNewLabel);
+		JLabel lblFuelIcon = new JLabel("New label");
+		lblFuelIcon.setIcon(new ImageIcon(SupplyStage.class.getResource("/images/Fuel_Icon_small.png")));
+		lblFuelIcon.setBounds(135, 149, 151, 164);
+		contentPane.add(lblFuelIcon);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setIcon(new ImageIcon(SupplyStage.class.getResource("/images/water_icon_sm.png")));
-		lblNewLabel_1.setBounds(729, 173, 118, 116);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblWaterIcon = new JLabel("New label");
+		lblWaterIcon.setIcon(new ImageIcon(SupplyStage.class.getResource("/images/water_icon_sm.png")));
+		lblWaterIcon.setBounds(729, 173, 118, 116);
+		contentPane.add(lblWaterIcon);
 		
-		JLabel lblNewLabel_2 = new JLabel("New label");
-		lblNewLabel_2.setIcon(new ImageIcon(SupplyStage.class.getResource("/images/food_icon_sm2.png")));
-		lblNewLabel_2.setBounds(421, 161, 151, 140);
-		contentPane.add(lblNewLabel_2);
+		JLabel lblFoodIcon = new JLabel("New label");
+		lblFoodIcon.setIcon(new ImageIcon(SupplyStage.class.getResource("/images/food_icon_sm2.png")));
+		lblFoodIcon.setBounds(421, 161, 151, 140);
+		contentPane.add(lblFoodIcon);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		lblNewLabel_3.setIcon(new ImageIcon(SupplyStage.class.getResource("/images/Parts_icon_sm_r.png")));
-		lblNewLabel_3.setBounds(986, 149, 151, 140);
-		contentPane.add(lblNewLabel_3);
+		JLabel lblPartsIcon = new JLabel("New label");
+		lblPartsIcon.setIcon(new ImageIcon(SupplyStage.class.getResource("/images/Parts_icon_sm_r.png")));
+		lblPartsIcon.setBounds(986, 149, 151, 140);
+		contentPane.add(lblPartsIcon);
 		
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.addMouseListener(new MouseAdapter() {
@@ -255,6 +260,38 @@ public class SupplyStage extends JFrame {
 		btnConfirm.setFont(new Font("Slider", Font.PLAIN, 22));
 		btnConfirm.setBounds(553, 598, 187, 50);
 		contentPane.add(btnConfirm);
+		
+		/**
+		 * Resource Status Labels
+		 */
+		
+		lblFuelStatus = new JLabel("Sufficient");
+		lblFuelStatus.setFont(new Font("Slider", Font.PLAIN, 16));
+		lblFuelStatus.setForeground(Color.GREEN);
+		lblFuelStatus.setBackground(Color.WHITE);
+		lblFuelStatus.setBounds(172, 400, 108, 22);
+		contentPane.add(lblFuelStatus);
+		
+		lblFoodStatus = new JLabel("Sufficient");
+		lblFoodStatus.setForeground(Color.GREEN);
+		lblFoodStatus.setFont(new Font("Slider", Font.PLAIN, 16));
+		lblFoodStatus.setBackground(Color.WHITE);
+		lblFoodStatus.setBounds(453, 400, 108, 22);
+		contentPane.add(lblFoodStatus);
+		
+		lblWaterStatus = new JLabel("Sufficient");
+		lblWaterStatus.setForeground(Color.GREEN);
+		lblWaterStatus.setFont(new Font("Slider", Font.PLAIN, 16));
+		lblWaterStatus.setBackground(Color.WHITE);
+		lblWaterStatus.setBounds(739, 400, 108, 22);
+		contentPane.add(lblWaterStatus);
+		
+		lblPartStatus = new JLabel("Sufficient");
+		lblPartStatus.setForeground(Color.GREEN);
+		lblPartStatus.setFont(new Font("Slider", Font.PLAIN, 16));
+		lblPartStatus.setBackground(Color.WHITE);
+		lblPartStatus.setBounds(1029, 400, 108, 22);
+		contentPane.add(lblPartStatus);
 
 		JLabel lblBackground = new JLabel("Background");
 		lblBackground.setForeground(new Color(255, 255, 255));
@@ -283,21 +320,59 @@ public class SupplyStage extends JFrame {
 	}
 	
 	public void sliderHandler(){
-		if(Fuel < 25 ) Fuel_Slider.setBorder(new LineBorder(Color.RED, 2, true));
-		else if(Fuel < 50) Fuel_Slider.setBorder(new LineBorder(Color.YELLOW, 2, true));
-		else Fuel_Slider.setBorder(new LineBorder(Color.GREEN, 2, true));
 		
-		if(Food < 75 ) Food_Slider.setBorder(new LineBorder(Color.RED, 2, true));
-		else if(Food < 100) Food_Slider.setBorder(new LineBorder(Color.YELLOW, 2, true));
-		else Food_Slider.setBorder(new LineBorder(Color.GREEN, 2, true));
-		
-		if(H2O < 75 ) H2O_Slider.setBorder(new LineBorder(Color.RED, 2, true));
-		else if(H2O < 100) H2O_Slider.setBorder(new LineBorder(Color.YELLOW, 2, true));
-		else H2O_Slider.setBorder(new LineBorder(Color.GREEN, 2, true));
-		
-		if(Parts < 25 ) Parts_Slider.setBorder(new LineBorder(Color.RED, 2, true));
-		else if(Parts < 50) Parts_Slider.setBorder(new LineBorder(Color.YELLOW, 2, true));
-		else Parts_Slider.setBorder(new LineBorder(Color.GREEN, 2, true));
+		if(Fuel < 25 ){ 
+			Fuel_Slider.setBorder(new LineBorder(Color.RED, 2, true)); 
+			lblFuelStatus.setForeground(Color.RED);
+			lblFuelStatus.setText("Insufficient");
+		}else if(Fuel < 50){
+			Fuel_Slider.setBorder(new LineBorder(Color.YELLOW, 2, true));
+			lblFuelStatus.setForeground(Color.YELLOW);
+			lblFuelStatus.setText("Minimum");
+		}else{ 
+			Fuel_Slider.setBorder(new LineBorder(Color.GREEN, 2, true));
+			lblFuelStatus.setForeground(Color.GREEN);
+			lblFuelStatus.setText("Sufficient");
+		}
+		if(Food < 75 ){ 
+			Food_Slider.setBorder(new LineBorder(Color.RED, 2, true));
+			lblFoodStatus.setForeground(Color.RED);
+			lblFoodStatus.setText("Insufficient");
+		}else if(Food < 100){ 
+			Food_Slider.setBorder(new LineBorder(Color.YELLOW, 2, true));
+			lblFoodStatus.setForeground(Color.YELLOW);
+			lblFoodStatus.setText("Minimum");
+		}else{ 
+			Food_Slider.setBorder(new LineBorder(Color.GREEN, 2, true));
+			lblFoodStatus.setForeground(Color.GREEN);
+			lblFoodStatus.setText("Sufficient");
+		}
+		if(H2O < 75 ){ 
+			H2O_Slider.setBorder(new LineBorder(Color.RED, 2, true));
+			lblWaterStatus.setForeground(Color.RED);
+			lblWaterStatus.setText("Insufficient");
+		}else if(H2O < 100){
+			H2O_Slider.setBorder(new LineBorder(Color.YELLOW, 2, true));
+			lblWaterStatus.setForeground(Color.YELLOW);
+			lblWaterStatus.setText("Minimum");
+		}else{ 
+			H2O_Slider.setBorder(new LineBorder(Color.GREEN, 2, true));
+			lblWaterStatus.setForeground(Color.GREEN);
+			lblWaterStatus.setText("Sufficient");
+		}
+		if(Parts < 25 ){ 
+			Parts_Slider.setBorder(new LineBorder(Color.RED, 2, true));
+			lblPartStatus.setForeground(Color.RED);
+			lblPartStatus.setText("Insufficient");
+		}else if(Parts < 50){ 
+			Parts_Slider.setBorder(new LineBorder(Color.YELLOW, 2, true));
+			lblPartStatus.setForeground(Color.YELLOW);
+			lblPartStatus.setText("Minimum");
+		}else{
+			Parts_Slider.setBorder(new LineBorder(Color.GREEN, 2, true));
+			lblPartStatus.setForeground(Color.GREEN);
+			lblPartStatus.setText("Sufficient");
+		}
 	}
 
 	public int getWindowId() {
