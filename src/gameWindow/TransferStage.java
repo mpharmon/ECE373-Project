@@ -25,8 +25,8 @@ import java.awt.Component;
 public class TransferStage extends JFrame {
 	
 	private int windowId;
-	private int X0_pos, X1_pos, X2_pos, X3_pos, X4_pos, X5_pos;
-	private int Y5_pos;
+	private int X0_pos, X1_pos, X2_pos, X3_pos, X4_pos, X5_pos, X6_pos;
+	private int Y5_pos, Y6_pos;
 	
 	private boolean Warp;
 	private boolean Manager;
@@ -42,6 +42,10 @@ public class TransferStage extends JFrame {
 	private static final int Supercruise = 5;
 	private boolean satelite = false;
 	private boolean chance = false;
+	private boolean oscillate = false;
+	private boolean WarpOut = false;
+	private int offset = 0;
+	private double offset_temp = 0;
 	private static final double SAT_CHANCE = 0.50;
 	private static final double AST_CHANCE = 0.90;
 	
@@ -53,6 +57,7 @@ public class TransferStage extends JFrame {
 	private JLabel lblTimeWarp;
 	private JLabel lblSpaceFrame1;
 	private JLabel lblSpaceFrame2;
+	private JLabel lbSpacecraft;
 	private JLabel lblAsteroid;
 	private JLabel lblSatelite;
 	private JLabel lblEarth; 
@@ -86,10 +91,10 @@ public class TransferStage extends JFrame {
 		X1_pos = 0;
 		X2_pos = -1280;
 		
-		X3_pos = 0; X3_temp = 0;
-		X4_pos = 0; X4_temp = -257;
-		X5_pos = -186;
-		Y5_pos = 175;
+		X3_pos = 0;    X3_temp = 0;
+		X4_pos = 0;    X4_temp = -257;
+		X5_pos = -186; Y5_pos = 175;
+		X6_pos = 999;  Y6_pos = 295;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
@@ -147,6 +152,11 @@ public class TransferStage extends JFrame {
 		lblSpaceFrame2.setIcon(new ImageIcon(TransferStage.class.getResource("/images/Space_MoveFrame.png")));
 		lblSpaceFrame2.setBounds(X2_pos, 0, 1264, 682);
 		transferPane.add(lblSpaceFrame2);
+		
+		lbSpacecraft = new JLabel("");
+		lbSpacecraft.setBounds(999, 295, 255, 82);
+		transferPane.add(lbSpacecraft);
+		lbSpacecraft.setIcon(new ImageIcon(TransferStage.class.getResource("/images/SpaceXModel.png")));
 		
 		lblSatelite = new JLabel("");
 		lblSatelite.setBounds(-186, 175, 186, 83);
@@ -244,8 +254,10 @@ public class TransferStage extends JFrame {
 			lblSpaceFrame2.setBounds(X1_pos, 0, 1280, 720);
 			lblBackground.setBounds(X0_pos, 0, 1970, 1080);
 			
+			moveSpacecraft();
 			movePlanets();
 			moveSatelites();
+			
 			
 			gameTimer.setUpdate(false);
 			if(gameTimer2.isUpdate()) gameTimer2.setUpdate(false);
@@ -290,25 +302,47 @@ public class TransferStage extends JFrame {
 		}
 	}
 	
-	public void moveSpace(int rate){
+	public void moveSpacecraft(){
 		
-		int speed = standard;
+		if(Warp){
+			offset = oscillate(offset, offset_temp, oscillate, 25, 0.05);
 		
-		if(rate == 2) speed = cruise;
-		else if(rate == 3) speed = Supercruise;	
-		
-		if(X1_pos >= 1280) X1_pos = 0;
-		if(X2_pos >= 0) X2_pos = -1280;
-		
-		if(gameTimer.isUpdate()){
-			X1_pos = X1_pos + speed;
-			X2_pos = X2_pos + speed;
-		
-			lblSpaceFrame1.setBounds(X2_pos, 0, 1280, 720);
-			lblSpaceFrame2.setBounds(X1_pos, 0, 1280, 720);
+			if(X6_pos > 800) X6_pos = (int) (X6_pos - cruise);
+			lbSpacecraft.setBounds(X6_pos, Y6_pos + offset, 255, 82);
+			WarpOut = true;
+		}else{
+			if(WarpOut){
+				if(offset > 0) offset = offset - cruise;
+				else if(offset < 0) offset = offset + cruise;
+				else {WarpOut = false; offset_temp = 0;}
+			}else{
+				
+				offset = oscillate(offset, offset_temp, oscillate, 2, 0.05);
+			}
 			
-			gameTimer.setUpdate(false);
+			if(X6_pos < 999) X6_pos = (int) (X6_pos + speed);
+			lbSpacecraft.setBounds(X6_pos, Y6_pos + offset, 255, 82);
 		}
+		
+	}
+	
+	public int oscillate(int offset, double offset_temp, boolean oscillate, int limit, double scale){
+		
+		if(oscillate){
+			offset_temp = (offset_temp + speed*scale);
+			if(offset > limit) oscillate = !oscillate;
+		}
+		else{
+			offset_temp = (offset_temp - speed*scale);
+			if(offset < -limit) oscillate = !oscillate;
+		}
+		
+		this.oscillate = oscillate;
+		this.offset_temp = offset_temp;
+		
+		offset = (int) Math.round(offset_temp);
+		
+		return offset;
 	}
 	
 	public void checkTimeWarp(){
