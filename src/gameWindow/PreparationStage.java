@@ -57,7 +57,7 @@ public class PreparationStage extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblTitle = new JLabel("Preparation Stage");
-		lblTitle.setForeground(new Color(255, 255, 255));
+		lblTitle.setForeground(new Color(0, 255, 255));
 		lblTitle.setFont(new Font("Slider", Font.PLAIN, 34));
 		lblTitle.setBounds(513, 11, 364, 42);
 		contentPane.add(lblTitle);
@@ -75,20 +75,25 @@ public class PreparationStage extends JFrame {
 		contentPane.add(lblEuropaimage);
 
 		JRadioButton rdbtnMars = new JRadioButton("Mars");
+		rdbtnMars.setForeground(new Color(255, 255, 255));
+		rdbtnMars.setOpaque(false);
 		rdbtnMars.setSelected(true);
 		Planet_buttonGroup.add(rdbtnMars);
-		rdbtnMars.setFont(new Font("Slider", Font.PLAIN, 16));
+		rdbtnMars.setFont(new Font("Slider", Font.PLAIN, 18));
 		rdbtnMars.setBounds(89, 338, 109, 23);
 		contentPane.add(rdbtnMars);
 
 		JRadioButton rdbtnEuropa = new JRadioButton("Europa");
+		rdbtnEuropa.setForeground(new Color(255, 255, 255));
+		rdbtnEuropa.setOpaque(false);
 		rdbtnEuropa.setSelected(false);
 		Planet_buttonGroup.add(rdbtnEuropa);
-		rdbtnEuropa.setFont(new Font("Slider", Font.PLAIN, 16));
+		rdbtnEuropa.setFont(new Font("Slider", Font.PLAIN, 18));
 		rdbtnEuropa.setBounds(89, 591, 109, 23);
 		contentPane.add(rdbtnEuropa);
 
 		JButton btnProceed = new JButton("Proceed");
+		btnProceed.setBackground(new Color(0, 255, 255));
 		btnProceed.setFont(new Font("Slider", Font.PLAIN, 18));
 		btnProceed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -101,7 +106,8 @@ public class PreparationStage extends JFrame {
 		});
 
 		JLabel lblSelectSpacecraft = new JLabel("Select Spacecraft:");
-		lblSelectSpacecraft.setForeground(new Color(255, 255, 255));
+		lblSelectSpacecraft.setBackground(new Color(255, 255, 255));
+		lblSelectSpacecraft.setForeground(new Color(0, 255, 255));
 		lblSelectSpacecraft.setFont(new Font("Slider", Font.PLAIN, 22));
 		lblSelectSpacecraft.setBounds(755, 104, 204, 31);
 		contentPane.add(lblSelectSpacecraft);
@@ -118,20 +124,23 @@ public class PreparationStage extends JFrame {
 		contentPane.add(lblShuttleImage);
 
 		JRadioButton rdbtnOrion = new JRadioButton("Orion Spacecraft");
+		rdbtnOrion.setOpaque(false);
 		rdbtnOrion.setSelected(true);
 		Spacecraft_buttonGroup.add(rdbtnOrion);
-		rdbtnOrion.setFont(new Font("Slider", Font.PLAIN, 16));
-		rdbtnOrion.setForeground(new Color(0, 0, 0));
-		rdbtnOrion.setBounds(593, 394, 171, 23);
+		rdbtnOrion.setFont(new Font("Slider", Font.PLAIN, 18));
+		rdbtnOrion.setForeground(new Color(255, 255, 255));
+		rdbtnOrion.setBounds(593, 394, 182, 23);
 		contentPane.add(rdbtnOrion);
 
 		JRadioButton rdbtnSpaceX = new JRadioButton("SpaceX Shuttle");
+		rdbtnSpaceX.setOpaque(false);
+		rdbtnSpaceX.setForeground(new Color(255, 255, 255));
 		rdbtnSpaceX.setSelected(false);
 		Spacecraft_buttonGroup.add(rdbtnSpaceX);
-		rdbtnSpaceX.setFont(new Font("Slider", Font.PLAIN, 16));
-		rdbtnSpaceX.setBounds(985, 394, 141, 23);
+		rdbtnSpaceX.setFont(new Font("Slider", Font.PLAIN, 18));
+		rdbtnSpaceX.setBounds(970, 389, 156, 23);
 		contentPane.add(rdbtnSpaceX);
-		btnProceed.setBounds(595, 604, 156, 42);
+		btnProceed.setBounds(593, 591, 182, 55);
 		contentPane.add(btnProceed);
 
 		JLabel lblLaunchOfSpacecraft = new JLabel("Launch of spacecraft available once status bar is full. ");
@@ -140,12 +149,14 @@ public class PreparationStage extends JFrame {
 		contentPane.add(lblLaunchOfSpacecraft);
 
 		JLabel lblSelectDestination = new JLabel("Select Destination:");
-		lblSelectDestination.setForeground(new Color(255, 255, 255));
+		lblSelectDestination.setForeground(new Color(0, 255, 255));
 		lblSelectDestination.setFont(new Font("Slider", Font.PLAIN, 22));
 		lblSelectDestination.setBounds(45, 52, 217, 38);
 		contentPane.add(lblSelectDestination);
 
 		JTextArea txtrEuropaInfo = new JTextArea();
+		txtrEuropaInfo.setOpaque(false);
+		txtrEuropaInfo.setForeground(new Color(255, 255, 255));
 		txtrEuropaInfo.setFont(new Font("Slider", Font.PLAIN, 14));
 		txtrEuropaInfo.setText(
 				"Name: Europa\r\nClass: Moon\r\nType: Barren Ice world\r\nWater: Subterranean\r\nDistance from Sun: 483.8 M mi\r\n");
@@ -153,6 +164,8 @@ public class PreparationStage extends JFrame {
 		contentPane.add(txtrEuropaInfo);
 
 		JTextArea textMarsInfo = new JTextArea();
+		textMarsInfo.setForeground(new Color(255, 255, 255));
+		textMarsInfo.setOpaque(false);
 		textMarsInfo.setText(
 				"Name: Mars\r\nClass: Planet\r\nType: Arid world\r\nWater: Northern Ice Caps\r\nDistance from Sun: 141.6 M mi\r\n");
 		textMarsInfo.setFont(new Font("Slider", Font.PLAIN, 14));
@@ -161,7 +174,7 @@ public class PreparationStage extends JFrame {
 
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setForeground(new Color(255, 255, 255));
-		lblBackground.setIcon(new ImageIcon(PreparationStage.class.getResource("/images/Space.jpg")));
+		lblBackground.setIcon(new ImageIcon(PreparationStage.class.getResource("/images/hud_bg_full.jpg")));
 		lblBackground.setBounds(0, 0, 1264, 684);
 		contentPane.add(lblBackground);
 	}

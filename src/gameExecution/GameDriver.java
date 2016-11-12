@@ -13,6 +13,8 @@ public class GameDriver implements Runnable {
 	}
 
 	public void run() {
+		
+		GameData gameData = new GameData();
 
 		// Instantiate Windows
 		StartMenu startWindow = new StartMenu();
@@ -43,6 +45,7 @@ public class GameDriver implements Runnable {
 					break;
 				case 1:
 					if (difficultyWindow.checkButtons() == 1) {
+						gameData.setDifficulty(difficultyWindow.getDifficulty());
 						difficultyWindow.setVisible(false);
 						preparationWindow.setVisible(true);
 						currentWindow = preparationWindow.getWindowId();

@@ -65,6 +65,7 @@ public class DifficultySet extends JFrame {
 		 * Create buttons for difficulty settings
 		 */
 		JToggleButton tglbtnSuicideMission = new JToggleButton("Suicide Mission");
+		tglbtnSuicideMission.setBackground(new Color(0, 255, 255));
 		tglbtnSuicideMission.setToolTipText(
 				"Limited supplies, more critical event encounters, and a longer realistic trip length.");
 		Difficulty_buttonGroup.add(tglbtnSuicideMission);
@@ -80,7 +81,8 @@ public class DifficultySet extends JFrame {
 		contentPane.add(tglbtnSuicideMission);
 
 		JToggleButton tglbtnSpacePioneer = new JToggleButton("Space Pioneer");
-		tglbtnSpacePioneer.setToolTipText("Standard amount of supplies, event encounters, and trip length.");
+		tglbtnSpacePioneer.setBackground(new Color(0, 255, 255));
+		tglbtnSpacePioneer.setToolTipText("Standard amount of supplies, more event encounters, and a normal trip length.");
 		Difficulty_buttonGroup.add(tglbtnSpacePioneer);
 		tglbtnSpacePioneer.addMouseListener(new MouseAdapter() {
 			@Override
@@ -94,6 +96,7 @@ public class DifficultySet extends JFrame {
 		contentPane.add(tglbtnSpacePioneer);
 
 		JToggleButton tglbtnSpaceCruise = new JToggleButton("Space Cruise");
+		tglbtnSpaceCruise.setBackground(new Color(0, 255, 255));
 		tglbtnSpaceCruise.setToolTipText("Extra supplies, fewer event encounters, and a shorter trip.");
 		Difficulty_buttonGroup.add(tglbtnSpaceCruise);
 		tglbtnSpaceCruise.addMouseListener(new MouseAdapter() {
@@ -108,12 +111,14 @@ public class DifficultySet extends JFrame {
 		contentPane.add(tglbtnSpaceCruise);
 
 		JLabel lblGameInfo = new JLabel("Game Info");
-		lblGameInfo.setForeground(Color.WHITE);
+		lblGameInfo.setForeground(new Color(0, 255, 255));
 		lblGameInfo.setFont(new Font("Slider", Font.PLAIN, 32));
 		lblGameInfo.setBounds(538, 11, 176, 41);
 		contentPane.add(lblGameInfo);
 
 		JTextPane txtpnYourAmongThe = new JTextPane();
+		txtpnYourAmongThe.setForeground(new Color(255, 255, 255));
+		txtpnYourAmongThe.setOpaque(false);
 		txtpnYourAmongThe.setBackground(Color.LIGHT_GRAY);
 		txtpnYourAmongThe.setFont(new Font("Slider", Font.PLAIN, 18));
 		txtpnYourAmongThe.setText(
@@ -143,7 +148,7 @@ public class DifficultySet extends JFrame {
 		contentPane.add(lblNormalimage);
 
 		JLabel labelBackground = new JLabel("");
-		labelBackground.setIcon(new ImageIcon(DifficultySet.class.getResource("/images/Space.jpg")));
+		labelBackground.setIcon(new ImageIcon(DifficultySet.class.getResource("/images/hud_bg_full.jpg")));
 		labelBackground.setBounds(0, 0, 1264, 682);
 		contentPane.add(labelBackground);
 	}

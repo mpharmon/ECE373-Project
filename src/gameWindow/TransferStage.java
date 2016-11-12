@@ -17,29 +17,57 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
 import javax.swing.JTable;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
+
+import gameExecution.GameTimer;
+
 import java.awt.Component;
 
 public class TransferStage extends JFrame {
 	
 	private int windowId;
-	private int X1_pos, X2_pos, X3_pos, X4_pos;
+	private int X0_pos, X1_pos, X2_pos, X3_pos, X4_pos, X5_pos;
+	private int Y5_pos;
+	
 	private boolean Warp;
+	private boolean Manager;
+	
 	private double speed;
-	private double X3_temp, X4_temp;
+	private double X0_temp, X3_temp, X4_temp;
 	private final double factor = 0.075;
 	private final double factor_2 = 0.015;
+	private final double factor_0 = 0.0005;
 	private static final int standard = 10;
 	private static final int TimeWarp = 2;
 	private static final int cruise = 1;
 	private static final int Supercruise = 5;
+	private boolean satelite = false;
+	private boolean chance = false;
+	private static final double SAT_CHANCE = 0.50;
+	private static final double AST_CHANCE = 0.90;
+	
 	private GameTimer gameTimer;
+	private GameTimer gameTimer2;
 
-	private JPanel contentPane;
+	private JPanel transferPane;
+	private JPanel managerPanel;
 	private JLabel lblTimeWarp;
 	private JLabel lblSpaceFrame1;
 	private JLabel lblSpaceFrame2;
+	private JLabel lblAsteroid;
+	private JLabel lblSatelite;
 	private JLabel lblEarth; 
 	private JLabel lblMoon;
+	
+	private JProgressBar FuelBar;
+	private JProgressBar FoodBar;
+	private JProgressBar WaterBar;
+	private JProgressBar PartBar;
+	private JLabel lblBackground;
+	private JLabel lblFuel;
+	private JLabel labelFood;
+	private JLabel lblWater;
+	private JLabel lblSpareParts;
+	private JLabel lblVoyageManager;
 	
 	/**
 	 * Create the frame.
@@ -47,63 +75,154 @@ public class TransferStage extends JFrame {
 	public TransferStage() {
 		
 		gameTimer = new GameTimer();
+		gameTimer2 = new GameTimer(5000);
+		
 		Warp = false;
+		Manager = false;
 		speed = 1;
 		
 		windowId = 5;
+		X0_pos = -656; X0_temp = -656;
 		X1_pos = 0;
 		X2_pos = -1280;
 		
 		X3_pos = 0; X3_temp = 0;
 		X4_pos = 0; X4_temp = -257;
+		X5_pos = -186;
+		Y5_pos = 175;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		transferPane = new JPanel();
+		transferPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(transferPane);
+		transferPane.setLayout(null);
 		
 		lblTimeWarp = new JLabel("Time Warp");
 		lblTimeWarp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Warp = !Warp; //Toggle Warp
-				lblTimeWarp.setEnabled(Warp);
+				if(!Manager){
+					Warp = !Warp; //Toggle Warp
+					lblTimeWarp.setEnabled(Warp);
+				}
 			}
 		});
+		/**
+		 * Manager Panel
+		 */
+		initManagerPanel();
+		
+		lblVoyageManager = new JLabel("Voyage Manager");
+		lblVoyageManager.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Manager = !Manager;
+				if(Warp) { Warp = false; lblTimeWarp.setEnabled(Warp);}
+				lblVoyageManager.setEnabled(Manager);
+				if(Manager) managerPanel.setVisible(true);
+				else managerPanel.setVisible(false);
+			}
+		});
+		lblVoyageManager.setBounds(523, 11, 270, 32);
+		transferPane.add(lblVoyageManager);
+		lblVoyageManager.setEnabled(false);
+		lblVoyageManager.setForeground(Color.CYAN);
+		lblVoyageManager.setFont(new Font("Slider", Font.PLAIN, 32));
+		managerPanel.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{FuelBar, FoodBar, WaterBar, PartBar, lblFuel, labelFood, lblWater, lblSpareParts, lblVoyageManager}));
+		
 		lblTimeWarp.setEnabled(false);
 		lblTimeWarp.setForeground(new Color(0, 255, 255));
 		lblTimeWarp.setFont(new Font("Slider", Font.PLAIN, 32));
 		lblTimeWarp.setBackground(new Color(255, 255, 255));
 		lblTimeWarp.setBounds(565, 605, 174, 45);
-		contentPane.add(lblTimeWarp);
+		transferPane.add(lblTimeWarp);
 		
 		lblSpaceFrame1 = new JLabel("New label");
 		lblSpaceFrame1.setIcon(new ImageIcon(TransferStage.class.getResource("/images/Space_MoveFrame.png")));
 		lblSpaceFrame1.setBounds(X1_pos, 0, 1264, 682);
-		contentPane.add(lblSpaceFrame1);
+		transferPane.add(lblSpaceFrame1);
 		
 		lblSpaceFrame2 = new JLabel("New label");
 		lblSpaceFrame2.setIcon(new ImageIcon(TransferStage.class.getResource("/images/Space_MoveFrame.png")));
 		lblSpaceFrame2.setBounds(X2_pos, 0, 1264, 682);
-		contentPane.add(lblSpaceFrame2);
+		transferPane.add(lblSpaceFrame2);
+		
+		lblSatelite = new JLabel("");
+		lblSatelite.setBounds(-186, 175, 186, 83);
+		transferPane.add(lblSatelite);
+		lblSatelite.setIcon(new ImageIcon(TransferStage.class.getResource("/images/SateliteSmall.png")));
+		
+		lblAsteroid = new JLabel("");
+		lblAsteroid.setIcon(new ImageIcon(TransferStage.class.getResource("/images/asteroid2sm.png")));
+		lblAsteroid.setBounds(-240, 11, 120, 99);
+		transferPane.add(lblAsteroid);
 		
 		lblEarth = new JLabel("Earth");
 		lblEarth.setIcon(new ImageIcon(TransferStage.class.getResource("/images/EarthSmall.png")));
 		lblEarth.setBounds(0, 0, 362, 384);
-		contentPane.add(lblEarth);
+		transferPane.add(lblEarth);
 		
 		lblMoon = new JLabel("");
 		lblMoon.setIcon(new ImageIcon(TransferStage.class.getResource("/images/MoonSmall.png")));
 		lblMoon.setBounds(-257, 0, 257, 252);
-		contentPane.add(lblMoon);
+		transferPane.add(lblMoon);
 		
-		JLabel lblBackground = new JLabel("New label");
-		lblBackground.setIcon(new ImageIcon(TransferStage.class.getResource("/images/Nebula_2T.jpg")));
-		lblBackground.setBounds(0, 0, 1264, 682);
-		contentPane.add(lblBackground);
-		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblTimeWarp, lblSpaceFrame1, lblSpaceFrame2, lblBackground}));
+		lblBackground = new JLabel("New label");
+		lblBackground.setIcon(new ImageIcon(TransferStage.class.getResource("/images/Nebula_2.jpg")));
+		lblBackground.setBounds(-656, 0, 1970, 1080);
+		transferPane.add(lblBackground);
+		transferPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblTimeWarp, lblSpaceFrame1, lblSpaceFrame2, lblBackground}));
+	}
+	
+	private void initManagerPanel() {
+			
+		managerPanel = new JPanel();
+		managerPanel.setBounds(0, 0, 1264, 682);
+		transferPane.add(managerPanel);
+		managerPanel.setOpaque(false);
+		managerPanel.setVisible(false);
+		managerPanel.setLayout(null);
+		
+		FuelBar = new JProgressBar();
+		FuelBar.setBounds(130, 152, 375, 22);
+		managerPanel.add(FuelBar);
+		
+		FoodBar = new JProgressBar();
+		FoodBar.setBounds(130, 237, 375, 22);
+		managerPanel.add(FoodBar);
+		
+		WaterBar = new JProgressBar();
+		WaterBar.setBounds(130, 327, 375, 22);
+		managerPanel.add(WaterBar);
+		
+		PartBar = new JProgressBar();
+		PartBar.setBounds(130, 419, 375, 22);
+		managerPanel.add(PartBar);
+		
+		lblFuel = new JLabel("Fuel");
+		lblFuel.setForeground(new Color(0, 255, 255));
+		lblFuel.setFont(new Font("Slider", Font.PLAIN, 18));
+		lblFuel.setBounds(289, 127, 46, 14);
+		managerPanel.add(lblFuel);
+		
+		labelFood = new JLabel("Food");
+		labelFood.setForeground(Color.CYAN);
+		labelFood.setFont(new Font("Slider", Font.PLAIN, 18));
+		labelFood.setBounds(289, 212, 46, 14);
+		managerPanel.add(labelFood);
+		
+		lblWater = new JLabel("Water");
+		lblWater.setForeground(Color.CYAN);
+		lblWater.setFont(new Font("Slider", Font.PLAIN, 18));
+		lblWater.setBounds(289, 302, 68, 14);
+		managerPanel.add(lblWater);
+		
+		lblSpareParts = new JLabel("Spare Parts");
+		lblSpareParts.setForeground(Color.CYAN);
+		lblSpareParts.setFont(new Font("Slider", Font.PLAIN, 18));
+		lblSpareParts.setBounds(261, 394, 112, 14);
+		managerPanel.add(lblSpareParts);
 	}
 	
 	public void moveSpace(){
@@ -114,16 +233,22 @@ public class TransferStage extends JFrame {
 			
 			checkTimeWarp();
 			
+			X0_temp = X0_temp + (speed*factor_0);
+			X0_pos = (int) Math.round(X0_temp);
+			
 			X1_pos = (int) (X1_pos + speed);
 			X2_pos = (int) (X2_pos + speed);
 			
 		
 			lblSpaceFrame1.setBounds(X2_pos, 0, 1280, 720);
 			lblSpaceFrame2.setBounds(X1_pos, 0, 1280, 720);
+			lblBackground.setBounds(X0_pos, 0, 1970, 1080);
 			
 			movePlanets();
+			moveSatelites();
 			
 			gameTimer.setUpdate(false);
+			if(gameTimer2.isUpdate()) gameTimer2.setUpdate(false);
 		}
 	}
 	
@@ -137,6 +262,31 @@ public class TransferStage extends JFrame {
 			X4_temp = (X4_temp) + (speed*factor_2);
 			X4_pos = (int) Math.round(X4_temp);
 			lblMoon.setBounds(X4_pos, 0, 362, 384);
+		}
+	}
+	
+	public void moveSatelites(){
+		
+		if(gameTimer2.isUpdate() && !satelite) chance = (Math.random() < SAT_CHANCE);
+		//System.out.println(X5_temp);
+		
+		if(chance || satelite){
+			if(X5_pos < 1280){
+				if(X5_pos == -186) chance = (Math.random() < AST_CHANCE);
+				
+				satelite = true;
+				X5_pos = (int) (X5_pos + speed);
+				
+				if(!chance)lblSatelite.setBounds(X5_pos, Y5_pos, 186, 83);
+				else lblAsteroid.setBounds(X5_pos, Y5_pos, 120, 99);
+			}else{
+				chance = (Math.random() > 0.50);
+				satelite = false;
+				X5_pos = -186;
+				if(chance) Y5_pos = 175;
+				else Y5_pos = 450;	
+				chance = false;	
+			}
 		}
 	}
 	

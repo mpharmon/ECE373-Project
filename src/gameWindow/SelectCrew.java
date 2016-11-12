@@ -51,23 +51,29 @@ public class SelectCrew extends JFrame {
 		contentPane.setLayout(null);
 
 		JRadioButton rdbtnDonaldTrump = new JRadioButton("Donald Trump");
+		rdbtnDonaldTrump.setForeground(new Color(255, 255, 255));
+		rdbtnDonaldTrump.setOpaque(false);
 		rdbtnDonaldTrump.setBackground(new Color(211, 211, 211));
 		buttonVIP_Group.add(rdbtnDonaldTrump);
 		rdbtnDonaldTrump.setFont(new Font("Slider", Font.PLAIN, 16));
-		rdbtnDonaldTrump.setBounds(367, 393, 147, 25);
+		rdbtnDonaldTrump.setBounds(360, 364, 147, 25);
 		contentPane.add(rdbtnDonaldTrump);
 
 		JRadioButton radioElonMusk = new JRadioButton("Elon Musk");
+		radioElonMusk.setOpaque(false);
+		radioElonMusk.setForeground(new Color(255, 255, 255));
 		radioElonMusk.setSelected(true);
 		buttonVIP_Group.add(radioElonMusk);
 		radioElonMusk.setFont(new Font("Slider", Font.PLAIN, 16));
-		radioElonMusk.setBounds(579, 393, 149, 25);
+		radioElonMusk.setBounds(571, 364, 149, 25);
 		contentPane.add(radioElonMusk);
 
 		JRadioButton rdbtnOprah = new JRadioButton("Oprah Winfrey");
+		rdbtnOprah.setForeground(new Color(255, 255, 255));
+		rdbtnOprah.setOpaque(false);
 		buttonVIP_Group.add(rdbtnOprah);
 		rdbtnOprah.setFont(new Font("Slider", Font.PLAIN, 16));
-		rdbtnOprah.setBounds(777, 393, 147, 25);
+		rdbtnOprah.setBounds(777, 364, 147, 25);
 		contentPane.add(rdbtnOprah);
 
 		JLabel lblDoanldImage = new JLabel("New label");
@@ -77,15 +83,16 @@ public class SelectCrew extends JFrame {
 
 		JLabel lblElonimage = new JLabel("ElonImage");
 		lblElonimage.setIcon(new ImageIcon(SelectCrew.class.getResource("/images/Elon_Small.jpg")));
-		lblElonimage.setBounds(565, 140, 176, 237);
+		lblElonimage.setBounds(571, 154, 149, 208);
 		contentPane.add(lblElonimage);
 
 		JLabel lblOprahImage = new JLabel("New label");
 		lblOprahImage.setIcon(new ImageIcon(SelectCrew.class.getResource("/images/Oprah.jpg")));
-		lblOprahImage.setBounds(767, 140, 187, 237);
+		lblOprahImage.setBounds(777, 154, 147, 208);
 		contentPane.add(lblOprahImage);
 
 		JButton btnConfirm = new JButton("Confirm");
+		btnConfirm.setBackground(new Color(0, 255, 255));
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -94,7 +101,7 @@ public class SelectCrew extends JFrame {
 		});
 		btnConfirm.setFont(new Font("Slider", Font.PLAIN, 18));
 		btnConfirm.setForeground(new Color(0, 0, 0));
-		btnConfirm.setBounds(565, 612, 154, 41);
+		btnConfirm.setBounds(565, 602, 181, 51);
 		contentPane.add(btnConfirm);
 
 		JComboBox comboBox = new JComboBox();
@@ -187,7 +194,7 @@ public class SelectCrew extends JFrame {
 
 		JLabel lblSelectCrew = new JLabel("Select Crew");
 		lblSelectCrew.setFont(new Font("Slider", Font.PLAIN, 32));
-		lblSelectCrew.setForeground(new Color(255, 255, 255));
+		lblSelectCrew.setForeground(new Color(0, 255, 255));
 		lblSelectCrew.setBounds(541, 27, 284, 51);
 		contentPane.add(lblSelectCrew);
 
@@ -210,6 +217,9 @@ public class SelectCrew extends JFrame {
 		contentPane.add(lblSelectVip);
 
 		JTextArea txtrSelectingTheRight = new JTextArea();
+		txtrSelectingTheRight.setOpaque(false);
+		txtrSelectingTheRight.setForeground(new Color(255, 255, 255));
+		txtrSelectingTheRight.setEditable(false);
 		txtrSelectingTheRight.setBackground(new Color(211, 211, 211));
 		txtrSelectingTheRight.setFont(new Font("Slider", Font.PLAIN, 16));
 		txtrSelectingTheRight.setText(
@@ -219,7 +229,7 @@ public class SelectCrew extends JFrame {
 
 		JLabel lblBackground = new JLabel("");
 		lblBackground.setBackground(new Color(255, 255, 255));
-		lblBackground.setIcon(new ImageIcon(SelectCrew.class.getResource("/images/Space.jpg")));
+		lblBackground.setIcon(new ImageIcon(SelectCrew.class.getResource("/images/hud_bg_full.jpg")));
 		lblBackground.setBounds(0, 0, 1264, 682);
 		contentPane.add(lblBackground);
 	}
