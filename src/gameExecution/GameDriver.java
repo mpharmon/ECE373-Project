@@ -15,6 +15,7 @@ public class GameDriver implements Runnable {
 	public void run() {
 		
 		GameData gameData = new GameData();
+		
 
 		// Instantiate Windows
 		StartMenu startWindow = new StartMenu();
@@ -39,6 +40,7 @@ public class GameDriver implements Runnable {
 						running = false;
 					} else if (startWindow.checkButtons() == 1) {
 						startWindow.setVisible(false);
+						//Next Window
 						difficultyWindow.setVisible(true);
 						currentWindow = difficultyWindow.getWindowId();
 					}
@@ -46,7 +48,9 @@ public class GameDriver implements Runnable {
 				case 1:
 					if (difficultyWindow.checkButtons() == 1) {
 						gameData.setDifficulty(difficultyWindow.getDifficulty());
+						supplyWindow.setResources(gameData.getDifficulty());
 						difficultyWindow.setVisible(false);
+						//Next Window
 						preparationWindow.setVisible(true);
 						currentWindow = preparationWindow.getWindowId();
 					}
@@ -54,6 +58,7 @@ public class GameDriver implements Runnable {
 				case 2:
 					if (preparationWindow.checkButtons() == 1) {
 						preparationWindow.setVisible(false);
+						//Next Window
 						selectCrewWindow.setVisible(true);
 						currentWindow = selectCrewWindow.getWindowId();
 					}
@@ -61,6 +66,7 @@ public class GameDriver implements Runnable {
 				case 3:
 					if (selectCrewWindow.checkButtons() == 1) {
 						selectCrewWindow.setVisible(false);
+						//Next Window
 						supplyWindow.setVisible(true);
 						currentWindow = supplyWindow.getWindowId();
 					}
@@ -68,13 +74,23 @@ public class GameDriver implements Runnable {
 				case 4:
 					if (supplyWindow.checkButtons() == 1) {
 						supplyWindow.setVisible(false);
+						gameData.setResources(supplyWindow.getFuel(),
+											  supplyWindow.getFood(),
+											  supplyWindow.getWater(),
+											  supplyWindow.getParts());
+						//Next Window
 						transferWindow.setVisible(true);
 						currentWindow = transferWindow.getWindowId();
 					}
 					supplyWindow.updateProgress();
 					break;
 				case 5:
-					transferWindow.moveSpace();
+					gameData.dataUpdate(transferWindow.moveSpace(String.format(java.util.Locale.US, "%.0f" , gameData.getCurrentDistance())));
+					
+					transferWindow.updateManagerUI(gameData.getFuel(),
+												   gameData.getFood(), 
+												   gameData.getWater(), 
+												   gameData.getParts());
 					break;
 				}
 			} catch (Exception e) {

@@ -29,22 +29,10 @@ public class DifficultySet extends JFrame {
 	final private static int Easy = 1;
 	final private static int Normal = 2;
 	final private static int Hard = 3;
-
-	/**
-	 * Launch the application.
-	 */
-	// public static void main(String[] args) {
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// DifficultySet frame = new DifficultySet();
-	// frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
+	
+	JToggleButton tglbtnSuicideMission;
+	JToggleButton tglbtnSpacePioneer;
+	JToggleButton tglbtnSpaceCruise;
 
 	/**
 	 * Create the frame.
@@ -64,7 +52,7 @@ public class DifficultySet extends JFrame {
 		/**
 		 * Create buttons for difficulty settings
 		 */
-		JToggleButton tglbtnSuicideMission = new JToggleButton("Suicide Mission");
+		tglbtnSuicideMission = new JToggleButton("Suicide Mission");
 		tglbtnSuicideMission.setBackground(new Color(0, 255, 255));
 		tglbtnSuicideMission.setToolTipText(
 				"Limited supplies, more critical event encounters, and a longer realistic trip length.");
@@ -80,7 +68,7 @@ public class DifficultySet extends JFrame {
 		tglbtnSuicideMission.setBounds(954, 581, 181, 54);
 		contentPane.add(tglbtnSuicideMission);
 
-		JToggleButton tglbtnSpacePioneer = new JToggleButton("Space Pioneer");
+		tglbtnSpacePioneer = new JToggleButton("Space Pioneer");
 		tglbtnSpacePioneer.setBackground(new Color(0, 255, 255));
 		tglbtnSpacePioneer.setToolTipText("Standard amount of supplies, more event encounters, and a normal trip length.");
 		Difficulty_buttonGroup.add(tglbtnSpacePioneer);
@@ -95,7 +83,7 @@ public class DifficultySet extends JFrame {
 		tglbtnSpacePioneer.setBounds(533, 581, 181, 54);
 		contentPane.add(tglbtnSpacePioneer);
 
-		JToggleButton tglbtnSpaceCruise = new JToggleButton("Space Cruise");
+		tglbtnSpaceCruise = new JToggleButton("Space Cruise");
 		tglbtnSpaceCruise.setBackground(new Color(0, 255, 255));
 		tglbtnSpaceCruise.setToolTipText("Extra supplies, fewer event encounters, and a shorter trip.");
 		Difficulty_buttonGroup.add(tglbtnSpaceCruise);

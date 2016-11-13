@@ -19,6 +19,8 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JTextArea;
+
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -34,6 +36,17 @@ public class SelectCrew extends JFrame {
 	private final ButtonGroup buttonVIP_Group = new ButtonGroup();
 	private boolean confirm;
 	private int windowId;
+	
+	private JRadioButton rdbtnTrump;
+	private JRadioButton rdbtnElonMusk;
+	private JRadioButton rdbtnOprah;
+	
+	JComboBox comboBox_1;
+	JComboBox comboBox_2; 
+	JComboBox comboBox_3; 
+	JComboBox comboBox_4; 
+	JComboBox comboBox_5; 
+	
 
 	/**
 	 * Create the frame.
@@ -50,32 +63,32 @@ public class SelectCrew extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JRadioButton rdbtnDonaldTrump = new JRadioButton("Donald Trump");
-		rdbtnDonaldTrump.setForeground(new Color(255, 255, 255));
-		rdbtnDonaldTrump.setOpaque(false);
-		rdbtnDonaldTrump.setBackground(new Color(211, 211, 211));
-		buttonVIP_Group.add(rdbtnDonaldTrump);
-		rdbtnDonaldTrump.setFont(new Font("Slider", Font.PLAIN, 16));
-		rdbtnDonaldTrump.setBounds(360, 364, 147, 25);
-		contentPane.add(rdbtnDonaldTrump);
+		rdbtnTrump = new JRadioButton("Donald Trump");
+		rdbtnTrump.setForeground(new Color(255, 255, 255));
+		rdbtnTrump.setOpaque(false);
+		rdbtnTrump.setBackground(new Color(211, 211, 211));
+		buttonVIP_Group.add(rdbtnTrump);
+		rdbtnTrump.setFont(new Font("Slider", Font.PLAIN, 16));
+		rdbtnTrump.setBounds(360, 364, 147, 25);
+		contentPane.add(rdbtnTrump);
 
-		JRadioButton radioElonMusk = new JRadioButton("Elon Musk");
-		radioElonMusk.setOpaque(false);
-		radioElonMusk.setForeground(new Color(255, 255, 255));
-		radioElonMusk.setSelected(true);
-		buttonVIP_Group.add(radioElonMusk);
-		radioElonMusk.setFont(new Font("Slider", Font.PLAIN, 16));
-		radioElonMusk.setBounds(571, 364, 149, 25);
-		contentPane.add(radioElonMusk);
+		rdbtnElonMusk = new JRadioButton("Elon Musk");
+		rdbtnElonMusk.setOpaque(false);
+		rdbtnElonMusk.setForeground(new Color(255, 255, 255));
+		rdbtnElonMusk.setSelected(true);
+		buttonVIP_Group.add(rdbtnElonMusk);
+		rdbtnElonMusk.setFont(new Font("Slider", Font.PLAIN, 16));
+		rdbtnElonMusk.setBounds(571, 364, 149, 25);
+		contentPane.add(rdbtnElonMusk);
 
-		JRadioButton rdbtnOprah = new JRadioButton("Oprah Winfrey");
+		rdbtnOprah = new JRadioButton("Oprah Winfrey");
 		rdbtnOprah.setForeground(new Color(255, 255, 255));
 		rdbtnOprah.setOpaque(false);
 		buttonVIP_Group.add(rdbtnOprah);
 		rdbtnOprah.setFont(new Font("Slider", Font.PLAIN, 16));
 		rdbtnOprah.setBounds(777, 364, 147, 25);
 		contentPane.add(rdbtnOprah);
-
+		
 		JLabel lblDoanldImage = new JLabel("New label");
 		lblDoanldImage.setIcon(new ImageIcon(SelectCrew.class.getResource("/images/Donald_Small2.jpg")));
 		lblDoanldImage.setBounds(340, 140, 211, 237);
@@ -104,45 +117,45 @@ public class SelectCrew extends JFrame {
 		btnConfirm.setBounds(565, 602, 181, 51);
 		contentPane.add(btnConfirm);
 
-		JComboBox comboBox = new JComboBox();
-		comboBox.setFont(new Font("Slider", Font.PLAIN, 16));
-		comboBox.setModel(new DefaultComboBoxModel<Object>(
-				new String[] { "Pilot", "Engineer", "Scientist", "Botanist", "Doctor" }));
-		comboBox.setSelectedIndex(0);
-		comboBox.setBounds(983, 196, 116, 25);
-		contentPane.add(comboBox);
-
-		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1 = new JComboBox();
+		comboBox_1.setFont(new Font("Slider", Font.PLAIN, 16));
 		comboBox_1.setModel(new DefaultComboBoxModel<Object>(
 				new String[] { "Pilot", "Engineer", "Scientist", "Botanist", "Doctor" }));
-		comboBox_1.setSelectedIndex(1);
-		comboBox_1.setFont(new Font("Slider", Font.PLAIN, 16));
-		comboBox_1.setBounds(983, 244, 116, 25);
+		comboBox_1.setSelectedIndex(0);
+		comboBox_1.setBounds(983, 196, 116, 25);
 		contentPane.add(comboBox_1);
 
-		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2 = new JComboBox();
 		comboBox_2.setModel(new DefaultComboBoxModel<Object>(
 				new String[] { "Pilot", "Engineer", "Scientist", "Botanist", "Doctor" }));
-		comboBox_2.setSelectedIndex(2);
+		comboBox_2.setSelectedIndex(1);
 		comboBox_2.setFont(new Font("Slider", Font.PLAIN, 16));
-		comboBox_2.setBounds(983, 296, 116, 25);
+		comboBox_2.setBounds(983, 244, 116, 25);
 		contentPane.add(comboBox_2);
 
-		JComboBox comboBox_3 = new JComboBox();
+		comboBox_3 = new JComboBox();
 		comboBox_3.setModel(new DefaultComboBoxModel<Object>(
 				new String[] { "Pilot", "Engineer", "Scientist", "Botanist", "Doctor" }));
-		comboBox_3.setSelectedIndex(3);
+		comboBox_3.setSelectedIndex(2);
 		comboBox_3.setFont(new Font("Slider", Font.PLAIN, 16));
-		comboBox_3.setBounds(983, 351, 116, 25);
+		comboBox_3.setBounds(983, 296, 116, 25);
 		contentPane.add(comboBox_3);
 
-		JComboBox comboBox_4 = new JComboBox();
+		comboBox_4 = new JComboBox();
 		comboBox_4.setModel(new DefaultComboBoxModel<Object>(
 				new String[] { "Pilot", "Engineer", "Scientist", "Botanist", "Doctor" }));
-		comboBox_4.setSelectedIndex(4);
+		comboBox_4.setSelectedIndex(3);
 		comboBox_4.setFont(new Font("Slider", Font.PLAIN, 16));
-		comboBox_4.setBounds(983, 406, 116, 25);
+		comboBox_4.setBounds(983, 351, 116, 25);
 		contentPane.add(comboBox_4);
+
+		comboBox_5 = new JComboBox();
+		comboBox_5.setModel(new DefaultComboBoxModel<Object>(
+				new String[] { "Pilot", "Engineer", "Scientist", "Botanist", "Doctor" }));
+		comboBox_5.setSelectedIndex(4);
+		comboBox_5.setFont(new Font("Slider", Font.PLAIN, 16));
+		comboBox_5.setBounds(983, 406, 116, 25);
+		contentPane.add(comboBox_5);
 
 		crewMemberName1 = new JTextField();
 		crewMemberName1.setFont(new Font("Slider", Font.PLAIN, 16));
@@ -195,7 +208,7 @@ public class SelectCrew extends JFrame {
 		JLabel lblSelectCrew = new JLabel("Select Crew");
 		lblSelectCrew.setFont(new Font("Slider", Font.PLAIN, 32));
 		lblSelectCrew.setForeground(new Color(0, 255, 255));
-		lblSelectCrew.setBounds(541, 27, 284, 51);
+		lblSelectCrew.setBounds(541, 27, 188, 51);
 		contentPane.add(lblSelectCrew);
 
 		JLabel lblCrewSkillset = new JLabel("Crew Skillset:");
@@ -245,5 +258,30 @@ public class SelectCrew extends JFrame {
 	public int checkButtons(){
 		if(confirm) return 1;
 		else return 0;
+	}
+	
+	public int getSelectedVIP(){
+		if(rdbtnTrump.isSelected()) return 1;
+		else if(rdbtnElonMusk.isSelected()) return 2;
+		else if(rdbtnOprah.isSelected()) return 3;
+		else return 0;
+	}
+	
+
+	public String getCrewMemberSkill(int crewSlot){
+		
+		if(crewSlot == 1){
+			return (String) comboBox_1.getSelectedItem();
+		}else if(crewSlot == 2){
+			return (String) comboBox_2.getSelectedItem();
+		}else if(crewSlot == 3){
+			return (String) comboBox_3.getSelectedItem();
+		}else if(crewSlot == 4){
+			return (String) comboBox_4.getSelectedItem();
+		}else if(crewSlot == 5){
+			return (String) comboBox_5.getSelectedItem();
+		}else{
+			return null;
+		}
 	}
 }

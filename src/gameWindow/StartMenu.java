@@ -82,10 +82,6 @@ public class StartMenu extends JFrame {
 			}
 		});
 		btnStartButton.setBounds(518, 320, 219, 60);
-		btnStartButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
 		btnStartButton.setFont(new Font("Slider", Font.PLAIN, 24));
 		contentPane.add(btnStartButton);
 
@@ -100,10 +96,6 @@ public class StartMenu extends JFrame {
 			}
 		});
 		btnHighScores.setBounds(518, 425, 219, 60);
-		btnHighScores.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnHighScores.setFont(new Font("Slider", Font.PLAIN, 24));
 		contentPane.add(btnHighScores);
 
@@ -115,13 +107,10 @@ public class StartMenu extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				System.out.println("Exit");
 				ExitBtn = true;
+				System.exit(0);
 			}
 		});
 		btnExit.setBounds(518, 537, 219, 60);
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnExit.setFont(new Font("Slider", Font.PLAIN, 24));
 		contentPane.add(btnExit);
 

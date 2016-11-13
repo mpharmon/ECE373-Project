@@ -27,18 +27,11 @@ public class PreparationStage extends JFrame {
 	private final ButtonGroup Spacecraft_buttonGroup = new ButtonGroup();
 	private int windowId;
 
-	// public static void main(String[] args) {
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// PreparationStage frame = new PreparationStage();
-	// frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
+	JRadioButton rdbtnMars;
+	JRadioButton rdbtnEuropa;
+	
+	JRadioButton rdbtnOrion;
+	JRadioButton rdbtnSpaceX;
 
 	/**
 	 * Create the frame.
@@ -74,7 +67,7 @@ public class PreparationStage extends JFrame {
 		lblEuropaimage.setBounds(25, 368, 225, 216);
 		contentPane.add(lblEuropaimage);
 
-		JRadioButton rdbtnMars = new JRadioButton("Mars");
+		rdbtnMars = new JRadioButton("Mars");
 		rdbtnMars.setForeground(new Color(255, 255, 255));
 		rdbtnMars.setOpaque(false);
 		rdbtnMars.setSelected(true);
@@ -83,7 +76,7 @@ public class PreparationStage extends JFrame {
 		rdbtnMars.setBounds(89, 338, 109, 23);
 		contentPane.add(rdbtnMars);
 
-		JRadioButton rdbtnEuropa = new JRadioButton("Europa");
+		rdbtnEuropa = new JRadioButton("Europa");
 		rdbtnEuropa.setForeground(new Color(255, 255, 255));
 		rdbtnEuropa.setOpaque(false);
 		rdbtnEuropa.setSelected(false);
@@ -123,7 +116,7 @@ public class PreparationStage extends JFrame {
 		lblShuttleImage.setBounds(837, 166, 385, 216);
 		contentPane.add(lblShuttleImage);
 
-		JRadioButton rdbtnOrion = new JRadioButton("Orion Spacecraft");
+		rdbtnOrion = new JRadioButton("Orion Spacecraft");
 		rdbtnOrion.setOpaque(false);
 		rdbtnOrion.setSelected(true);
 		Spacecraft_buttonGroup.add(rdbtnOrion);
@@ -132,7 +125,7 @@ public class PreparationStage extends JFrame {
 		rdbtnOrion.setBounds(593, 394, 182, 23);
 		contentPane.add(rdbtnOrion);
 
-		JRadioButton rdbtnSpaceX = new JRadioButton("SpaceX Shuttle");
+		rdbtnSpaceX = new JRadioButton("SpaceX Shuttle");
 		rdbtnSpaceX.setOpaque(false);
 		rdbtnSpaceX.setForeground(new Color(255, 255, 255));
 		rdbtnSpaceX.setSelected(false);
@@ -142,11 +135,6 @@ public class PreparationStage extends JFrame {
 		contentPane.add(rdbtnSpaceX);
 		btnProceed.setBounds(593, 591, 182, 55);
 		contentPane.add(btnProceed);
-
-		JLabel lblLaunchOfSpacecraft = new JLabel("Launch of spacecraft available once status bar is full. ");
-		lblLaunchOfSpacecraft.setFont(new Font("Slider", Font.BOLD, 12));
-		lblLaunchOfSpacecraft.setBounds(499, 657, 378, 14);
-		contentPane.add(lblLaunchOfSpacecraft);
 
 		JLabel lblSelectDestination = new JLabel("Select Destination:");
 		lblSelectDestination.setForeground(new Color(0, 255, 255));
@@ -180,6 +168,7 @@ public class PreparationStage extends JFrame {
 	}
 
 	public int checkButtons() {
+		//System.out.println(getDestination());
 		if (proceedBtn)
 			return 1;
 		else
@@ -192,5 +181,29 @@ public class PreparationStage extends JFrame {
 
 	public void setWindowId(int windowId) {
 		this.windowId = windowId;
+	}
+	
+	public String getDestination(){
+		if(rdbtnMars.isSelected()) return rdbtnMars.getText();
+		else if(rdbtnEuropa.isSelected()) return rdbtnEuropa.getText();
+		else return null;
+	}
+	
+	public int getDestinationId(){
+		if(rdbtnMars.isSelected()) return 1;
+		else if(rdbtnEuropa.isSelected()) return 2;
+		else return 0;
+	}
+	
+	public String getSpacecraft(){
+		if(rdbtnOrion.isSelected()) return rdbtnOrion.getText();
+		else if(rdbtnSpaceX.isSelected()) return rdbtnSpaceX.getText();
+		else return null;
+	}
+	
+	public int getSpacecraftId(){
+		if(rdbtnOrion.isSelected()) return 1;
+		else if(rdbtnSpaceX.isSelected()) return 2;
+		else return 0;
 	}
 }

@@ -9,16 +9,22 @@ public class GameData {
 	private double Weeks;
 	private double Years;
 	
-	private int Fuel;
-	private int Food;
-	private int Water;
-	private int Parts;
+	private double Fuel;  private static final double FUEL_RATE = 0.0005;
+	private double Food;  private static final double FOOD_RATE = 0.0025;
+	private double Water; private static final double WATER_RATE = 0.005;
+	private double Parts; //private static final double PARTS_RATE = 0.001;
 	
 	private double voyageDistance;
-	private double currentDistance;
+	private double currentDistance; //KM
+	private static final int shipVelocity = 50000; // KPH
+	private static final double MarsDistance = 500000000; // 500 MKM
+	
+	GameTimer gameTimer;
 	
 	
 	public GameData() {
+		gameTimer = new GameTimer(1000);
+		
 		setDifficulty(1);
 		setDestination(1);
 		setDays(0);
@@ -46,6 +52,23 @@ public class GameData {
 		currentDistance = 0;
 	}
 	
+	public void dataUpdate(boolean Warp){
+		if(gameTimer.isUpdate()){
+			if(Warp){
+				Fuel = Fuel - 5*FUEL_RATE;
+				Food = Food - 5*FOOD_RATE;
+				Water = Water - 5*WATER_RATE;
+				currentDistance = (currentDistance + 10*shipVelocity);
+			}else{
+				Fuel = Fuel - FUEL_RATE;
+				Food = Food - FOOD_RATE;
+				Water = Water - WATER_RATE;
+				currentDistance = (currentDistance + shipVelocity);
+			}
+			gameTimer.setUpdate(false);
+		}
+	}
+	
 	public int getDifficulty() {
 		return difficulty;
 	}
@@ -59,6 +82,7 @@ public class GameData {
 	}
 
 	public void setDestination(int destination) {
+		if(destination == 1) voyageDistance = MarsDistance;
 		this.destination = destination;
 	}
 
@@ -87,7 +111,7 @@ public class GameData {
 	}
 
 	public int getFuel() {
-		return Fuel;
+		return (int) Math.round(Fuel);
 	}
 
 	public void setFuel(int fuel) {
@@ -95,7 +119,7 @@ public class GameData {
 	}
 
 	public int getFood() {
-		return Food;
+		return (int) Math.round(Food);
 	}
 
 	public void setFood(int food) {
@@ -103,7 +127,7 @@ public class GameData {
 	}
 
 	public int getWater() {
-		return Water;
+		return (int) Math.round(Water);
 	}
 
 	public void setWater(int water) {
@@ -111,7 +135,7 @@ public class GameData {
 	}
 
 	public int getParts() {
-		return Parts;
+		return (int) Math.round(Parts);
 	}
 
 	public void setParts(int parts) {

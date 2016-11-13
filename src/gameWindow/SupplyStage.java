@@ -37,11 +37,11 @@ public class SupplyStage extends JFrame {
 	private int Food;
 	private int H2O;
 	private int Parts;
-	private float MAX_SUPPLIES = 400;
-	private final static float  w1 = (float) 1;
-	private final static float  w2 = (float) 1;
+	private float MAX_SUPPLIES = 1000;
+	private final static float  w1 = (float) 4;
+	private final static float  w2 = (float) 2;
 	private final static float  w3 = (float) 1;
-	private final static float  w4 = (float) 1;
+	private final static float  w4 = (float) 3;
 	
 	JSlider Fuel_Slider;
 	JSlider Food_Slider;
@@ -52,6 +52,7 @@ public class SupplyStage extends JFrame {
 	JLabel lblWaterStatus;
 	JLabel lblPartStatus;
 	JProgressBar progressBar;
+	private int result = 0;
 	JTextArea textArea;
 
 	/**
@@ -82,7 +83,7 @@ public class SupplyStage extends JFrame {
 		Food = 100;
 		H2O = 100;
 		Parts = 100;
-		Resources = 400;
+		Resources = 1000;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
@@ -303,9 +304,10 @@ public class SupplyStage extends JFrame {
 	}
 	
 	public void updateProgress(){
-		int result = 0;
+		
 		Resources = Fuel*w1 + Food*w2 + H2O*w3 + Parts*w4;
 		result = Math.round((Resources/MAX_SUPPLIES)*100);
+		
 		if(Resources > MAX_SUPPLIES){
 			textArea.setForeground(Color.RED);
 			textArea.setText("Insufficient Resources " + (MAX_SUPPLIES - Resources));
@@ -374,7 +376,16 @@ public class SupplyStage extends JFrame {
 			lblPartStatus.setText("Sufficient");
 		}
 	}
-
+	
+	public void setResources(int difficulty){
+		MAX_SUPPLIES = (1000 - (difficulty*100) + 100);
+		Resources = (1000 - (difficulty*100) + 100);
+		Fuel = 100 - (difficulty*5) + 5;
+		Food = 100;
+		H2O = 100;
+		Parts = 100 - (difficulty*5) + 5;
+	}
+	
 	public int getWindowId() {
 		return windowId;
 	}
@@ -386,5 +397,21 @@ public class SupplyStage extends JFrame {
 	public int checkButtons() {	
 		if(Confirm) return 1;
 		else return 0;
+	}
+	
+	public int getFuel(){
+		return Fuel;
+	}
+	
+	public int getFood(){
+		return Food;
+	}
+	
+	public int getWater(){
+		return H2O;
+	}
+	
+	public int getParts(){
+		return Parts;
 	}
 }
