@@ -1,7 +1,10 @@
 package gameExecution;
 
 import java.awt.EventQueue;
+
+import gameSound.CustomPlayer;
 import gameWindow.*;
+import sounds.SongPath;
 
 public class GameDriver implements Runnable {
 
@@ -24,6 +27,13 @@ public class GameDriver implements Runnable {
 		SelectCrew selectCrewWindow = new SelectCrew();
 		SupplyStage supplyWindow = new SupplyStage();
 		TransferStage transferWindow = new TransferStage();
+		
+		SongPath sp = new SongPath();
+		CustomPlayer player = new CustomPlayer();
+			
+		if(player.play(-1)) System.out.println("Playing");
+		else System.out.println("Exit");
+		
 
 		int currentWindow = startWindow.getWindowId();
 
