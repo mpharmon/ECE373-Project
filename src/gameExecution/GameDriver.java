@@ -28,11 +28,12 @@ public class GameDriver implements Runnable {
 		SupplyStage supplyWindow = new SupplyStage();
 		TransferStage transferWindow = new TransferStage();
 		
-		SongPath sp = new SongPath();
-		CustomPlayer player = new CustomPlayer();
-			
-		if(player.play(-1)) System.out.println("Playing");
-		else System.out.println("Exit");
+//		SongPath sp = new SongPath();
+//		CustomPlayer player = new CustomPlayer();
+//			
+//		player.setPath(sp.getPath(6));
+//		if(player.play(-1)) System.out.println("Playing");
+//		else System.out.println("Exit");
 		
 
 		int currentWindow = startWindow.getWindowId();
