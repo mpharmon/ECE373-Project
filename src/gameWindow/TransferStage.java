@@ -19,6 +19,8 @@ import javax.swing.JTable;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import gameExecution.GameTimer;
+import gameSound.CustomPlayer;
+import sounds.SongPath;
 
 import java.awt.Component;
 import javax.swing.JTextField;
@@ -36,7 +38,7 @@ public class TransferStage extends JFrame {
 	private double X0_temp, X3_temp, X4_temp;
 	private final double factor = 0.075;
 	private final double factor_2 = 0.015;
-	private final double factor_0 = 0.0005;
+	private final double factor_0 = 0.00043;
 	private static final int standard = 10;
 	private static final int TimeWarp = 2;
 	private static final int cruise = 1;
@@ -53,9 +55,11 @@ public class TransferStage extends JFrame {
 	
 	private GameTimer gameTimer;
 	private GameTimer gameTimer2;
+	private GameTimer EventTimer;
 
 	private JPanel transferPane;
 	private JPanel managerPanel;
+	
 	private JLabel lblTimeWarp;
 	private JLabel lblSpaceFrame1;
 	private JLabel lblSpaceFrame2;
@@ -80,14 +84,26 @@ public class TransferStage extends JFrame {
 	private JLabel lblDistance;
 	private JLabel lblMiles;
 	
+	private EventPanel eventPanel;
+	private boolean event;
+	private double EVENT_CHANCE = 0.10;
+	
+	
+	SongPath sp = new SongPath();
+	CustomPlayer player = new CustomPlayer();
+	
 	/**
 	 * Create the frame.
 	 */
 	public TransferStage() {
 		setResizable(false);
 		
+		SongPath sp = new SongPath();
+		CustomPlayer player = new CustomPlayer();
+
 		gameTimer = new GameTimer();
 		gameTimer2 = new GameTimer(5000);
+		EventTimer = new GameTimer(5000);
 		
 		Warp = false;
 		Manager = false;
@@ -115,23 +131,44 @@ public class TransferStage extends JFrame {
 		lblTimeWarp.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				Warp = !Warp; //Toggle Warp
 				if(!Manager){
-					Warp = !Warp; //Toggle Warp
 					lblTimeWarp.setEnabled(Warp);
+				}else{
+					Manager = !Manager;
+					lblTimeWarp.setEnabled(Warp);
+					lblVoyageManager.setEnabled(Manager);
+					managerPanel.setVisible(false);
+				}
+				if(!Warp){ 
+					player.setPath(sp.getPath(20));
+					player.play(-1);
+				}else{ player.setPath(sp.getPath(19));
+					player.play(-1);
 				}
 			}
 		});
 		/**
+		 * Event Panel
+		 */
+		
+		initEventPanel();
+		/**
 		 * Manager Panel
 		 */
 		initManagerPanel();
+		
 		
 		lblVoyageManager = new JLabel("Voyage Manager");
 		lblVoyageManager.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Manager = !Manager;
-				if(Warp) { Warp = false; lblTimeWarp.setEnabled(Warp);}
+				if(Warp) { 
+					Warp = false; lblTimeWarp.setEnabled(Warp);
+					player.setPath(sp.getPath(20));
+					player.play(-1);
+					}
 				lblVoyageManager.setEnabled(Manager);
 				if(Manager) managerPanel.setVisible(true);
 				else managerPanel.setVisible(false);
@@ -223,7 +260,7 @@ public class TransferStage extends JFrame {
 	}
 	
 	private void initManagerPanel() {
-			
+		
 		managerPanel = new JPanel();
 		managerPanel.setBounds(0, 0, 1274, 692);
 		transferPane.add(managerPanel);
@@ -276,6 +313,14 @@ public class TransferStage extends JFrame {
 		managerPanel.add(lblSpareParts);
 	}
 	
+	private void initEventPanel(){
+		setEventPanel(new EventPanel(0));
+		getEventPanel().setLocation(0, 0);
+		getEventPanel().setOpaque(false);
+		getEventPanel().setSize(1280, 692);
+		transferPane.add(getEventPanel());
+	}
+	
 	public void updateManagerUI(int fuel, int food, int water, int parts){
 		FuelBar.setValue(fuel);
 		FoodBar.setValue(food);
@@ -294,7 +339,29 @@ public class TransferStage extends JFrame {
 		else PartBar.setValue(parts);
 	}
 	
-	public boolean moveSpace(String distance){
+	public boolean TransferUpdate(String distance){
+		
+		//If event window is not active continue interplanetary transfer
+		if(!getEventPanel().isEventActive()){
+			
+			moveSpace(distance);
+			
+			if(EventTimer.isUpdate()) {
+				event = (Math.random() < EVENT_CHANCE);
+				EventTimer.setUpdate(false);
+				if(event) { 
+					getEventPanel().displayEventEncounter(0);
+					player.setPath(sp.getPath(22));
+					player.play(-1);
+					event = false;
+				}
+			}
+			
+		}
+		return Warp;
+	}
+	
+	public void moveSpace(String distance){
 		if(X1_pos >= 1280) X1_pos = 0;
 		if(X2_pos >= 0) X2_pos = -1280;
 		
@@ -311,7 +378,7 @@ public class TransferStage extends JFrame {
 		
 			lblSpaceFrame1.setBounds(X2_pos, 0, 1280, 720);
 			lblSpaceFrame2.setBounds(X1_pos, 0, 1280, 720);
-			lblBackground.setBounds(X0_pos, 0, 1970, 1080);
+			lblBackground.setBounds(X0_pos, 0, 1920, 1080);
 			
 			moveSpacecraft();
 			movePlanets();
@@ -321,7 +388,7 @@ public class TransferStage extends JFrame {
 			gameTimer.setUpdate(false);
 			if(gameTimer2.isUpdate()) gameTimer2.setUpdate(false);
 		}
-		return Warp;
+
 	}
 	
 	public void movePlanets(){
@@ -444,5 +511,13 @@ public class TransferStage extends JFrame {
 
 	public void setWindowId(int windowId) {
 		this.windowId = windowId;
+	}
+
+	public EventPanel getEventPanel() {
+		return eventPanel;
+	}
+
+	public void setEventPanel(EventPanel eventPanel) {
+		this.eventPanel = eventPanel;
 	}
 }

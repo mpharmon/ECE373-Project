@@ -8,10 +8,10 @@ public class GameData {
 	private double Days;
 	private double Weeks;
 	private double Years;
-	
-	private double Fuel;  private static final double FUEL_RATE = 0.0005;
-	private double Food;  private static final double FOOD_RATE = 0.0025;
-	private double Water; private static final double WATER_RATE = 0.005;
+						 
+	private double Fuel;  private static final double FUEL_RATE = 0.00095;  //25 units consumed after 10 minutes @warp
+	private double Food;  private static final double FOOD_RATE = 0.002;   //50 units consumed after 10 minutes	@warp
+	private double Water; private static final double WATER_RATE = 0.002;  //50 units consumed after 10 minutes @warp
 	private double Parts; //private static final double PARTS_RATE = 0.001;
 	
 	private double voyageDistance;
@@ -52,13 +52,13 @@ public class GameData {
 		currentDistance = 0;
 	}
 	
-	public void dataUpdate(boolean Warp){
-		if(gameTimer.isUpdate()){
+	public void dataUpdate(boolean Warp, boolean Event){
+		if(gameTimer.isUpdate() && !Event){
 			if(Warp){
 				Fuel = Fuel - 5*FUEL_RATE;
 				Food = Food - 5*FOOD_RATE;
 				Water = Water - 5*WATER_RATE;
-				currentDistance = (currentDistance + 10*shipVelocity);
+				currentDistance = (currentDistance + 7.2*shipVelocity);
 			}else{
 				Fuel = Fuel - FUEL_RATE;
 				Food = Food - FOOD_RATE;

@@ -49,6 +49,14 @@ public class SongPath {
 				return ProjectFolder + "\\src\\sounds\\17 - Luminescence.mp3";
 			case 18:
 				return ProjectFolder + "\\src\\sounds\\18 - Faster Than Light (Instrumental).mp3";
+			case 19:
+				return ProjectFolder + "\\src\\sounds\\241262_lewis100011_sci-fi-engine.mp3";
+			case 20:
+				return ProjectFolder + "\\src\\sounds\\34203_themfish_power-down.mp3";
+			case 21:
+				return ProjectFolder + "\\src\\sounds\\322898_rhodesmas_ui-02.mp3";
+			case 22:
+				return ProjectFolder + "\\src\\sounds\\271287_spinozz_distorted-neuro-electro-basse.mp3";
 		}
 		
 		return null;

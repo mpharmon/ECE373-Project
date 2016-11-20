@@ -28,7 +28,7 @@ public class CustomPlayer {
 			SongPath sp = new SongPath();
 			CustomPlayer player = new CustomPlayer();
 				
-			player.setPath(sp.getPath(1));
+			player.setPath(sp.getPath(19));
 			if(player.play(-1)) System.out.println("Playing");
 			else System.out.println("Exit");
 				//player.pause();

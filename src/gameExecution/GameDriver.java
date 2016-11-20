@@ -28,12 +28,12 @@ public class GameDriver implements Runnable {
 		SupplyStage supplyWindow = new SupplyStage();
 		TransferStage transferWindow = new TransferStage();
 		
-//		SongPath sp = new SongPath();
-//		CustomPlayer player = new CustomPlayer();
-//			
-//		player.setPath(sp.getPath(6));
-//		if(player.play(-1)) System.out.println("Playing");
-//		else System.out.println("Exit");
+		SongPath sp = new SongPath();
+		CustomPlayer player = new CustomPlayer();
+			
+		player.setPath(sp.getPath(10));
+		if(player.play(-1)) System.out.println("Playing Intro");
+		else System.out.println("Exit");
 		
 
 		int currentWindow = startWindow.getWindowId();
@@ -92,11 +92,15 @@ public class GameDriver implements Runnable {
 						//Next Window
 						transferWindow.setVisible(true);
 						currentWindow = transferWindow.getWindowId();
+						player.pause();
+						player.setPath(sp.getPath(18));
+						if(player.play(-1)) System.out.println("Playing Transfer");
 					}
 					supplyWindow.updateProgress();
 					break;
 				case 5:
-					gameData.dataUpdate(transferWindow.moveSpace(String.format(java.util.Locale.US, "%.0f" , gameData.getCurrentDistance())));
+					gameData.dataUpdate(transferWindow.TransferUpdate(String.format(java.util.Locale.US, "%.0f" , gameData.getCurrentDistance())), 
+									    transferWindow.getEventPanel().isEventActive());
 					
 					transferWindow.updateManagerUI(gameData.getFuel(),
 												   gameData.getFood(), 
