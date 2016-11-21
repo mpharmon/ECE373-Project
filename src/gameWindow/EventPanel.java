@@ -30,10 +30,10 @@ public class EventPanel extends JPanel {
 	private boolean event;
 	private boolean Outcome;
 	
-	private final static int Low = 0;
-	private final static int Moderate = 1;
-	private final static int High = 2;
-	private final static int Critical = 3;
+	private final static int Low = 1;
+	private final static int Moderate = 2;
+	private final static int High = 3;
+	private final static int Critical = 4;
 	
 	private final static int fuel = 0;
 	private final static int food = 1;
@@ -52,7 +52,7 @@ public class EventPanel extends JPanel {
 	private JRadioButton rdbtnOption1;
 	private JRadioButton rdbtnOption2;
 	private JRadioButton rdbtnOption3;
-	private JRadioButton rdbtnOption4;
+	private JRadioButton rdbtnOption4; 
 	private JLabel lblBackground;
 	
 	/**
@@ -69,7 +69,7 @@ public class EventPanel extends JPanel {
 		
 		lblEventImage = new JLabel("");
 		lblEventImage.setIcon(new ImageIcon(EventPanel.class.getResource("/images/powerLoss.png")));
-		lblEventImage.setBounds(492, 90, 300, 300);
+		lblEventImage.setBounds(511, 86, 300, 300);
 		add(lblEventImage);
 		
 		rdbtnOption1 = new JRadioButton("Resolve Attempt");
@@ -78,53 +78,54 @@ public class EventPanel extends JPanel {
 		rdbtnOption1.setFont(new Font("Slider", Font.PLAIN, 16));
 		rdbtnOption1.setSelected(true);
 		btnGroupChoice.add(rdbtnOption1);
-		rdbtnOption1.setBounds(180, 521, 1000, 23);
+		rdbtnOption1.setBounds(151, 484, 1039, 27);
 		add(rdbtnOption1);
 		
-		rdbtnOption2 = new JRadioButton("Ignore");
+		rdbtnOption2 = new JRadioButton("[Crew]");
 		rdbtnOption2.setOpaque(false);
-		rdbtnOption2.setForeground(new Color(255, 255, 255));
+		rdbtnOption2.setForeground(new Color(0, 255, 127));
 		rdbtnOption2.setFont(new Font("Slider", Font.PLAIN, 16));
 		btnGroupChoice.add(rdbtnOption2);
-		rdbtnOption2.setBounds(180, 547, 1000, 23);
+		rdbtnOption2.setBounds(151, 514, 1039, 27);
 		add(rdbtnOption2);
 		
-		rdbtnOption3 = new JRadioButton("[Crew]");
+		rdbtnOption3 = new JRadioButton("[VIP]");
 		rdbtnOption3.setOpaque(false);
-		rdbtnOption3.setForeground(new Color(0, 255, 127));
+		rdbtnOption3.setForeground(new Color(147, 112, 219));
 		rdbtnOption3.setFont(new Font("Slider", Font.PLAIN, 16));
 		btnGroupChoice.add(rdbtnOption3);
-		rdbtnOption3.setBounds(180, 573, 1000, 23);
+		rdbtnOption3.setBounds(151, 544, 1039, 27);
 		add(rdbtnOption3);
-		
-		rdbtnOption4 = new JRadioButton("[VIP]");
-		rdbtnOption4.setOpaque(false);
-		rdbtnOption4.setForeground(new Color(147, 112, 219));
-		rdbtnOption4.setFont(new Font("Slider", Font.PLAIN, 16));
-		btnGroupChoice.add(rdbtnOption4);
-		rdbtnOption4.setBounds(180, 599, 1000, 23);
-		add(rdbtnOption4);
 		
 		btnConfirm = new JButton("Confirm");
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				setVisible(false);
 				determineOutcome();
+				setVisible(false);
 			}
 		});
+		
+		rdbtnOption4 = new JRadioButton("[Ignore]");
+		btnGroupChoice.add(rdbtnOption4);
+		rdbtnOption4.setOpaque(false);
+		rdbtnOption4.setForeground(Color.WHITE);
+		rdbtnOption4.setFont(new Font("Slider", Font.PLAIN, 16));
+		rdbtnOption4.setBounds(151, 574, 950, 27);
+		add(rdbtnOption4);
 		btnConfirm.setFont(new Font("Slider", Font.PLAIN, 18));
 		btnConfirm.setBackground(new Color(0, 255, 255));
 		btnConfirm.setBounds(554, 629, 185, 46);
 		add(btnConfirm);
 		
 		eventInfo = new JTextArea("Event info goes here. ");
+		eventInfo.setEditable(false);
 		eventInfo.setLineWrap(true);
 		eventInfo.setFont(new Font("Slider", Font.PLAIN, 18));
 		eventInfo.setOpaque(false);
 		eventInfo.setBackground(new Color(0, 255, 255));
 		eventInfo.setForeground(new Color(0, 255, 255));
-		eventInfo.setBounds(180, 397, 911, 105);
+		eventInfo.setBounds(151, 397, 1000, 80);
 		add(eventInfo);
 		
 		lblBackground = new JLabel("");
@@ -165,13 +166,13 @@ public class EventPanel extends JPanel {
 			//Event data set
 			setEventData(Low, true, parts, 25, 0.50);
 			//Set Event info
-			eventInfo.setText("The ship is experiencing minor power malfunctions. Currently the severity is low. You can resolve the issue "
-					+ "now or ignore it. Ignoring a minor problem now can result in complications later on. The decision is yours \ncaptain.");
+			eventInfo.setText("The ship is experiencing minor power malfunctions. Currently the severity is low. You can resolve the issue\n "
+					+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
 			//Set option text
 			rdbtnOption1.setText("[Success chance "+ Chance*100 +"%] Attempt to resolve power outtage youself.");
-			rdbtnOption2.setText("Ignore issue for now.");
-			rdbtnOption3.setText("[10 "+ getTypeString(penaltyType) +"] Assign an Engineer to fix the problem. The power outtage will be resolved at a minimal cost to resources.");
-			rdbtnOption4.setText("10 - 25 "+ getTypeString(penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more parts.");
+			rdbtnOption2.setText("[10 "+ getTypeString(penaltyType) +"] Assign an Engineer to fix the problem. The power outtage will be resolved at a minimal cost to resources.");
+			rdbtnOption3.setText("[5 - 25 "+ getTypeString(penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more parts.");
+			rdbtnOption4.setText("The severity of the malfunction is low. You decide to ignore the problem for now.");
 			
 			lblEventImage.setIcon(new ImageIcon(EventPanel.class.getResource("/images/powerLoss.png")));
 			lblEventImage.setBounds(466, 95, 300, 300);
@@ -199,11 +200,23 @@ public class EventPanel extends JPanel {
 	//Resolves the event window and updates all relevant data of encounter
 	private void determineOutcome(){
 		
+		Resolution = getResolution();
+		
 		switch (Severity){
 			case Low:
-				Resolution = getResolution();
 				if(Penalty){
-					if(Resolution == 1) event = (Math.random() < Chance);
+					if(Resolution == 1){
+						event = (Math.random() < Chance);
+						Outcome = event;
+					}else if(Resolution == 2){
+						Outcome = true;
+					}else if(Resolution == 3){
+						Cost = randomCost(Cost, 0.50);
+						Outcome = true;
+					}else{
+						event = (Math.random() < (Chance - 10));
+						Outcome = event;
+					}
 				}else{
 					Cost = 0;
 					Outcome = true;
@@ -211,22 +224,86 @@ public class EventPanel extends JPanel {
 				EventActive = false;
 				break;
 			case Moderate:
-				
-				Resolution = getResolution();
+				if(Penalty){
+					if(Resolution == 1){
+						event = (Math.random() < Chance);
+						Outcome = event;
+					}else if(Resolution == 2){
+						Outcome = true;
+					}else if(Resolution == 3){
+						Cost = randomCost(Cost, 0.50);
+						Outcome = true;
+					}else{
+						event = (Math.random() < (Chance - 15));
+						Outcome = event;
+					}
+				}else{
+					Cost = 0;
+					Outcome = true;
+				}
 				EventActive = false;
 				break;
 			case High:
-				
-				Resolution = getResolution();
+				if(Penalty){
+					if(Resolution == 1){
+						event = (Math.random() < Chance);
+						Outcome = event;
+					}else if(Resolution == 2){
+						Outcome = true;
+					}else if(Resolution == 3){
+						Cost = randomCost(Cost, 0.50);
+						Outcome = true;
+					}else{
+						event = (Math.random() < (Chance - 20));
+						Outcome = event;
+					}
+				}else{
+					Cost = 0;
+					Outcome = true;
+				}
 				EventActive = false;
 				break;
 			case Critical:
-				
-				Resolution = getResolution();
+				if(Penalty){
+					if(Resolution == 1){
+						event = (Math.random() < Chance);
+						Outcome = event;
+					}else if(Resolution == 2){
+						Outcome = true;
+					}else if(Resolution == 3){
+						Cost = randomCost(Cost, 0.50);
+						Outcome = true;
+					}else{
+						//Ignoring critical event is an automatic failure condition
+						Outcome = false;
+					}
+				}else{
+					Cost = 0;
+					Outcome = true;
+				}
 				EventActive = false;
 				break;
 		}
+		System.out.println("EventActive: " +EventActive+ "\nSeverity: " + Severity +"\nResolution Selected: "+ Resolution+"\nOutcome: " +Outcome + "\nCost:" + Cost);
 		
+	}
+	public int randomCost(int cost, double chance){
+		
+		Double temp;
+		//Chance of cost being between 5 and Cost
+		if(Math.random() < chance){
+			
+			temp = new Double((Math.random() * Cost) - 5);
+			cost = temp.intValue() + 5;
+			
+		}//Chance of cost being between 15 and Cost
+		else{
+			
+			temp = new Double(Math.random() * Cost - 15);
+			cost = temp.intValue() + 15;
+		}
+		
+		return cost;
 	}
 	/**
 	 * Getters and Setters

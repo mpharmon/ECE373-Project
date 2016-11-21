@@ -342,7 +342,7 @@ public class TransferStage extends JFrame {
 	public boolean TransferUpdate(String distance){
 		
 		//If event window is not active continue interplanetary transfer
-		if(!getEventPanel().isEventActive()){
+		if(!getEventPanel().isEventActive() && !Manager){
 			
 			moveSpace(distance);
 			
@@ -357,6 +357,8 @@ public class TransferStage extends JFrame {
 				}
 			}
 			
+		}else{
+			moveSpace(distance);
 		}
 		return Warp;
 	}
