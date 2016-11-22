@@ -2,6 +2,9 @@ package gameWindow;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import gameExecution.GameData;
+
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
@@ -34,11 +37,6 @@ public class EventPanel extends JPanel {
 	private final static int Moderate = 2;
 	private final static int High = 3;
 	private final static int Critical = 4;
-	
-	private final static int fuel = 0;
-	private final static int food = 1;
-	private final static int water = 2;
-	private final static int parts = 3;
 	
 	private JButton btnConfirm; 
 	
@@ -164,31 +162,31 @@ public class EventPanel extends JPanel {
 	
 	public void setEventPanel(int select){
 		switch (select) {
-		case 0:
-			//Set color based off severity
-			lblTitle.setForeground(new Color(0, 255, 255));
-			//Event data set
-			setEventData(Low, true, parts, 25, 0.50);
-			//Set Event info
-			eventInfo.setText("The ship is experiencing minor power malfunctions. Currently the severity is low. You can resolve the issue\n "
-					+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
-			//Set option text
-			rdbtnOption1.setText("[Success chance "+ Chance*100 +"%] Attempt to resolve power outtage youself.");
-			rdbtnOption2.setText("["+ String.valueOf(Cost - 15) + getTypeString(penaltyType) +"] Assign an Engineer to fix the problem. The power outtage will be resolved at a minimal cost to resources.");
-			rdbtnOption3.setText("[5 - 25 "+ getTypeString(penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more parts.");
-			rdbtnOption4.setText("The severity of the malfunction is low. You decide to ignore the problem for now.");
-			
-			lblEventImage.setIcon(new ImageIcon(EventPanel.class.getResource("/images/powerLoss.png")));
-			lblEventImage.setBounds(466, 95, 300, 300);
-			
-			super.repaint();
-			break;
-		case 1:
-			
-			break;
-		case 2:
-			
-			break;	
+			case 0:
+				//Set color based off severity
+				lblTitle.setForeground(new Color(0, 255, 255));
+				//Event data set
+				setEventData(Low, true, GameData.parts, 25, 0.50);
+				//Set Event info
+				eventInfo.setText("The ship is experiencing minor power malfunctions. Currently the severity is low. You can resolve the issue\n "
+						+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
+				//Set option text
+				rdbtnOption1.setText("[Success chance "+ Chance*100 +"%] Attempt to resolve power outtage youself.");
+				rdbtnOption2.setText("["+ String.valueOf(Cost - 15) + " "+ getTypeString(penaltyType) +"] Assign an Engineer to fix the problem. The power outtage will be resolved at a minimal cost to resources.");
+				rdbtnOption3.setText("[5 - 25 "+ getTypeString(penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more parts.");
+				rdbtnOption4.setText("The severity of the malfunction is low. You decide to ignore the problem for now.");
+				
+				lblEventImage.setIcon(new ImageIcon(EventPanel.class.getResource("/images/powerLoss.png")));
+				lblEventImage.setBounds(466, 95, 300, 300);
+				
+				super.repaint();
+				break;
+			case 1:
+				
+				break;
+			case 2:
+				
+				break;	
 		
 		}
 	}
@@ -214,6 +212,7 @@ public class EventPanel extends JPanel {
 						event = (Math.random() < Chance);
 						Outcome = event;
 					}else if(Resolution == 2){
+						Cost = Cost - 15;
 						Outcome = true;
 					}else if(Resolution == 3){
 						Cost = randomCost(Cost, 0.50);
@@ -235,6 +234,7 @@ public class EventPanel extends JPanel {
 						event = (Math.random() < Chance);
 						Outcome = event;
 					}else if(Resolution == 2){
+						Cost = Cost - 15;
 						Outcome = true;
 					}else if(Resolution == 3){
 						Cost = randomCost(Cost, 0.50);
@@ -256,6 +256,7 @@ public class EventPanel extends JPanel {
 						event = (Math.random() < Chance);
 						Outcome = event;
 					}else if(Resolution == 2){
+						Cost = Cost - 15;
 						Outcome = true;
 					}else if(Resolution == 3){
 						Cost = randomCost(Cost, 0.50);
@@ -277,6 +278,7 @@ public class EventPanel extends JPanel {
 						event = (Math.random() < Chance);
 						Outcome = event;
 					}else if(Resolution == 2){
+						Cost = Cost - 15;
 						Outcome = true;
 					}else if(Resolution == 3){
 						Cost = randomCost(Cost, 0.50);
@@ -304,13 +306,13 @@ public class EventPanel extends JPanel {
 		if(Math.random() < chance){
 			
 			temp = new Double((Math.random() * Cost) - 5);
-			cost = temp.intValue() + 5;
+			cost = (temp.intValue()%5)*5 + 5;
 			
 		}//Chance of cost being between 15 and Cost
 		else{
 			
 			temp = new Double(Math.random() * Cost - 15);
-			cost = temp.intValue() + 15;
+			cost = (temp.intValue()%5)*5 + 15;
 		}
 		
 		return cost;
@@ -321,10 +323,10 @@ public class EventPanel extends JPanel {
 	
 	public String getTypeString(int type){
 		
-		if(type == fuel) return "fuel";
-		else if(type == food) return "food";
-		else if(type == water) return "water";
-		else if(type == parts) return "Spare parts";
+		if(type == GameData.fuel) return "fuel";
+		else if(type == GameData.food) return "food";
+		else if(type == GameData.water) return "water";
+		else if(type == GameData.parts) return "Spare parts";
 		
 		return null;
 	}
@@ -332,10 +334,10 @@ public class EventPanel extends JPanel {
 	public String getTypeString(boolean override){
 		
 		if(override){
-			if(penaltyType == fuel) return "fuel";
-			else if(penaltyType == food) return "food";
-			else if(penaltyType == water) return "water";
-			else if(penaltyType == parts) return "Spare parts";
+			if(penaltyType == GameData.fuel) return "Fuel";
+			else if(penaltyType == GameData.food) return "Food";
+			else if(penaltyType == GameData.water) return "Water";
+			else if(penaltyType == GameData.parts) return "Spare parts";
 		}
 		return null;
 	}

@@ -9,7 +9,6 @@ public class GameData {
 	private int destination;
 	
 	private double Days;
-	private double Weeks;
 	private double Years;
 						 
 	private double Fuel;  private static final double FUEL_RATE = 0.00095;  //25 units consumed after 10 minutes @warp
@@ -22,7 +21,14 @@ public class GameData {
 	private static final int shipVelocity = 50000; // KPH
 	private static final double MarsDistance = 500000000; // 500 MKM
 	
+	public final static int fuel = 1;
+	public final static int food = 2;
+	public final static int water = 3;
+	public final static int parts = 4;
+	public static final double EventStartDist = 25000000;
+	
 	protected ArrayList<Person> Crew;
+	protected Spaceship spacecraft;
 	
 	protected int shipStatus;
 	
@@ -32,10 +38,11 @@ public class GameData {
 	public GameData() {
 		gameTimer = new GameTimer(1000);
 		Crew = new ArrayList<Person>();
+		spacecraft = new Spaceship("SpaceX Shuttle");
+		
 		setDifficulty(1);
 		setDestination(1);
 		setDays(0);
-		setWeeks(0);
 		setYears(0);
 		Fuel = 0;
 		Food = 0;
@@ -45,13 +52,12 @@ public class GameData {
 		currentDistance = 0;
 	}
 	
-	public GameData(int diff,int dest, double days, double weeks, double years) {
+	public GameData(int diff,int dest, double days, double years) {
 		gameTimer = new GameTimer(1000);
 		Crew = new ArrayList<Person>();
 		setDifficulty(diff);
 		setDestination(dest);
 		setDays(days);
-		setWeeks(weeks);
 		setYears(years);
 		Fuel = 0;
 		Food = 0;
@@ -61,7 +67,7 @@ public class GameData {
 		currentDistance = 0;
 	}
 	
-	public void dataUpdate(boolean Warp, boolean Event, boolean Resolution){
+	public void dataUpdate(boolean Warp, boolean Event, boolean Resolution, boolean resultReady, int resourceType, int cost){
 		if(gameTimer.isUpdate() && !Event && !Resolution){
 			if(Warp){
 				Fuel = Fuel - 5*FUEL_RATE;
@@ -73,6 +79,9 @@ public class GameData {
 				Food = Food - FOOD_RATE;
 				Water = Water - WATER_RATE;
 				currentDistance = (currentDistance + shipVelocity);
+			}
+			if(resultReady){
+				updateResource(resourceType, cost);
 			}
 			gameTimer.setUpdate(false);
 		}
@@ -126,14 +135,6 @@ public class GameData {
 
 	public void setDays(double days) {
 		Days = days;
-	}
-
-	public double getWeeks() {
-		return Weeks;
-	}
-
-	public void setWeeks(double weeks) {
-		Weeks = weeks;
 	}
 
 	public double getYears() {
@@ -206,6 +207,16 @@ public class GameData {
 	public void setCrew(ArrayList<Person> crew) {
 		Crew = crew;
 	}
-
+	public void updateResource(int type, int diff){
+		if(type == 1){
+			Fuel = Fuel + diff;
+		}else if(type == 2){
+			Food = Food + diff;
+		}else if(type == 3){
+			Water = Water + diff;
+		}else if(type == 4){
+			Parts = Parts + diff;
+		}
+	}
 
 }

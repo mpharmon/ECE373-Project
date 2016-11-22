@@ -29,6 +29,9 @@ import javax.swing.JTextField;
 public class TransferStage extends JFrame {
 	
 	private int windowId;
+	
+	public GameData gameData;
+	
 	private int X0_pos, X1_pos, X2_pos, X3_pos, X4_pos, X5_pos, X6_pos, X7_pos;
 	private int Y5_pos, Y6_pos, Y7_pos;
 	
@@ -103,17 +106,27 @@ public class TransferStage extends JFrame {
 	private JLabel hullStatus;
 	
 	/**
-	 * Create the frame.
+	 * Initialize Game Data and Timers
 	 */
-	public TransferStage() {
-		setResizable(false);
+	public void initTransfer(){
+		
+		gameData = new GameData();
 		
 		SongPath sp = new SongPath();
 		CustomPlayer player = new CustomPlayer();
 
 		gameTimer = new GameTimer();
 		gameTimer2 = new GameTimer(5000);
-		EventTimer = new GameTimer(5000);
+		EventTimer = new GameTimer(10000);	
+	}
+	
+	/**
+	 * Create the frame.
+	 */
+	public TransferStage() {
+		setResizable(false);
+		
+		initTransfer(); 	//Initialize Game Data!
 		
 		Warp = false;
 		Manager = false;
@@ -438,7 +451,7 @@ public class TransferStage extends JFrame {
 		crewSkill5.setText(gameData.getCrew().get(4).getSkill(true));
 	}
 	
-	public void updateManagerUI(GameData gameData){
+	public void updateManagerUI(){
 		FuelBar.setValue(gameData.getFuel());
 		FoodBar.setValue(gameData.getFood());
 		WaterBar.setValue(gameData.getWater());
@@ -473,14 +486,13 @@ public class TransferStage extends JFrame {
 		else PartBar.setValue(parts);
 	}
 	
-	public boolean TransferUpdate(String distance){
-		
+	public boolean TransferUpdate(){
 		//If event window is not active continue interplanetary transfer
 		if(!getEventPanel().isEventActive() && !getResultPanel().isResolutionActive()){
 			
-			moveSpace(distance);
+			moveSpace(String.format(java.util.Locale.US, "%.0f" , gameData.getCurrentDistance()));
 			
-			if(EventTimer.isUpdate()  && !Manager) {
+			if(EventTimer.isUpdate()  && !Manager && (gameData.getCurrentDistance() > GameData.EventStartDist)) {
 				event = (Math.random() < EVENT_CHANCE);
 				EventTimer.setUpdate(false);
 				if(event) { 
@@ -491,12 +503,20 @@ public class TransferStage extends JFrame {
 					event = false;
 				}
 			}
-		}else if(getResultPanel().isResolutionActive()){
-			if(!eventPanel.isEventActive()) getResultPanel().DisplayResolution(eventPanel.isOutcome(),
+		}else if(resultPanel.isResolutionActive()){
+			if(!eventPanel.isEventActive()) resultPanel.DisplayResolution(eventPanel.isOutcome(),
 																		  eventPanel.getResolution(),
 																		  eventPanel.getCost(),
 																		  eventPanel.getTypeString(true));
+			EventTimer.setUpdate(false);
 		}
+		//Update GameData
+		gameData.dataUpdate(Warp, eventPanel.isEventActive(), 
+							resultPanel.isResolutionActive(), 
+							resultPanel.isDataReady(), 
+							eventPanel.getPenaltyType(),
+							-eventPanel.getCost());
+		if(resultPanel.isDataReady()) resultPanel.setDataReady(false);
 		
 		return Warp;
 	}
@@ -667,5 +687,9 @@ public class TransferStage extends JFrame {
 
 	public void setResultPanel(ResolutionPanel resultPanel) {
 		this.resultPanel = resultPanel;
+	}
+	
+	public GameData getGameData(){
+		return gameData;
 	}
 }

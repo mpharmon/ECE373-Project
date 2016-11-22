@@ -7,9 +7,8 @@ import sounds.SongPath;
 
 public class GameDriver implements Runnable {
 
-	public GameData gameData = new GameData();
-	
 	boolean running = false;
+	private boolean trackReset = false;
 
 	public void start() {
 		running = true;
@@ -59,8 +58,8 @@ public class GameDriver implements Runnable {
 					break;
 				case 1:
 					if (difficultyWindow.checkButtons() == 1) {
-						gameData.setDifficulty(difficultyWindow.getDifficulty());
-						supplyWindow.setResources(gameData.getDifficulty());
+						transferWindow.getGameData().setDifficulty(difficultyWindow.getDifficulty());
+						supplyWindow.setResources(transferWindow.getGameData().getDifficulty());
 						difficultyWindow.setVisible(false);
 						//Next Window
 						preparationWindow.setVisible(true);
@@ -77,7 +76,7 @@ public class GameDriver implements Runnable {
 					break;
 				case 3:
 					if (selectCrewWindow.checkButtons() == 1) {
-						gameData.Crew.addAll(selectCrewWindow.getCrew());
+						transferWindow.getGameData().Crew.addAll(selectCrewWindow.getCrew());
 						selectCrewWindow.setVisible(false);
 						//Next Window
 						supplyWindow.setVisible(true);
@@ -87,12 +86,12 @@ public class GameDriver implements Runnable {
 				case 4:
 					if (supplyWindow.checkButtons() == 1) {
 						supplyWindow.setVisible(false);
-						gameData.setResources(supplyWindow.getFuel(),
+						transferWindow.getGameData().setResources(supplyWindow.getFuel(),
 											  supplyWindow.getFood(),
 											  supplyWindow.getWater(),
 											  supplyWindow.getParts());
 						//Next Window
-						transferWindow.ManagerSetup(gameData);
+						transferWindow.ManagerSetup(transferWindow.getGameData());
 						transferWindow.setVisible(true);
 						currentWindow = transferWindow.getWindowId();
 						player.pause();
@@ -102,10 +101,14 @@ public class GameDriver implements Runnable {
 					supplyWindow.updateProgress();
 					break;
 				case 5:
-					gameData.dataUpdate(transferWindow.TransferUpdate(String.format(java.util.Locale.US, "%.0f" , gameData.getCurrentDistance())), 
-									    transferWindow.getEventPanel().isEventActive(), transferWindow.getResultPanel().isResolutionActive());
-					
-					transferWindow.updateManagerUI(gameData);
+					transferWindow.TransferUpdate();
+					transferWindow.updateManagerUI();
+					if(transferWindow.getGameData().getCurrentDistance() > 130000000 && !trackReset){
+						player.setPath(sp.getPath(3));
+						if(player.play(-1)) System.out.println("Playing Second Track");
+						else System.out.println("Exit");
+						trackReset = true;
+					}
 					break;
 				}
 			} catch (Exception e) {

@@ -27,6 +27,7 @@ public class ResolutionPanel extends JPanel {
 	
 	protected boolean Continue;
 	private boolean ResolutionActive;
+	private boolean dataReady;
 
 	/**
 	 * Create the panel.
@@ -147,6 +148,7 @@ public class ResolutionPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				Continue = true;
+				dataReady = true;
 				setResolutionActive(false);
 				setVisible(false);
 			}
@@ -172,6 +174,7 @@ public class ResolutionPanel extends JPanel {
 	
 	public boolean DisplayResolution(boolean Outcome, int resolution, int cost, String type ){
 		Continue = false;
+		dataReady = false;
 		setResolutionActive(true);
 		
 		if(Outcome){
@@ -197,6 +200,14 @@ public class ResolutionPanel extends JPanel {
 
 	public void setResolutionActive(boolean resolutionActive) {
 		ResolutionActive = resolutionActive;
+	}
+
+	public boolean isDataReady() {
+		return dataReady;
+	}
+
+	public void setDataReady(boolean dataReady) {
+		this.dataReady = dataReady;
 	}
 	
 	
