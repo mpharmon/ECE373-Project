@@ -12,6 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import edu.arizona.ece373.InterplanetaryPioneers.Model.Person;
+import gameExecution.GameData;
+
 import javax.swing.ImageIcon;
 import javax.swing.JProgressBar;
 import javax.swing.JButton;
@@ -23,6 +27,7 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 public class SelectCrew extends JFrame {
 
@@ -33,6 +38,9 @@ public class SelectCrew extends JFrame {
 	private JTextField crewMemberName4;
 	private JTextField crewMemberName5;
 	private JTextField CaptainName;
+	
+	private ArrayList<Person> Crew;
+	
 	private final ButtonGroup buttonVIP_Group = new ButtonGroup();
 	private boolean confirm;
 	private int windowId;
@@ -41,17 +49,19 @@ public class SelectCrew extends JFrame {
 	private JRadioButton rdbtnElonMusk;
 	private JRadioButton rdbtnOprah;
 	
-	JComboBox comboBox_1;
-	JComboBox comboBox_2; 
-	JComboBox comboBox_3; 
-	JComboBox comboBox_4; 
-	JComboBox comboBox_5; 
+	private JComboBox comboBox_1;
+	private JComboBox comboBox_2; 
+	private JComboBox comboBox_3; 
+	private JComboBox comboBox_4; 
+	private JComboBox comboBox_5; 
 	
 
 	/**
 	 * Create the frame.
 	 */
 	public SelectCrew() {
+		
+		setCrew(new ArrayList<Person>());
 
 		confirm = false;
 		windowId = 3;
@@ -109,6 +119,8 @@ public class SelectCrew extends JFrame {
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				if(buildCrew()) System.out.println("Crew Built: "+ crewMemberName1.getText() +" "+ crewMemberName2.getText() +" "+crewMemberName3.getText() 
+																+" "+crewMemberName4.getText() +" "+crewMemberName5.getText());
 				confirm = true;
 			}
 		});
@@ -283,5 +295,38 @@ public class SelectCrew extends JFrame {
 		}else{
 			return null;
 		}
+	}
+	
+	//Build Person objects and build crew person array
+	private boolean buildCrew(){
+		
+		Person crewMember1;
+		Person crewMember2;
+		Person crewMember3;
+		Person crewMember4;
+		Person crewMember5;
+		
+		crewMember1 = new Person(crewMemberName1.getText(), comboBox_1.getSelectedIndex()+1, Person.nominal);
+		crewMember2 = new Person(crewMemberName2.getText(), comboBox_2.getSelectedIndex()+1, Person.nominal);
+		crewMember3 = new Person(crewMemberName3.getText(), comboBox_3.getSelectedIndex()+1, Person.nominal);
+		crewMember4 = new Person(crewMemberName4.getText(), comboBox_4.getSelectedIndex()+1, Person.nominal);
+		crewMember5 = new Person(crewMemberName5.getText(), comboBox_5.getSelectedIndex()+1, Person.nominal);
+		
+		getCrew().add(crewMember1);
+		getCrew().add(crewMember2);
+		getCrew().add(crewMember3);
+		getCrew().add(crewMember4);
+		getCrew().add(crewMember5);
+		
+		if(getCrew().size() == 5) return true;
+		return false;
+	}
+
+	public ArrayList<Person> getCrew() {
+		return Crew;
+	}
+
+	public void setCrew(ArrayList<Person> crew) {
+		Crew = crew;
 	}
 }

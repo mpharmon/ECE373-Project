@@ -55,11 +55,14 @@ public class EventPanel extends JPanel {
 	private JRadioButton rdbtnOption4; 
 	private JLabel lblBackground;
 	
+	private boolean confirm = false;
+	
 	/**
 	 * Create the panel.
 	 */
 	public EventPanel(int select) {
 		setLayout(null);
+		
 		
 		lblTitle = new JLabel("Event Ecounter");
 		lblTitle.setForeground(new Color(0, 255, 255));
@@ -101,6 +104,7 @@ public class EventPanel extends JPanel {
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				confirm = !confirm;
 				determineOutcome();
 				setVisible(false);
 			}
@@ -170,7 +174,7 @@ public class EventPanel extends JPanel {
 					+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
 			//Set option text
 			rdbtnOption1.setText("[Success chance "+ Chance*100 +"%] Attempt to resolve power outtage youself.");
-			rdbtnOption2.setText("[10 "+ getTypeString(penaltyType) +"] Assign an Engineer to fix the problem. The power outtage will be resolved at a minimal cost to resources.");
+			rdbtnOption2.setText("["+ String.valueOf(Cost - 15) + getTypeString(penaltyType) +"] Assign an Engineer to fix the problem. The power outtage will be resolved at a minimal cost to resources.");
 			rdbtnOption3.setText("[5 - 25 "+ getTypeString(penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more parts.");
 			rdbtnOption4.setText("The severity of the malfunction is low. You decide to ignore the problem for now.");
 			
@@ -206,6 +210,7 @@ public class EventPanel extends JPanel {
 			case Low:
 				if(Penalty){
 					if(Resolution == 1){
+						Cost = 0;
 						event = (Math.random() < Chance);
 						Outcome = event;
 					}else if(Resolution == 2){
@@ -226,6 +231,7 @@ public class EventPanel extends JPanel {
 			case Moderate:
 				if(Penalty){
 					if(Resolution == 1){
+						Cost = 0;
 						event = (Math.random() < Chance);
 						Outcome = event;
 					}else if(Resolution == 2){
@@ -246,6 +252,7 @@ public class EventPanel extends JPanel {
 			case High:
 				if(Penalty){
 					if(Resolution == 1){
+						Cost = 0;
 						event = (Math.random() < Chance);
 						Outcome = event;
 					}else if(Resolution == 2){
@@ -266,6 +273,7 @@ public class EventPanel extends JPanel {
 			case Critical:
 				if(Penalty){
 					if(Resolution == 1){
+						Cost = 0;
 						event = (Math.random() < Chance);
 						Outcome = event;
 					}else if(Resolution == 2){
@@ -287,6 +295,8 @@ public class EventPanel extends JPanel {
 		System.out.println("EventActive: " +EventActive+ "\nSeverity: " + Severity +"\nResolution Selected: "+ Resolution+"\nOutcome: " +Outcome + "\nCost:" + Cost);
 		
 	}
+
+	
 	public int randomCost(int cost, double chance){
 		
 		Double temp;
@@ -316,6 +326,17 @@ public class EventPanel extends JPanel {
 		else if(type == water) return "water";
 		else if(type == parts) return "Spare parts";
 		
+		return null;
+	}
+	
+	public String getTypeString(boolean override){
+		
+		if(override){
+			if(penaltyType == fuel) return "fuel";
+			else if(penaltyType == food) return "food";
+			else if(penaltyType == water) return "water";
+			else if(penaltyType == parts) return "Spare parts";
+		}
 		return null;
 	}
 	

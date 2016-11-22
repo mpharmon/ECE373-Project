@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTable;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
+import gameExecution.GameData;
 import gameExecution.GameTimer;
 import gameSound.CustomPlayer;
 import sounds.SongPath;
@@ -88,9 +89,18 @@ public class TransferStage extends JFrame {
 	private boolean event;
 	private double EVENT_CHANCE = 0.10;
 	
+	private ResolutionPanel resultPanel;
 	
 	SongPath sp = new SongPath();
 	CustomPlayer player = new CustomPlayer();
+	
+	private JLabel crewSkill1; private JLabel crewName1;
+	private JLabel crewSkill2; private JLabel crewName2;
+	private JLabel crewSkill3; private JLabel crewName3;
+	private JLabel crewSkill4; private JLabel crewName4;
+	private JLabel crewSkill5; private JLabel crewName5;
+	private JLabel shipIntegrity;
+	private JLabel hullStatus;
 	
 	/**
 	 * Create the frame.
@@ -148,6 +158,7 @@ public class TransferStage extends JFrame {
 				}
 			}
 		});
+		
 		/**
 		 * Event Panel
 		 */
@@ -157,6 +168,10 @@ public class TransferStage extends JFrame {
 		 * Manager Panel
 		 */
 		initManagerPanel();
+		/**
+		 * Resolution Panel
+		 */
+		initResultPanel();
 		
 		
 		lblVoyageManager = new JLabel("Voyage Manager");
@@ -268,6 +283,31 @@ public class TransferStage extends JFrame {
 		managerPanel.setVisible(false);
 		managerPanel.setLayout(null);
 		
+		JLabel CrewIcon1 = new JLabel("");
+		CrewIcon1.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
+		CrewIcon1.setBounds(1003, 16, 58, 57);
+		managerPanel.add(CrewIcon1);
+		
+		JLabel CrewIcon2 = new JLabel("");
+		CrewIcon2.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
+		CrewIcon2.setBounds(935, 16, 58, 57);
+		managerPanel.add(CrewIcon2);
+		
+		JLabel CrewIcon3 = new JLabel("");
+		CrewIcon3.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
+		CrewIcon3.setBounds(1071, 16, 58, 57);
+		managerPanel.add(CrewIcon3);
+		
+		JLabel CrewIcon4 = new JLabel("");
+		CrewIcon4.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
+		CrewIcon4.setBounds(867, 16, 58, 57);
+		managerPanel.add(CrewIcon4);
+		
+		JLabel CrewIcon5 = new JLabel("");
+		CrewIcon5.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
+		CrewIcon5.setBounds(1139, 16, 58, 57);
+		managerPanel.add(CrewIcon5);
+		
 		FuelBar = new JProgressBar();
 		FuelBar.setForeground(new Color(0, 255, 0));
 		FuelBar.setBounds(130, 152, 375, 22);
@@ -311,6 +351,98 @@ public class TransferStage extends JFrame {
 		lblSpareParts.setFont(new Font("Slider", Font.PLAIN, 18));
 		lblSpareParts.setBounds(261, 394, 112, 14);
 		managerPanel.add(lblSpareParts);
+		
+		crewName1 = new JLabel("Decker");
+		crewName1.setForeground(Color.CYAN);
+		crewName1.setFont(new Font("Slider", Font.BOLD, 12));
+		crewName1.setBounds(880, 76, 58, 14);
+		managerPanel.add(crewName1);
+		
+		crewName2 = new JLabel("Maxx");
+		crewName2.setForeground(Color.CYAN);
+		crewName2.setFont(new Font("Slider", Font.BOLD, 12));
+		crewName2.setBounds(948, 76, 58, 14);
+		managerPanel.add(crewName2);
+		
+		crewName3 = new JLabel("Smith");
+		crewName3.setForeground(Color.CYAN);
+		crewName3.setFont(new Font("Slider", Font.BOLD, 12));
+		crewName3.setBounds(1016, 76, 58, 14);
+		managerPanel.add(crewName3);
+		
+		crewName4 = new JLabel("Jane");
+		crewName4.setForeground(Color.CYAN);
+		crewName4.setFont(new Font("Slider", Font.BOLD, 12));
+		crewName4.setBounds(1084, 76, 58, 14);
+		managerPanel.add(crewName4);
+		
+		crewName5 = new JLabel("John");
+		crewName5.setForeground(Color.CYAN);
+		crewName5.setFont(new Font("Slider", Font.BOLD, 12));
+		crewName5.setBounds(1152, 76, 58, 14);
+		managerPanel.add(crewName5);
+		
+		crewSkill1 = new JLabel("Pilot");
+		crewSkill1.setForeground(Color.CYAN);
+		crewSkill1.setFont(new Font("Slider", Font.BOLD, 12));
+		crewSkill1.setBounds(880, 92, 68, 14);
+		managerPanel.add(crewSkill1);
+		
+		crewSkill2 = new JLabel("Engineer");
+		crewSkill2.setForeground(Color.CYAN);
+		crewSkill2.setFont(new Font("Slider", Font.BOLD, 12));
+		crewSkill2.setBounds(948, 92, 68, 14);
+		managerPanel.add(crewSkill2);
+		
+		crewSkill3 = new JLabel("Scientist");
+		crewSkill3.setForeground(Color.CYAN);
+		crewSkill3.setFont(new Font("Slider", Font.BOLD, 12));
+		crewSkill3.setBounds(1016, 92, 68, 14);
+		managerPanel.add(crewSkill3);
+		
+		crewSkill4 = new JLabel("Doctor");
+		crewSkill4.setForeground(Color.CYAN);
+		crewSkill4.setFont(new Font("Slider", Font.BOLD, 12));
+		crewSkill4.setBounds(1084, 92, 68, 14);
+		managerPanel.add(crewSkill4);
+		
+		crewSkill5 = new JLabel("Botanist");
+		crewSkill5.setForeground(Color.CYAN);
+		crewSkill5.setFont(new Font("Slider", Font.BOLD, 12));
+		crewSkill5.setBounds(1152, 92, 68, 14);
+		managerPanel.add(crewSkill5);
+		
+		shipIntegrity = new JLabel("");
+		shipIntegrity.setIcon(new ImageIcon(TransferStage.class.getResource("/images/spaceshipNominal.png")));
+		shipIntegrity.setBounds(1112, 127, 128, 128);
+		managerPanel.add(shipIntegrity);
+		
+		hullStatus = new JLabel("Nominal");
+		hullStatus.setForeground(Color.CYAN);
+		hullStatus.setFont(new Font("Slider", Font.BOLD, 12));
+		hullStatus.setBounds(1139, 260, 68, 14);
+		managerPanel.add(hullStatus);
+	}
+	public void ManagerSetup(GameData gameData){
+		//Set Crew Names in Manager UI
+		crewName1.setText(gameData.getCrew().get(0).getName());
+		crewName2.setText(gameData.getCrew().get(1).getName());
+		crewName3.setText(gameData.getCrew().get(2).getName());
+		crewName4.setText(gameData.getCrew().get(3).getName());
+		crewName5.setText(gameData.getCrew().get(4).getName());
+		//Set Crew Skills in Manager UI
+		crewSkill1.setText(gameData.getCrew().get(0).getSkill(true));
+		crewSkill2.setText(gameData.getCrew().get(1).getSkill(true));
+		crewSkill3.setText(gameData.getCrew().get(2).getSkill(true));
+		crewSkill4.setText(gameData.getCrew().get(3).getSkill(true));
+		crewSkill5.setText(gameData.getCrew().get(4).getSkill(true));
+	}
+	
+	public void updateManagerUI(GameData gameData){
+		FuelBar.setValue(gameData.getFuel());
+		FoodBar.setValue(gameData.getFood());
+		WaterBar.setValue(gameData.getWater());
+		PartBar.setValue(gameData.getParts());
 	}
 	
 	private void initEventPanel(){
@@ -321,11 +453,13 @@ public class TransferStage extends JFrame {
 		transferPane.add(getEventPanel());
 	}
 	
-	public void updateManagerUI(int fuel, int food, int water, int parts){
-		FuelBar.setValue(fuel);
-		FoodBar.setValue(food);
-		WaterBar.setValue(water);
-		PartBar.setValue(parts);
+	private void initResultPanel(){
+		setResultPanel(new ResolutionPanel());
+		getResultPanel().setVisible(false);
+		getResultPanel().setLocation(0,0);
+		getResultPanel().setSize(1280,692);
+		getContentPane().add(getResultPanel());
+		repaint();
 	}
 	
 	public void initResources(int fuel, int food, int water, int parts){
@@ -342,24 +476,28 @@ public class TransferStage extends JFrame {
 	public boolean TransferUpdate(String distance){
 		
 		//If event window is not active continue interplanetary transfer
-		if(!getEventPanel().isEventActive() && !Manager){
+		if(!getEventPanel().isEventActive() && !getResultPanel().isResolutionActive()){
 			
 			moveSpace(distance);
 			
-			if(EventTimer.isUpdate()) {
+			if(EventTimer.isUpdate()  && !Manager) {
 				event = (Math.random() < EVENT_CHANCE);
 				EventTimer.setUpdate(false);
 				if(event) { 
 					getEventPanel().displayEventEncounter(0);
+					getResultPanel().setResolutionActive(true);
 					player.setPath(sp.getPath(22));
 					player.play(-1);
 					event = false;
 				}
 			}
-			
-		}else{
-			moveSpace(distance);
+		}else if(getResultPanel().isResolutionActive()){
+			if(!eventPanel.isEventActive()) getResultPanel().DisplayResolution(eventPanel.isOutcome(),
+																		  eventPanel.getResolution(),
+																		  eventPanel.getCost(),
+																		  eventPanel.getTypeString(true));
 		}
+		
 		return Warp;
 	}
 	
@@ -521,5 +659,13 @@ public class TransferStage extends JFrame {
 
 	public void setEventPanel(EventPanel eventPanel) {
 		this.eventPanel = eventPanel;
+	}
+
+	public ResolutionPanel getResultPanel() {
+		return resultPanel;
+	}
+
+	public void setResultPanel(ResolutionPanel resultPanel) {
+		this.resultPanel = resultPanel;
 	}
 }

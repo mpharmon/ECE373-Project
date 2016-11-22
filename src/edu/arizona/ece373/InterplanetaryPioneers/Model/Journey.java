@@ -36,22 +36,4 @@ public class Journey {
 		// TODO - Add Events
 	}
 
-	public static Boolean addPerson(String Name) {
-		Journey.people.add(new Person(Name));
-		return true;
-	}
-
-	public static Boolean addPerson(String name, Integer skills) {
-		// Check to make sure there is only 1 VIP and 1 Captain
-		if ((skills | 5) > 0) {
-			Iterator<Person> peopleIterator = Journey.people.iterator();
-			while (peopleIterator.hasNext()) {
-				Person currentPerson = peopleIterator.next();
-				if (currentPerson.isCaptain() || currentPerson.isVIP())
-					return false;
-			}
-		}
-		Journey.people.add(new Person(name, skills));
-		return true;
-	}
 }

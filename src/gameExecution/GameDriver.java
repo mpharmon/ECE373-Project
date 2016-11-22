@@ -1,13 +1,14 @@
 package gameExecution;
 
 import java.awt.EventQueue;
-
 import gameSound.CustomPlayer;
 import gameWindow.*;
 import sounds.SongPath;
 
 public class GameDriver implements Runnable {
 
+	public GameData gameData = new GameData();
+	
 	boolean running = false;
 
 	public void start() {
@@ -17,7 +18,7 @@ public class GameDriver implements Runnable {
 
 	public void run() {
 		
-		GameData gameData = new GameData();
+		
 		
 
 		// Instantiate Windows
@@ -76,6 +77,7 @@ public class GameDriver implements Runnable {
 					break;
 				case 3:
 					if (selectCrewWindow.checkButtons() == 1) {
+						gameData.Crew.addAll(selectCrewWindow.getCrew());
 						selectCrewWindow.setVisible(false);
 						//Next Window
 						supplyWindow.setVisible(true);
@@ -90,6 +92,7 @@ public class GameDriver implements Runnable {
 											  supplyWindow.getWater(),
 											  supplyWindow.getParts());
 						//Next Window
+						transferWindow.ManagerSetup(gameData);
 						transferWindow.setVisible(true);
 						currentWindow = transferWindow.getWindowId();
 						player.pause();
@@ -100,12 +103,9 @@ public class GameDriver implements Runnable {
 					break;
 				case 5:
 					gameData.dataUpdate(transferWindow.TransferUpdate(String.format(java.util.Locale.US, "%.0f" , gameData.getCurrentDistance())), 
-									    transferWindow.getEventPanel().isEventActive());
+									    transferWindow.getEventPanel().isEventActive(), transferWindow.getResultPanel().isResolutionActive());
 					
-					transferWindow.updateManagerUI(gameData.getFuel(),
-												   gameData.getFood(), 
-												   gameData.getWater(), 
-												   gameData.getParts());
+					transferWindow.updateManagerUI(gameData);
 					break;
 				}
 			} catch (Exception e) {

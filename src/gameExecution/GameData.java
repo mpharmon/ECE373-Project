@@ -1,5 +1,8 @@
 package gameExecution;
 
+import java.util.ArrayList;
+import edu.arizona.ece373.InterplanetaryPioneers.Model.*;
+
 public class GameData {
 	
 	private int difficulty;
@@ -19,12 +22,16 @@ public class GameData {
 	private static final int shipVelocity = 50000; // KPH
 	private static final double MarsDistance = 500000000; // 500 MKM
 	
+	protected ArrayList<Person> Crew;
+	
+	protected int shipStatus;
+	
 	GameTimer gameTimer;
 	
 	
 	public GameData() {
 		gameTimer = new GameTimer(1000);
-		
+		Crew = new ArrayList<Person>();
 		setDifficulty(1);
 		setDestination(1);
 		setDays(0);
@@ -39,6 +46,8 @@ public class GameData {
 	}
 	
 	public GameData(int diff,int dest, double days, double weeks, double years) {
+		gameTimer = new GameTimer(1000);
+		Crew = new ArrayList<Person>();
 		setDifficulty(diff);
 		setDestination(dest);
 		setDays(days);
@@ -52,8 +61,8 @@ public class GameData {
 		currentDistance = 0;
 	}
 	
-	public void dataUpdate(boolean Warp, boolean Event){
-		if(gameTimer.isUpdate() && !Event){
+	public void dataUpdate(boolean Warp, boolean Event, boolean Resolution){
+		if(gameTimer.isUpdate() && !Event && !Resolution){
 			if(Warp){
 				Fuel = Fuel - 5*FUEL_RATE;
 				Food = Food - 5*FOOD_RATE;
@@ -68,6 +77,31 @@ public class GameData {
 			gameTimer.setUpdate(false);
 		}
 	}
+	//Checks if current crew complement has specified skill
+	public boolean checkCrewForSkill(int skill){
+		
+		for(int i = 0; i < Crew.size(); i++){
+			if(skill == Crew.get(i).getSkill()) return true;
+		}
+		return false;
+	}
+	
+	//Checks for dead crew members
+	public int deadCrew(){
+		int dead = 0;
+		for(int i = 0; i < Crew.size(); i++){
+			if( 0 <= Crew.get(i).getHealthStatus()) dead++;
+		}
+		return dead;
+	}
+	//Checks for alive crew members
+	public int liveCrew(){
+		return 5 -deadCrew();
+	}
+
+	/**
+	 * Getters and Setters
+	 */
 	
 	public int getDifficulty() {
 		return difficulty;
@@ -164,5 +198,14 @@ public class GameData {
 	public void setCurrentDistance(double currentDistance) {
 		this.currentDistance = currentDistance;
 	}
+
+	public ArrayList<Person> getCrew() {
+		return Crew;
+	}
+
+	public void setCrew(ArrayList<Person> crew) {
+		Crew = crew;
+	}
+
 
 }

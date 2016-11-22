@@ -2,12 +2,12 @@ package edu.arizona.ece373.InterplanetaryPioneers.Model;
 
 public class Spaceship {
 	private String name;
-	private Integer lifeForce;
+	private int hull;
 
 	// Constructor(s)
 	public Spaceship(String name) {
 		this.name = name;
-		this.lifeForce = new Integer(100);
+		this.setHull(3);
 	}
 
 	// Get'ers and Set'ers
@@ -15,14 +15,12 @@ public class Spaceship {
 		return this.name;
 	}
 
-	public Integer getLifeForce() {
-		return this.lifeForce;
+	public int getHull() {
+		return hull;
 	}
 
-	public Boolean repair(Person p) {
-		if (!p.isEngineer())
-			return false;
-		this.lifeForce += 10;
-		return true;
+	public void setHull(int hull) {
+		this.hull = hull;
 	}
+
 }
