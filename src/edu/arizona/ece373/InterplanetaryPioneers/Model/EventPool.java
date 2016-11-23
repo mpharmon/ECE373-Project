@@ -30,7 +30,7 @@ public class EventPool {
 		 *	Event #2 - Fire
 		 */
 		newEvent = new Event(Event.Moderate, true, GameData.water, 15, 0.35, Person.scientist, true, false);
-		event2.description = ("There is a fire in the cargo area. The fire must be put out to avoid ship damage. You can resolve the issue\n "
+		newEvent.setDescription("There is a fire in the cargo area. The fire must be put out to avoid ship damage. You can resolve the issue\n "
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
 		//Set option text
 		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Attempt to resolve fire youself.");
@@ -39,14 +39,6 @@ public class EventPool {
 		newEvent.setOption4("You hope nothing will go wrong and ignore the fire.");
 
 		newEvent = new Event(Event.Moderate, true, GameData.water, 15, 0.35, Person.scientist, true, false);
-		newEvent.setTitle("FIRE!");
-		newEvent.setDescription("There is a fire in the cargo area. The fire must be put out to avoid ship damage. You can resolve the issue\n "
-							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
-		//Set option text
-		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Attempt to resolve fire youself.");
-		newEvent.setOption2("["+ String.valueOf(newEvent.cost - 15) + " "+ Event.getTypeString(newEvent.penaltyType) +"] Assign a Scientist to fix the problem. The fire will be resolved at no cost to resources.");
-		newEvent.setOption3("[0 - 15 "+ Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more water.");
-		newEvent.setOption4("You hope nothing will go wrong and ignore the fire.");
 		
         EventPool.events.add(newEvent);
         
