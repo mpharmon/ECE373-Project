@@ -5,6 +5,12 @@ public class Spaceship {
 	private int hull;				//Hit-points of ship
 	private int maxVelocity;
 	private int maxHP;
+	
+	//Hull definitions
+	public static final int destroyed = 0; 
+	public static final int critical = 1;
+	public static final int damaged = 2;
+	public static final int nominal = 3;
 
 	// Constructor(s)
 	public Spaceship(String name) {
@@ -21,6 +27,20 @@ public class Spaceship {
 
 	public int getHull() {
 		return hull;
+	}
+	
+	public String getHullStatus(){
+		
+		if(hull >= nominal)
+			return "Nominal";
+		else if(hull == damaged)
+			return "Damaged";
+		else if(hull == critical)
+			return "Critical";
+		else if(hull == destroyed)
+			return "Destroyed";
+
+		return null;
 	}
 
 	public void setHull(int hull) {

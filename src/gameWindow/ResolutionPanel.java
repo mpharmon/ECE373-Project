@@ -20,10 +20,10 @@ public class ResolutionPanel extends JPanel {
 	private JTextField txtShipDamage;
 	
 	
-	private JTextField usedField1;
-	private JTextField recoveredField2;
-	private JTextField crewLostField3;
-	private JTextField shipDamageField4;
+	private JTextField usedField;
+	private JTextField recoveredField;
+	private JTextField crewLostField;
+	private JTextField shipDamageField;
 	
 	protected boolean Continue;
 	private boolean ResolutionActive;
@@ -51,7 +51,7 @@ public class ResolutionPanel extends JPanel {
 		ResultField.setText("Resolved!");
 		ResultField.setFont(new Font("Slider", Font.PLAIN, 44));
 		ResultField.setOpaque(false);
-		ResultField.setBounds(545, 137, 240, 96);
+		ResultField.setBounds(545, 137, 280, 96);
 		add(ResultField);
 		ResultField.setColumns(10);
 		
@@ -99,49 +99,49 @@ public class ResolutionPanel extends JPanel {
 		txtResourcesRecovered.setBounds(324, 429, 238, 32);
 		add(txtResourcesRecovered);
 		
-		usedField1 = new JTextField();
-		usedField1.setText("0");
-		usedField1.setOpaque(false);
-		usedField1.setForeground(Color.CYAN);
-		usedField1.setFont(new Font("Slider", Font.PLAIN, 22));
-		usedField1.setEditable(false);
-		usedField1.setColumns(10);
-		usedField1.setBorder(null);
-		usedField1.setBounds(635, 386, 238, 32);
-		add(usedField1);
+		usedField = new JTextField();
+		usedField.setText("0");
+		usedField.setOpaque(false);
+		usedField.setForeground(Color.CYAN);
+		usedField.setFont(new Font("Slider", Font.PLAIN, 22));
+		usedField.setEditable(false);
+		usedField.setColumns(10);
+		usedField.setBorder(null);
+		usedField.setBounds(635, 386, 238, 32);
+		add(usedField);
 		
-		recoveredField2 = new JTextField();
-		recoveredField2.setText("0");
-		recoveredField2.setOpaque(false);
-		recoveredField2.setForeground(Color.CYAN);
-		recoveredField2.setFont(new Font("Slider", Font.PLAIN, 22));
-		recoveredField2.setEditable(false);
-		recoveredField2.setColumns(10);
-		recoveredField2.setBorder(null);
-		recoveredField2.setBounds(635, 429, 238, 32);
-		add(recoveredField2);
+		recoveredField = new JTextField();
+		recoveredField.setText("0");
+		recoveredField.setOpaque(false);
+		recoveredField.setForeground(Color.CYAN);
+		recoveredField.setFont(new Font("Slider", Font.PLAIN, 22));
+		recoveredField.setEditable(false);
+		recoveredField.setColumns(10);
+		recoveredField.setBorder(null);
+		recoveredField.setBounds(635, 429, 238, 32);
+		add(recoveredField);
 		
-		crewLostField3 = new JTextField();
-		crewLostField3.setText("0");
-		crewLostField3.setOpaque(false);
-		crewLostField3.setForeground(Color.CYAN);
-		crewLostField3.setFont(new Font("Slider", Font.PLAIN, 22));
-		crewLostField3.setEditable(false);
-		crewLostField3.setColumns(10);
-		crewLostField3.setBorder(null);
-		crewLostField3.setBounds(635, 472, 238, 32);
-		add(crewLostField3);
+		crewLostField = new JTextField();
+		crewLostField.setText("0");
+		crewLostField.setOpaque(false);
+		crewLostField.setForeground(Color.CYAN);
+		crewLostField.setFont(new Font("Slider", Font.PLAIN, 22));
+		crewLostField.setEditable(false);
+		crewLostField.setColumns(10);
+		crewLostField.setBorder(null);
+		crewLostField.setBounds(635, 472, 238, 32);
+		add(crewLostField);
 		
-		shipDamageField4 = new JTextField();
-		shipDamageField4.setText("0");
-		shipDamageField4.setOpaque(false);
-		shipDamageField4.setForeground(Color.CYAN);
-		shipDamageField4.setFont(new Font("Slider", Font.PLAIN, 22));
-		shipDamageField4.setEditable(false);
-		shipDamageField4.setColumns(10);
-		shipDamageField4.setBorder(null);
-		shipDamageField4.setBounds(635, 515, 238, 32);
-		add(shipDamageField4);
+		shipDamageField = new JTextField();
+		shipDamageField.setText("0");
+		shipDamageField.setOpaque(false);
+		shipDamageField.setForeground(Color.CYAN);
+		shipDamageField.setFont(new Font("Slider", Font.PLAIN, 22));
+		shipDamageField.setEditable(false);
+		shipDamageField.setColumns(10);
+		shipDamageField.setBorder(null);
+		shipDamageField.setBounds(635, 515, 238, 32);
+		add(shipDamageField);
 		
 		JButton btnNewButton = new JButton("Continue");
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -180,12 +180,19 @@ public class ResolutionPanel extends JPanel {
 		if(Outcome){
 			ResultField.setForeground(Color.GREEN);
 			ResultField.setText("Resolved!");
-			usedField1.setText(String.valueOf(cost) +" "+type);
+			usedField.setText(String.valueOf(cost)    +" "+ type);
+			recoveredField.setText(String.valueOf(0)  +" "+ "n/a");
+			crewLostField.setText(String.valueOf(0)   +" "+ "none");
+			shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
 			
 		}else{
 			ResultField.setForeground(Color.RED);
 			ResultField.setText("Unresolved!");
-			usedField1.setText(String.valueOf(cost) +" "+type);
+			usedField.setText(String.valueOf(0) 	  +" "+ type);
+			recoveredField.setText(String.valueOf(0)  +" "+ "n/a");
+			crewLostField.setText(String.valueOf(0)   +" "+ "none");
+			shipDamageField.setText(String.valueOf(1) +" "+ "sustained");
+			
 		}
 		//Panel configured can be displayed now
 		setVisible(true);

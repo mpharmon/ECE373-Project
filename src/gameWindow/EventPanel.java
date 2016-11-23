@@ -3,6 +3,8 @@ package gameWindow;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import edu.arizona.ece373.InterplanetaryPioneers.Model.EventPool;
+import edu.arizona.ece373.InterplanetaryPioneers.Model.Person;
 import gameExecution.GameData;
 
 import javax.swing.JCheckBoxMenuItem;
@@ -28,10 +30,12 @@ public class EventPanel extends JPanel {
 	private int Resolution;
 	private boolean Penalty;
 	private int penaltyType;
+	private int skillType;
 	private int Cost;
 	private double Chance;
 	private boolean event;
 	private boolean Outcome;
+	protected EventPool eventPool;
 	
 	private final static int Low = 1;
 	private final static int Moderate = 2;
@@ -58,7 +62,7 @@ public class EventPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public EventPanel(int select) {
+	public EventPanel() {
 		setLayout(null);
 		
 		
@@ -135,8 +139,8 @@ public class EventPanel extends JPanel {
 		lblBackground.setBounds(0, 0, 1280, 720);
 		add(lblBackground);
 		
-		setEventPanel(0);
 		setVisible(false);
+		initEventData();
 	}
 	
 	public void initEventData(){
@@ -148,9 +152,12 @@ public class EventPanel extends JPanel {
 		setChance(0.50);      //  standard 50% success
 		setOutcome(true);       //  Encounter Resolved 
 		EventActive = false;
+		setSkillType(Person.none);
+		eventPool = new EventPool();
+		eventPool.initEventPool();
 	}
 	
-	public void setEventData(int severity, boolean penalty, int type, int cost, double chance){
+	public void setEventData(int severity, boolean penalty, int type, int cost, double chance, int skillType){
 		Severity = severity;		
 		setResolution(1); 	    // Option A default
 		setPenalty(penalty);    
@@ -158,15 +165,18 @@ public class EventPanel extends JPanel {
 		setCost(cost);         
 		setChance(chance);      
 		setOutcome(true);      // default outcome 
+		setSkillType(skillType);
 	}
 	
-	public void setEventPanel(int select){
+	public void setEventPanel(int select, GameData gameData){
 		switch (select) {
 			case 0:
 				//Set color based off severity
 				lblTitle.setForeground(new Color(0, 255, 255));
-				//Event data set
-				setEventData(Low, true, GameData.parts, 25, 0.50);
+				//Event data configuration
+				setEventData(Low, true, GameData.parts, 25, 0.50, Person.engineer);
+				//Check Resources
+				eventResourceCheck(gameData);
 				//Set Event info
 				eventInfo.setText("The ship is experiencing minor power malfunctions. Currently the severity is low. You can resolve the issue\n "
 						+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
@@ -182,22 +192,65 @@ public class EventPanel extends JPanel {
 				super.repaint();
 				break;
 			case 1:
+				//Set color based off severity
+				lblTitle.setForeground(Color.YELLOW);
+				//Event data set
+				setEventData(Moderate, true, GameData.water, 15, 0.35, Person.scientist);
+				//Check Resources
+				eventResourceCheck(gameData);
+				//Set Event info
+				eventInfo.setText("There is a fire in the cargo area. The fire must be put out to avoid ship damage. You can resolve the issue\n "
+						+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
+				//Set option text
+				rdbtnOption1.setText("[Success chance "+ Chance*100 +"%] Attempt to resolve fire youself.");
+				rdbtnOption2.setText("["+ String.valueOf(Cost - 15) + " "+ getTypeString(penaltyType) +"] Assign a Scientist to fix the problem. The fire will be resolved at no cost to resources.");
+				rdbtnOption3.setText("[0 - 15 "+ getTypeString(penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more water.");
+				rdbtnOption4.setText("You hope nothing will go wrong and ignore the fire.");
 				
+				lblEventImage.setIcon(new ImageIcon(EventPanel.class.getResource("/images/fire.png")));
+				lblEventImage.setBounds(440, 75, 453, 350);
 				break;
-			case 2:
-				
+			default:
+				//Set color based off severity
+				lblTitle.setForeground(new Color(0, 255, 255));
+				//Event data configuration
+				setEventData(Low, true, GameData.parts, 25, 0.50, Person.engineer);
+				//Check Resources
+				eventResourceCheck(gameData);
+				//Set option text
+				rdbtnOption1.setText("[Success chance "+ Chance*100 +"%] Attempt to resolve power outtage youself.");
+				rdbtnOption2.setText("["+ String.valueOf(Cost - 15) + " "+ getTypeString(penaltyType) +"] Assign an Engineer to fix the problem. The power outtage will be resolved at a minimal cost to resources.");
+				rdbtnOption3.setText("[5 - 25 "+ getTypeString(penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more parts.");
+				rdbtnOption4.setText("The severity of the malfunction is low. You decide to ignore the problem for now.");
 				break;	
 		
 		}
 	}
 	
 	//Displays the specified Event panel encounter
-	public void displayEventEncounter(int select){
+	public void displayEventEncounter(GameData gameData){
 		
 		EventActive = true;
-		setEventPanel(select);
+		setEventPanel(randomEvent(2), gameData);
 		super.setVisible(true);
 		
+	}
+	//Returns a random event id (int) between 0 and numEvents
+	public int randomEvent(int numEvents){
+		Double temp;
+		
+		temp = new Double((Math.random() * (numEvents)));
+		
+		return temp.intValue();
+	}
+	
+	public void eventResourceCheck(GameData gameData){
+		//Assume sufficient resources display all options
+		rdbtnOption2.setEnabled(true);
+		rdbtnOption3.setEnabled(true);
+		//Check for sufficient resources
+		if(gameData.getResource(penaltyType) < (Cost - 15)) rdbtnOption2.setEnabled(false);
+		if(gameData.getResource(penaltyType) < (Cost)) 		rdbtnOption3.setEnabled(false);
 	}
 	//Resolves the event window and updates all relevant data of encounter
 	private void determineOutcome(){
@@ -405,5 +458,13 @@ public class EventPanel extends JPanel {
 
 	public void setEventActive(boolean eventActive) {
 		EventActive = eventActive;
+	}
+
+	public int getSkillType() {
+		return skillType;
+	}
+
+	public void setSkillType(int skillType) {
+		this.skillType = skillType;
 	}
 }

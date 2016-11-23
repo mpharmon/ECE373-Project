@@ -218,5 +218,19 @@ public class GameData {
 			Parts = Parts + diff;
 		}
 	}
-
+	public int getResource(int type){
+		Double temp;
+		if(type == 1){
+			temp = new Double(Fuel);
+		}else if(type == 2){
+			temp = new Double(Food);
+		}else if(type == 3){
+			temp = new Double(Water);
+		}else if(type == 4){
+			temp = new Double(Parts);
+		}else{
+			return 0;
+		}
+		return temp.intValue();
+	}
 }

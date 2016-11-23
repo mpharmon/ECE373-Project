@@ -31,9 +31,4 @@ public class Journey {
 		return Journey.difficulty;
 	}
 
-	public static void buildEvents() {
-		Journey.events.add(new Waypoint("Earth", "Planet Earth", true));
-		// TODO - Add Events
-	}
-
 }

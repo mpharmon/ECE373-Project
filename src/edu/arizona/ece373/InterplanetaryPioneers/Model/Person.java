@@ -12,11 +12,12 @@ public class Person {
 	public static final int injured = 2;
 	public static final int nominal = 3;
 	//Skill definitions
+	public static final int none  = 	0; 
 	public static final int pilot = 	1; 
-	public static final int engineer = 2;
-	public static final int scientist= 3;
+	public static final int engineer =  2;
+	public static final int scientist=  3;
 	public static final int doctor = 	4;
-	public static final int botanist = 5; 
+	public static final int botanist =  5; 
 	
 	public Person(){
 		name = "Unknown";

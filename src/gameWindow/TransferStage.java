@@ -97,12 +97,13 @@ public class TransferStage extends JFrame {
 	SongPath sp = new SongPath();
 	CustomPlayer player = new CustomPlayer();
 	
-	private JLabel crewSkill1; private JLabel crewName1;
-	private JLabel crewSkill2; private JLabel crewName2;
-	private JLabel crewSkill3; private JLabel crewName3;
-	private JLabel crewSkill4; private JLabel crewName4;
-	private JLabel crewSkill5; private JLabel crewName5;
-	private JLabel shipIntegrity;
+	private JLabel crewSkill1; private JLabel crewName1; private JLabel CrewIcon1;
+	private JLabel crewSkill2; private JLabel crewName2; private JLabel CrewIcon2;
+	private JLabel crewSkill3; private JLabel crewName3; private JLabel CrewIcon3;
+	private JLabel crewSkill4; private JLabel crewName4; private JLabel CrewIcon4;
+	private JLabel crewSkill5; private JLabel crewName5; private JLabel CrewIcon5;
+	
+	private JLabel shipIcon;
 	private JLabel hullStatus;
 	
 	/**
@@ -296,27 +297,27 @@ public class TransferStage extends JFrame {
 		managerPanel.setVisible(false);
 		managerPanel.setLayout(null);
 		
-		JLabel CrewIcon1 = new JLabel("");
+		CrewIcon1 = new JLabel("");
 		CrewIcon1.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
 		CrewIcon1.setBounds(1003, 16, 58, 57);
 		managerPanel.add(CrewIcon1);
 		
-		JLabel CrewIcon2 = new JLabel("");
+		CrewIcon2 = new JLabel("");
 		CrewIcon2.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
 		CrewIcon2.setBounds(935, 16, 58, 57);
 		managerPanel.add(CrewIcon2);
 		
-		JLabel CrewIcon3 = new JLabel("");
+		CrewIcon3 = new JLabel("");
 		CrewIcon3.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
 		CrewIcon3.setBounds(1071, 16, 58, 57);
 		managerPanel.add(CrewIcon3);
 		
-		JLabel CrewIcon4 = new JLabel("");
+		CrewIcon4 = new JLabel("");
 		CrewIcon4.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
 		CrewIcon4.setBounds(867, 16, 58, 57);
 		managerPanel.add(CrewIcon4);
 		
-		JLabel CrewIcon5 = new JLabel("");
+		CrewIcon5 = new JLabel("");
 		CrewIcon5.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
 		CrewIcon5.setBounds(1139, 16, 58, 57);
 		managerPanel.add(CrewIcon5);
@@ -425,10 +426,10 @@ public class TransferStage extends JFrame {
 		crewSkill5.setBounds(1152, 92, 68, 14);
 		managerPanel.add(crewSkill5);
 		
-		shipIntegrity = new JLabel("");
-		shipIntegrity.setIcon(new ImageIcon(TransferStage.class.getResource("/images/spaceshipNominal.png")));
-		shipIntegrity.setBounds(1112, 127, 128, 128);
-		managerPanel.add(shipIntegrity);
+		shipIcon = new JLabel("");
+		shipIcon.setIcon(new ImageIcon(TransferStage.class.getResource("/images/spaceshipNominal.png")));
+		shipIcon.setBounds(1112, 127, 128, 128);
+		managerPanel.add(shipIcon);
 		
 		hullStatus = new JLabel("Nominal");
 		hullStatus.setForeground(Color.CYAN);
@@ -459,7 +460,7 @@ public class TransferStage extends JFrame {
 	}
 	
 	private void initEventPanel(){
-		setEventPanel(new EventPanel(0));
+		setEventPanel(new EventPanel());
 		getEventPanel().setLocation(0, 0);
 		getEventPanel().setOpaque(false);
 		getEventPanel().setSize(1280, 692);
@@ -496,7 +497,7 @@ public class TransferStage extends JFrame {
 				event = (Math.random() < EVENT_CHANCE);
 				EventTimer.setUpdate(false);
 				if(event) { 
-					getEventPanel().displayEventEncounter(0);
+					getEventPanel().displayEventEncounter(gameData);
 					getResultPanel().setResolutionActive(true);
 					player.setPath(sp.getPath(22));
 					player.play(-1);
