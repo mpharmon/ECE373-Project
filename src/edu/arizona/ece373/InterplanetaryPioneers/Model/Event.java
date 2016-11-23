@@ -9,26 +9,26 @@ import javax.swing.ImageIcon;
 import gameExecution.GameData;
 
 public class Event {
-	protected String  	title;
-	protected int 	  	severity;
-	protected boolean 	Penalty;
-	protected int 	  	penaltyType;
-	protected int	  	cost;
-	protected double  	chance;
-	protected int 	  	skillType;
-	protected String  	description;
-	protected String  	option1;
-	protected String  	option2;
-	protected String  	option3;
-	protected String  	option4;
-	protected String  	gameOver;
-	protected String  	iconLocation;
-	protected Color	  	titleColor;
-	protected String  	eventText;
-	protected Rectangle iconBounds;
-	protected boolean Injury;		 //Crew Injury flag
-	protected boolean Damage;        //Ship Damage flag
-	protected boolean OverCondition; //Game over flag
+	private String  	title;
+	private int 	  	severity;
+	private boolean 	Penalty;
+	private int 	  	penaltyType;
+	private int	  		cost;
+	private double  	chance;
+	private int 	  	skillType;
+	private String  	description;
+	private String  	option1;
+	private String  	option2;
+	private String  	option3;
+	private String  	option4;
+	private String  	gameOver;
+	private String  	iconLocation;
+	private Color	  	titleColor;
+	private String  	eventText;
+	private Rectangle iconBounds;
+	private boolean Injury;		 //Crew Injury flag
+	private boolean Damage;        //Ship Damage flag
+	private boolean OverCondition; //Game over flag
 
 	//Event severity definitions
 	public final static int Low = 1;
@@ -39,38 +39,38 @@ public class Event {
 	// Constructor(s)
 	public Event() {
 		title = "Event Ecounter";
-		severity = Low;
-		Penalty = false;
+		setSeverity(Low);
+		setPenalty(false);
 		setPenaltyType(GameData.parts);
 		cost = 0;
-		chance = 0.50;
-		skillType = Person.none;
+		setChance(0.50);
+		setSkillType(Person.none);
 		description = "Event info goes here...";
 		option1 = "Resolve yourself";
 		option2 = "Assign crew member with appropiate skill...";
 		option3 = "Assign vip to resolve issue...";
 		option4 = "Ignore problem...";
-		gameOver = "All critical events must have a game over description";
+		setGameOver("All critical events must have a game over description");
 		this.titleColor = new Color(0,255,255);
 	}
 	//Custom Constructor
 	public Event(int severity, boolean penalty, int penaltyType, int cost, double chance, int skillType, boolean injury, boolean damage) {
 		title = "Event Ecounter";
-		this.severity = severity;
-		this.Penalty = penalty;
+		this.setSeverity(severity);
+		this.setPenalty(penalty);
 		this.setPenaltyType(penaltyType);
 		this.cost = cost;
-		this.chance = chance;
-		this.Injury = injury;
-		this.skillType = skillType;
+		this.setChance(chance);
+		this.setInjury(injury);
+		this.setSkillType(skillType);
 		description = "Event info goes here...";
 		option1 = "Resolve yourself";
 		option2 = "Assign crew member with appropiate skill...";
 		option3 = "Assign vip to resolve issue...";
 		option4 = "Ignore problem...";
-		gameOver = "All critical events must have a game over description";
-		if(severity == Critical) OverCondition = true;
-		else  OverCondition = false;
+		setGameOver("All critical events must have a game over description");
+		if(severity == Critical) setOverCondition(true);
+		else  setOverCondition(false);
 	}
 
 	// Get'ers and Set'ers
@@ -123,5 +123,53 @@ public class Event {
 	}
 	public void setPenaltyType(int penaltyType) {
 		this.penaltyType = penaltyType;
+	}
+	public int getSeverity() {
+		return severity;
+	}
+	public void setSeverity(int severity) {
+		this.severity = severity;
+	}
+	public boolean isPenalty() {
+		return Penalty;
+	}
+	public void setPenalty(boolean penalty) {
+		Penalty = penalty;
+	}
+	public double getChance() {
+		return chance;
+	}
+	public void setChance(double chance) {
+		this.chance = chance;
+	}
+	public int getSkillType() {
+		return skillType;
+	}
+	public void setSkillType(int skillType) {
+		this.skillType = skillType;
+	}
+	public String getGameOver() {
+		return gameOver;
+	}
+	public void setGameOver(String gameOver) {
+		this.gameOver = gameOver;
+	}
+	public boolean isInjury() {
+		return Injury;
+	}
+	public void setInjury(boolean injury) {
+		Injury = injury;
+	}
+	public boolean isDamage() {
+		return Damage;
+	}
+	public void setDamage(boolean damage) {
+		Damage = damage;
+	}
+	public boolean isOverCondition() {
+		return OverCondition;
+	}
+	public void setOverCondition(boolean overCondition) {
+		OverCondition = overCondition;
 	}
 }
