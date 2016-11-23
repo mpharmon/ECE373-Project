@@ -213,6 +213,7 @@ public class EventPanel extends JPanel {
 				lblEventImage.setBounds(440, 75, 453, 350);
 				break;
 			default:
+				currentEvent = EventPool.getEvent(0);
 				//Set color based off severity
 				lblTitle.setForeground(new Color(0, 255, 255));
 				//Event data configuration

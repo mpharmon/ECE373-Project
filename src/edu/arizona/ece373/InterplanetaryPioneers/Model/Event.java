@@ -69,7 +69,7 @@ public class Event {
 		option3 = "Assign vip to resolve issue...";
 		option4 = "Ignore problem...";
 		gameOver = "All critical events must have a game over description";
-		if(severity == 4) OverCondition = true;
+		if(severity == Critical) OverCondition = true;
 		else  OverCondition = false;
 	}
 
