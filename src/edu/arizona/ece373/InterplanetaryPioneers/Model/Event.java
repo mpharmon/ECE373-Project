@@ -118,14 +118,10 @@ public class Event {
 		else if(type == GameData.parts) return "Spare Parts";
 		else return "ERROR";
 	}
-<<<<<<< Updated upstream
 	public int getPenaltyType() {
 		return penaltyType;
 	}
 	public void setPenaltyType(int penaltyType) {
 		this.penaltyType = penaltyType;
 	}
-	
-=======
->>>>>>> Stashed changes
 }
