@@ -6,6 +6,9 @@ import javax.swing.ImageIcon;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
+
+import edu.arizona.ece373.InterplanetaryPioneers.Model.Event;
+
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -172,7 +175,7 @@ public class ResolutionPanel extends JPanel {
 
 	}
 	
-	public boolean DisplayResolution(boolean Outcome, int resolution, int cost, String type ){
+	public boolean DisplayResolution(boolean Outcome, int resolution, int cost, Event event ){
 		Continue = false;
 		dataReady = false;
 		setResolutionActive(true);
@@ -180,7 +183,7 @@ public class ResolutionPanel extends JPanel {
 		if(Outcome){
 			ResultField.setForeground(Color.GREEN);
 			ResultField.setText("Resolved!");
-			usedField.setText(String.valueOf(cost)    +" "+ type);
+			usedField.setText(String.valueOf(cost)    +" "+ Event.getTypeString(event.getPenaltyType()));
 			recoveredField.setText(String.valueOf(0)  +" "+ "n/a");
 			crewLostField.setText(String.valueOf(0)   +" "+ "none");
 			shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
@@ -188,7 +191,7 @@ public class ResolutionPanel extends JPanel {
 		}else{
 			ResultField.setForeground(Color.RED);
 			ResultField.setText("Unresolved!");
-			usedField.setText(String.valueOf(0) 	  +" "+ type);
+			usedField.setText(String.valueOf(0) 	  +" "+ Event.getTypeString(event.getPenaltyType()));
 			recoveredField.setText(String.valueOf(0)  +" "+ "n/a");
 			crewLostField.setText(String.valueOf(0)   +" "+ "none");
 			shipDamageField.setText(String.valueOf(1) +" "+ "sustained");

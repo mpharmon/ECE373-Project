@@ -508,7 +508,7 @@ public class TransferStage extends JFrame {
 			if(!eventPanel.isEventActive()) resultPanel.DisplayResolution(eventPanel.isOutcome(),
 																		  eventPanel.getResolution(),
 																		  eventPanel.getCost(),
-																		  eventPanel.getTypeString(true));
+																		  eventPanel.getEvent());
 			EventTimer.setUpdate(false);
 		}
 		//Update GameData

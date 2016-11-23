@@ -31,7 +31,7 @@ public class GameDriver implements Runnable {
 		SongPath sp = new SongPath();
 		CustomPlayer player = new CustomPlayer();
 			
-		player.setPath(sp.getPath(10));
+		player.setPath(sp.getPath(9));
 		if(player.play(-1)) System.out.println("Playing Intro");
 		else System.out.println("Exit");
 		

@@ -3,6 +3,7 @@ package gameWindow;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import edu.arizona.ece373.InterplanetaryPioneers.Model.Event;
 import edu.arizona.ece373.InterplanetaryPioneers.Model.EventPool;
 import edu.arizona.ece373.InterplanetaryPioneers.Model.Person;
 import gameExecution.GameData;
@@ -35,12 +36,12 @@ public class EventPanel extends JPanel {
 	private double Chance;
 	private boolean event;
 	private boolean Outcome;
-	protected EventPool eventPool;
+	//protected EventPool eventPool;
+	private Event currentEvent;
 	
 	private final static int Low = 1;
 	private final static int Moderate = 2;
-	private final static int High = 3;
-	private final static int Critical = 4;
+	private final static int Critical = 3;
 	
 	private JButton btnConfirm; 
 	
@@ -153,8 +154,7 @@ public class EventPanel extends JPanel {
 		setOutcome(true);       //  Encounter Resolved 
 		EventActive = false;
 		setSkillType(Person.none);
-		eventPool = new EventPool();
-		eventPool.initEventPool();
+		EventPool.initEventPool();
 	}
 	
 	public void setEventData(int severity, boolean penalty, int type, int cost, double chance, int skillType){
@@ -170,7 +170,8 @@ public class EventPanel extends JPanel {
 	
 	public void setEventPanel(int select, GameData gameData){
 		switch (select) {
-			case 0:
+			case 0://Event ID
+				currentEvent = EventPool.getEvent(0);
 				//Set color based off severity
 				lblTitle.setForeground(new Color(0, 255, 255));
 				//Event data configuration
@@ -192,6 +193,7 @@ public class EventPanel extends JPanel {
 				super.repaint();
 				break;
 			case 1:
+				currentEvent = EventPool.getEvent(1);
 				//Set color based off severity
 				lblTitle.setForeground(Color.YELLOW);
 				//Event data set
@@ -256,6 +258,7 @@ public class EventPanel extends JPanel {
 	private void determineOutcome(){
 		
 		Resolution = getResolution();
+		event = false;
 		
 		switch (Severity){
 			case Low:
@@ -271,8 +274,8 @@ public class EventPanel extends JPanel {
 						Cost = randomCost(Cost, 0.50);
 						Outcome = true;
 					}else{
-						event = (Math.random() < (Chance - 10));
-						Outcome = event;
+						//event = (Math.random() < (Chance - 10));
+						Outcome = false;
 					}
 				}else{
 					Cost = 0;
@@ -293,30 +296,8 @@ public class EventPanel extends JPanel {
 						Cost = randomCost(Cost, 0.50);
 						Outcome = true;
 					}else{
-						event = (Math.random() < (Chance - 15));
-						Outcome = event;
-					}
-				}else{
-					Cost = 0;
-					Outcome = true;
-				}
-				EventActive = false;
-				break;
-			case High:
-				if(Penalty){
-					if(Resolution == 1){
-						Cost = 0;
-						event = (Math.random() < Chance);
-						Outcome = event;
-					}else if(Resolution == 2){
-						Cost = Cost - 15;
-						Outcome = true;
-					}else if(Resolution == 3){
-						Cost = randomCost(Cost, 0.50);
-						Outcome = true;
-					}else{
-						event = (Math.random() < (Chance - 20));
-						Outcome = event;
+						//event = (Math.random() < (Chance - 15));
+						Outcome = false;
 					}
 				}else{
 					Cost = 0;
@@ -466,5 +447,9 @@ public class EventPanel extends JPanel {
 
 	public void setSkillType(int skillType) {
 		this.skillType = skillType;
+	}
+	
+	public Event getEvent(){
+		return currentEvent;
 	}
 }
