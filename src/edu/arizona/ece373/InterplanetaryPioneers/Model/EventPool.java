@@ -10,11 +10,11 @@ public class EventPool {
 	
 	public static void initEventPool(){
 		events = new ArrayList<Event>();
-        
+        Event newEvent = null;
         /*
          *	Event #1 - Power Malfunction
          */
-		newEvent = new Event(Event.Low, true, GameData.parts, 25, 0.50, Person.engineer);
+		newEvent = new Event(Event.Low, true, GameData.parts, 25, 0.50, Person.engineer, true, false);
 		//Set event text
 		newEvent.setDescription("The ship is experiencing minor power malfunctions. Currently the severity is low. You can resolve the issue\n "
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
@@ -38,7 +38,7 @@ public class EventPool {
 		event2.option3 = "[0 - 15 "+ Event.getTypeString(event2.getPenaltyType()) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more water.";
 		event2.option4 = "You hope nothing will go wrong and ignore the fire.";
 
-		newEvent = new Event(Event.Moderate, true, GameData.water, 15, 0.35, Person.scientist);
+		newEvent = new Event(Event.Moderate, true, GameData.water, 15, 0.35, Person.scientist, true, false);
 		newEvent.setTitle("FIRE!");
 		newEvent.setDescription("There is a fire in the cargo area. The fire must be put out to avoid ship damage. You can resolve the issue\n "
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
@@ -53,11 +53,15 @@ public class EventPool {
         /*
          *	Event #3 - 
          */
-		newEvent = new Event(Event.Moderate, true, GameData.water, 15, 0.35, Person.engineer);
+		newEvent = new Event(Event.Moderate, true, GameData.water, 15, 0.35, Person.engineer, true, false);
 		newEvent.setDescription("");
 	}
     
     public static Event getRandomEvent(){
     	return EventPool.events.get(rand.nextInt((EventPool.events.size() - 1)));
+    }
+    
+    public static Event getEvent(int index){
+    	return EventPool.events.get(index);
     }
 }
