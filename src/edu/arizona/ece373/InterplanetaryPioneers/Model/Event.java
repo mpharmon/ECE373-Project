@@ -62,13 +62,14 @@ public class Event {
 	}
 	//Custom Constructor
 	public Event(int severity, boolean penalty, int penaltyType, int cost, double chance, int skillType, boolean injury, boolean damage) {
-		title = "Event Ecounter";
+		title = "Event Encounter";
 		this.setSeverity(severity);
 		this.setPenalty(penalty);
 		this.setPenaltyType(penaltyType);
 		this.setCost(cost);
 		this.chance = chance;
-		this.setInjury(injury);
+		this.Injury = injury;
+		this.Damage = damage;
 		this.setSkillType(skillType);
 		titleColor = new Color(0, 255, 255); //default color
 		description = "Event info goes here...";

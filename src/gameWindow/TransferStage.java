@@ -83,7 +83,7 @@ public class TransferStage extends JFrame {
 	
 	private EventPanel eventPanel;
 	private boolean event;
-	private double EVENT_CHANCE = 0.10;
+	private double EVENT_CHANCE = 0.20;
 	
 	private ResolutionPanel resultPanel;
 	
@@ -295,11 +295,12 @@ public class TransferStage extends JFrame {
 	}
 	
 	private void initResultPanel(){
-		setResultPanel(new ResolutionPanel());
-		getResultPanel().setVisible(false);
-		getResultPanel().setLocation(0,0);
-		getResultPanel().setSize(1280,692);
+		resultPanel = new ResolutionPanel();
+		resultPanel.setVisible(false);
+		resultPanel.setLocation(0,0);
+		resultPanel.setSize(1280,692);
 		getContentPane().add(getResultPanel());
+		resultPanel.setPenaltyUpdated(false);
 		repaint();
 	}
 	

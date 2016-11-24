@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import edu.arizona.ece373.InterplanetaryPioneers.Model.Person;
+import edu.arizona.ece373.InterplanetaryPioneers.Model.Spaceship;
 import gameExecution.GameData;
 
 public class ManagerPanel extends JPanel {
@@ -219,6 +220,7 @@ public class ManagerPanel extends JPanel {
 		for(int i = 0; i< gameData.getCrew().size(); i++){
 			updateCrewIcon(gameData.getCrew().get(i), i);
 		}
+		 updateShipIcon(gameData.getSpacecraft().getHull());
 	}
 	
 	public void updateCrewIcon(Person crewMember, int id){
@@ -248,6 +250,26 @@ public class ManagerPanel extends JPanel {
 				return CrewIcon5;
 			default:
 				return CrewIcon1;
+		}
+	}
+	
+	public void updateShipIcon(int hull){
+		if(hull >= Spaceship.nominal){
+			shipIcon.setIcon(new ImageIcon(TransferStage.class.getResource("/images/spaceshipNominal.png")));
+			hullStatus.setText("Nominal");
+			hullStatus.setForeground(Color.CYAN);
+		}else if(hull >= Spaceship.damaged){
+			shipIcon.setIcon(new ImageIcon(TransferStage.class.getResource("/images/spaceshipDamaged.png")));
+			hullStatus.setText("Damaged");
+			hullStatus.setForeground(Color.YELLOW);
+		}else if(hull >= Spaceship.critical){
+			shipIcon.setIcon(new ImageIcon(TransferStage.class.getResource("/images/spaceshipCritical.png")));
+			hullStatus.setText("Critical");
+			hullStatus.setForeground(Color.RED);
+		}else{
+			shipIcon.setIcon(new ImageIcon(TransferStage.class.getResource("/images/spaceshipDestroyed.png")));
+			hullStatus.setText("Destroyed");
+			hullStatus.setForeground(Color.GRAY);
 		}
 	}
 

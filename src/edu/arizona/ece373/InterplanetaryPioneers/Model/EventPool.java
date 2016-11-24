@@ -16,7 +16,7 @@ public class EventPool {
         /*
          *	Event #1 - Power Malfunction
          */
-		newEvent = new Event(Event.Low, true, GameData.parts, 25, 0.50, Person.engineer, true, false);
+		newEvent = new Event(Event.Low, true, GameData.parts, 25, 0.50, Person.engineer, false, true);
 		//Set event text
 		newEvent.setDescription("The ship is experiencing minor power malfunctions. Currently the severity is low. You can resolve the issue\n "
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
@@ -50,8 +50,22 @@ public class EventPool {
         EventPool.events.add(newEvent);
         
         /*
-         *	Event #3 - 
+         *	Event #3 - Infectious Agent 1
          */
+    	newEvent = new Event(Event.Moderate, true, GameData.water, 20, 0.35, Person.scientist, true, false);
+		newEvent.titleColor = Color.YELLOW;
+		newEvent.setDescription("There appears to be an infectious agent on board. The infectious agent must be contained before it infects someone. You can resolve the issue\n "
+							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
+		//Set option text
+		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Attempt to eliminate the infectious agent youself.");
+		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " "+ Event.getTypeString(newEvent.getPenaltyType()) +"] Assign a Doctor to eradicate the agent. The infectious agent will be contained at minimal cost.");
+		newEvent.setOption3("[0 - "+ newEvent.getCost()+" " + Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more water.");
+		newEvent.setOption4("You pretend like everything is perfectly fine and hope no one gets infected.");
+		//Set Icon location
+		newEvent.iconLocation = "/images/infectiousAgent1.jpg";
+		newEvent.setIconBounds(440, 75, 434, 300); 
+		
+        EventPool.events.add(newEvent);
 	}
     
     public static Event getRandomEvent(){

@@ -100,7 +100,7 @@ public class GameData {
 		else return false;
 	}
 	public boolean updateShipDamage(){
-		if(getSpacecraft().hullDamaged(1)) return true;
+		if(spacecraft.hullDamaged(1)) return true;
 		else return false;
 	}
 	

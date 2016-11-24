@@ -173,7 +173,8 @@ public class EventPanel extends JPanel {
 //	
 	public void setEventPanel(GameData gameData){
 		
-		currentEvent = EventPool.getRandomEvent();
+		//currentEvent = EventPool.getRandomEvent();
+		currentEvent = EventPool.getEvent(2);
 		//Set color based off severity
 		lblTitle.setForeground(currentEvent.getTitleColor());
 		//Event data configuration
