@@ -74,5 +74,9 @@ public class Person {
 	public void setHealthStatus(int healthStatus) {
 		health = healthStatus;
 	}
+	public boolean Alive(){
+		if(health > 0) return true;
+		else return false;
+	}
 	
 }

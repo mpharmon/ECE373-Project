@@ -8,6 +8,7 @@ import java.awt.Color;
 import javax.swing.JTextField;
 
 import edu.arizona.ece373.InterplanetaryPioneers.Model.Event;
+import gameExecution.GameData;
 
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
@@ -19,19 +20,21 @@ public class ResolutionPanel extends JPanel {
 	
 	private JTextField txtResourcesUsed;
 	private JTextField txtResourcesRecovered;
+	private JTextField txtCrewInjury;
 	private JTextField txtCrewLost;
 	private JTextField txtShipDamage;
 	
-	
 	private JTextField usedField;
 	private JTextField recoveredField;
+	private JTextField crewInjuryField;
 	private JTextField crewLostField;
 	private JTextField shipDamageField;
 	
 	protected boolean Continue;
 	private boolean ResolutionActive;
 	private boolean dataReady;
-
+	private boolean penaltyUpdated;
+	
 	/**
 	 * Create the panel.
 	 */
@@ -66,8 +69,19 @@ public class ResolutionPanel extends JPanel {
 		txtResourcesUsed.setEditable(false);
 		txtResourcesUsed.setColumns(10);
 		txtResourcesUsed.setBorder(null);
-		txtResourcesUsed.setBounds(324, 386, 238, 32);
+		txtResourcesUsed.setBounds(324, 353, 238, 32);
 		add(txtResourcesUsed);
+		
+		txtCrewInjury = new JTextField();
+		txtCrewInjury.setText("Crew Injury: ");
+		txtCrewInjury.setOpaque(false);
+		txtCrewInjury.setForeground(Color.CYAN);
+		txtCrewInjury.setFont(new Font("Slider", Font.PLAIN, 22));
+		txtCrewInjury.setEditable(false);
+		txtCrewInjury.setColumns(10);
+		txtCrewInjury.setBorder(null);
+		txtCrewInjury.setBounds(324, 439, 238, 32);
+		add(txtCrewInjury);
 		
 		txtCrewLost = new JTextField();
 		txtCrewLost.setText("Crew Lost: ");
@@ -77,7 +91,7 @@ public class ResolutionPanel extends JPanel {
 		txtCrewLost.setEditable(false);
 		txtCrewLost.setColumns(10);
 		txtCrewLost.setBorder(null);
-		txtCrewLost.setBounds(324, 472, 238, 32);
+		txtCrewLost.setBounds(324, 482, 238, 32);
 		add(txtCrewLost);
 		
 		txtShipDamage = new JTextField();
@@ -88,7 +102,7 @@ public class ResolutionPanel extends JPanel {
 		txtShipDamage.setEditable(false);
 		txtShipDamage.setColumns(10);
 		txtShipDamage.setBorder(null);
-		txtShipDamage.setBounds(324, 515, 238, 32);
+		txtShipDamage.setBounds(324, 525, 238, 32);
 		add(txtShipDamage);
 		
 		txtResourcesRecovered = new JTextField();
@@ -99,7 +113,7 @@ public class ResolutionPanel extends JPanel {
 		txtResourcesRecovered.setEditable(false);
 		txtResourcesRecovered.setColumns(10);
 		txtResourcesRecovered.setBorder(null);
-		txtResourcesRecovered.setBounds(324, 429, 238, 32);
+		txtResourcesRecovered.setBounds(324, 396, 238, 32);
 		add(txtResourcesRecovered);
 		
 		usedField = new JTextField();
@@ -110,7 +124,7 @@ public class ResolutionPanel extends JPanel {
 		usedField.setEditable(false);
 		usedField.setColumns(10);
 		usedField.setBorder(null);
-		usedField.setBounds(635, 386, 238, 32);
+		usedField.setBounds(635, 353, 238, 32);
 		add(usedField);
 		
 		recoveredField = new JTextField();
@@ -121,8 +135,19 @@ public class ResolutionPanel extends JPanel {
 		recoveredField.setEditable(false);
 		recoveredField.setColumns(10);
 		recoveredField.setBorder(null);
-		recoveredField.setBounds(635, 429, 238, 32);
+		recoveredField.setBounds(635, 396, 238, 32);
 		add(recoveredField);
+		
+		crewInjuryField = new JTextField();
+		crewInjuryField.setText("0");
+		crewInjuryField.setOpaque(false);
+		crewInjuryField.setForeground(Color.CYAN);
+		crewInjuryField.setFont(new Font("Slider", Font.PLAIN, 22));
+		crewInjuryField.setEditable(false);
+		crewInjuryField.setColumns(10);
+		crewInjuryField.setBorder(null);
+		crewInjuryField.setBounds(635, 439, 238, 32);
+		add(crewInjuryField);
 		
 		crewLostField = new JTextField();
 		crewLostField.setText("0");
@@ -132,7 +157,7 @@ public class ResolutionPanel extends JPanel {
 		crewLostField.setEditable(false);
 		crewLostField.setColumns(10);
 		crewLostField.setBorder(null);
-		crewLostField.setBounds(635, 472, 238, 32);
+		crewLostField.setBounds(635, 482, 238, 32);
 		add(crewLostField);
 		
 		shipDamageField = new JTextField();
@@ -143,7 +168,7 @@ public class ResolutionPanel extends JPanel {
 		shipDamageField.setEditable(false);
 		shipDamageField.setColumns(10);
 		shipDamageField.setBorder(null);
-		shipDamageField.setBounds(635, 515, 238, 32);
+		shipDamageField.setBounds(635, 525, 238, 32);
 		add(shipDamageField);
 		
 		JButton btnNewButton = new JButton("Continue");
@@ -154,6 +179,7 @@ public class ResolutionPanel extends JPanel {
 				dataReady = true;
 				setResolutionActive(false);
 				setVisible(false);
+				penaltyUpdated = false;
 			}
 		});
 		btnNewButton.setBackground(new Color(0, 255, 255));
@@ -165,7 +191,7 @@ public class ResolutionPanel extends JPanel {
 		JLabel lblNewLabel = new JLabel("Summary:");
 		lblNewLabel.setForeground(new Color(0, 255, 255));
 		lblNewLabel.setFont(new Font("Slider", Font.PLAIN, 24));
-		lblNewLabel.setBounds(575, 303, 125, 32);
+		lblNewLabel.setBounds(576, 262, 125, 32);
 		add(lblNewLabel);
 		
 		JLabel lblBackground = new JLabel("");
@@ -175,7 +201,7 @@ public class ResolutionPanel extends JPanel {
 
 	}
 	
-	public boolean DisplayResolution(boolean Outcome, int resolution, int cost, Event event ){
+	public boolean DisplayResolution(boolean Outcome, int resolution, int cost, Event event, GameData gameData ){
 		Continue = false;
 		dataReady = false;
 		setResolutionActive(true);
@@ -183,20 +209,47 @@ public class ResolutionPanel extends JPanel {
 		if(Outcome){
 			ResultField.setForeground(Color.GREEN);
 			ResultField.setText("Resolved!");
-			usedField.setText(String.valueOf(cost)    +" "+ Event.getTypeString(event.getPenaltyType()));
-			recoveredField.setText(String.valueOf(0)  +" "+ "n/a");
-			crewLostField.setText(String.valueOf(0)   +" "+ "none");
-			shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
-			
-		}else{
+			if(event.isPenalty()){
+				usedField.setText(cost    +" "+ Event.getTypeString(event.getPenaltyType()));
+				recoveredField.setText(String.valueOf(0)  +" ");
+				crewInjuryField.setText(String.valueOf(0)   +" ");
+				crewLostField.setText(String.valueOf(0)   +" ");
+				shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
+			}else{
+				usedField.setText(String.valueOf(0)    +" ");
+				recoveredField.setText(cost  +" "+ Event.getTypeString(event.getPenaltyType()));
+				crewInjuryField.setText(String.valueOf(0)   +" "+ "none");
+				crewLostField.setText(String.valueOf(0)   +" "+ "none");
+				shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
+			}	
+		}else if(!penaltyUpdated){
+			penaltyUpdated = true;
 			ResultField.setForeground(Color.RED);
 			ResultField.setText("Unresolved!");
 			usedField.setText(String.valueOf(0) 	  +" "+ Event.getTypeString(event.getPenaltyType()));
-			recoveredField.setText(String.valueOf(0)  +" "+ "n/a");
-			crewLostField.setText(String.valueOf(0)   +" "+ "none");
-			shipDamageField.setText(String.valueOf(1) +" "+ "sustained");
-			
+			recoveredField.setText(String.valueOf(0)  +" ");
+			crewInjuryField.setText(String.valueOf(0)   +" ");
+			if(event.isInjury()){
+				System.out.println("Crew Injury.");
+				shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
+				if(gameData.updateCrewInjury(event)) 
+					crewLostField.setText(String.valueOf(0)   +" ");
+				else{
+					System.out.println("Crew member "+ event.getCrewInjuried() +"lost.");
+					crewLostField.setText(String.valueOf(1)   +" "+ gameData.getCrew().get(event.getCrewInjuried()).getName());
+				}
+				crewInjuryField.setText(String.valueOf(1)   +" "+ gameData.getCrew().get(event.getCrewInjuried()).getName());
+				
+			}else if(event.isDamage()){
+				gameData.updateShipDamage();
+				crewLostField.setText(String.valueOf(0)   +" "+ "none");
+				shipDamageField.setText(String.valueOf(1) +" "+ "sustained");
+				System.out.println("Ship Damaged");
+			}
+			System.out.println("Crew Alive: " + gameData.liveCrew() + "\nShip Integrity: " + gameData.getSpacecraft().getHull());
 		}
+		
+		
 		//Panel configured can be displayed now
 		setVisible(true);
 		
@@ -219,6 +272,12 @@ public class ResolutionPanel extends JPanel {
 	public void setDataReady(boolean dataReady) {
 		this.dataReady = dataReady;
 	}
-	
-	
+
+	public boolean isPenaltyUpdated() {
+		return penaltyUpdated;
+	}
+
+	public void setPenaltyUpdated(boolean penaltyUpdated) {
+		this.penaltyUpdated = penaltyUpdated;
+	}
 }

@@ -3,6 +3,7 @@ package edu.arizona.ece373.InterplanetaryPioneers.Model;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -10,67 +11,81 @@ import gameExecution.GameData;
 
 public class Event {
 	private String  	title;
-	protected int 	  	severity;
-	protected boolean 	Penalty;
+	private int 	  	severity;
+	private boolean 	Penalty;
 	protected int 	  	penaltyType;
-	protected int	  	cost;
+	private int	  		cost;
 	protected double  	chance;
-	protected int 	  	skillType;
+	private int 	  	skillType;
 	protected String  	description;
 	private String  	option1;
 	private String  	option2;
 	private String  	option3;
 	private String  	option4;
-	protected String  	gameOver;
+	protected String  	gameOverInfo;
 	protected String  	iconLocation;
 	protected Color	  	titleColor;
 	protected String  	eventText;
 	protected Rectangle iconBounds;
-	public boolean Injury;		 //Crew Injury flag
-	public boolean Damage;        //Ship Damage flag
-	public boolean OverCondition; //Game over flag
+	private boolean Injury;		 //Crew Injury flag
+	private int crewInjuried;    //Injured crew ID
+	private boolean Damage;        //Ship Damage flag
+	public boolean GAMEOVER; //Game over flag
+	private boolean Outcome; //update upon event resolution
 
 	//Event severity definitions
 	public final static int Low = 1;
 	public final static int Moderate = 2;
-	//public final static int High = 3;
 	public final static int Critical = 3;
-
+	
+	public final static int Option1 = 1;
+	public final static int Option2 = 2;
+	public final static int Option3 = 3;
+	public final static int Option4 = 4;
+	
 	// Constructor(s)
 	public Event() {
 		title = "Event Ecounter";
-		severity = Low;
-		Penalty = false;
+		setSeverity(Low);
+		setPenalty(false);
 		setPenaltyType(GameData.parts);
-		cost = 0;
+		setCost(0);
 		chance = 0.50;
-		skillType = Person.none;
+		setSkillType(Person.none);
 		description = "Event info goes here...";
 		option1 = "Resolve yourself";
 		option2 = "Assign crew member with appropiate skill...";
 		option3 = "Assign vip to resolve issue...";
 		option4 = "Ignore problem...";
-		gameOver = "All critical events must have a game over description";
+		gameOverInfo = "All critical events must have a game over description";
 		this.titleColor = new Color(0,255,255);
 	}
 	//Custom Constructor
 	public Event(int severity, boolean penalty, int penaltyType, int cost, double chance, int skillType, boolean injury, boolean damage) {
 		title = "Event Ecounter";
-		this.severity = severity;
-		this.Penalty = penalty;
+		this.setSeverity(severity);
+		this.setPenalty(penalty);
 		this.setPenaltyType(penaltyType);
-		this.cost = cost;
+		this.setCost(cost);
 		this.chance = chance;
-		this.Injury = injury;
-		this.skillType = skillType;
+		this.setInjury(injury);
+		this.setSkillType(skillType);
+		titleColor = new Color(0, 255, 255); //default color
 		description = "Event info goes here...";
 		option1 = "Resolve yourself";
 		option2 = "Assign crew member with appropiate skill...";
 		option3 = "Assign vip to resolve issue...";
 		option4 = "Ignore problem...";
-		gameOver = "All critical events must have a game over description";
-		if(severity == Critical) OverCondition = true;
-		else  OverCondition = false;
+		gameOverInfo = "All critical events must have a game over description";
+		if(severity == Critical) GAMEOVER = true;
+		else  GAMEOVER = false;
+		Outcome = false;
+	}
+	
+	public int randomCrewInjury(int numAlive){
+		Random rand = new Random();
+		setCrewInjuried(rand.nextInt(numAlive-1));
+		return crewInjuried;
 	}
 
 	// Get'ers and Set'ers
@@ -124,4 +139,53 @@ public class Event {
 	public void setPenaltyType(int penaltyType) {
 		this.penaltyType = penaltyType;
 	}
+	public int getCost() {
+		return cost;
+	}
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+	public boolean isPenalty() {
+		return Penalty;
+	}
+	public void setPenalty(boolean penalty) {
+		Penalty = penalty;
+	}
+	public int getSeverity() {
+		return severity;
+	}
+	public void setSeverity(int severity) {
+		this.severity = severity;
+	}
+	public boolean isOutcome() {
+		return Outcome;
+	}
+	public void setOutcome(boolean outcome) {
+		Outcome = outcome;
+	}
+	public boolean isInjury() {
+		return Injury;
+	}
+	public void setInjury(boolean injury) {
+		Injury = injury;
+	}
+	public boolean isDamage() {
+		return Damage;
+	}
+	public void setDamage(boolean damage) {
+		Damage = damage;
+	}
+	public int getCrewInjuried() {
+		return crewInjuried;
+	}
+	public void setCrewInjuried(int crewInjuried) {
+		this.crewInjuried = crewInjuried;
+	}
+	public int getSkillType() {
+		return skillType;
+	}
+	public void setSkillType(int skillType) {
+		this.skillType = skillType;
+	}
+	
 }

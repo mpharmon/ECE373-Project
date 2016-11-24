@@ -25,10 +25,10 @@ public class GameData {
 	public final static int food = 2;
 	public final static int water = 3;
 	public final static int parts = 4;
-	public static final double EventStartDist = 25000000;
+	public static final double EventStartDist = 1000000;
 	
 	protected ArrayList<Person> Crew;
-	protected Spaceship spacecraft;
+	private Spaceship spacecraft;
 	
 	protected int shipStatus;
 	
@@ -38,7 +38,7 @@ public class GameData {
 	public GameData() {
 		gameTimer = new GameTimer(1000);
 		Crew = new ArrayList<Person>();
-		spacecraft = new Spaceship("SpaceX Shuttle");
+		setSpacecraft(new Spaceship("SpaceX Shuttle"));
 		
 		setDifficulty(1);
 		setDestination(1);
@@ -67,8 +67,8 @@ public class GameData {
 		currentDistance = 0;
 	}
 	
-	public void dataUpdate(boolean Warp, boolean Event, boolean Resolution, boolean resultReady, int resourceType, int cost){
-		if(gameTimer.isUpdate() && !Event && !Resolution){
+	public void dataUpdate(boolean Warp, boolean EventActive, boolean ResultActive, boolean resultReady, int Resolution, Event event, int cost){
+		if(gameTimer.isUpdate() && !EventActive && !ResultActive){
 			if(Warp){
 				Fuel = Fuel - 5*FUEL_RATE;
 				Food = Food - 5*FOOD_RATE;
@@ -80,17 +80,36 @@ public class GameData {
 				Water = Water - WATER_RATE;
 				currentDistance = (currentDistance + shipVelocity);
 			}
-			if(resultReady){
-				updateResource(resourceType, cost);
+			if(resultReady){ 							//Data ready to be updated after Result panel
+				if(event.isOutcome()){ 					//Event Resolved
+					if(event.isPenalty()) {				//Event has penalty
+						if(Resolution == Event.Option2 || Resolution == Event.Option3){
+							updateResource(event.getPenaltyType(), -cost);
+					}else{								//Event has no penalty
+						updateResource(event.getPenaltyType(), cost);
+					}
+				}
+				}
 			}
 			gameTimer.setUpdate(false);
 		}
 	}
-	//Checks if current crew complement has specified skill
+	
+	public boolean updateCrewInjury(Event event){
+		if(Crew.get(event.randomCrewInjury(liveCrew())).updateHealth(1)) return true;
+		else return false;
+	}
+	public boolean updateShipDamage(){
+		if(getSpacecraft().hullDamaged(1)) return true;
+		else return false;
+	}
+	
+	//Checks if current live crew complement has specified skill
 	public boolean checkCrewForSkill(int skill){
-		
+		System.out.println("Looking for skill: " + skill);
 		for(int i = 0; i < Crew.size(); i++){
-			if(skill == Crew.get(i).getSkill()) return true;
+			System.out.println("Crew member "+i+": " + Crew.get(i).getSkill() + " skill");
+			if(skill == Crew.get(i).getSkill() && Crew.get(i).Alive()) return true;
 		}
 		return false;
 	}
@@ -99,15 +118,16 @@ public class GameData {
 	public int deadCrew(){
 		int dead = 0;
 		for(int i = 0; i < Crew.size(); i++){
-			if( 0 <= Crew.get(i).getHealthStatus()) dead++;
+			if( 0 >= Crew.get(i).getHealthStatus()) dead++;
+			System.out.println("Crew member "+i+": " + Crew.get(i).getHealthStatus() + " Health");
 		}
 		return dead;
 	}
 	//Checks for alive crew members
 	public int liveCrew(){
-		return 5 -deadCrew();
+		return (5 - deadCrew());
 	}
-
+	
 	/**
 	 * Getters and Setters
 	 */
@@ -232,5 +252,13 @@ public class GameData {
 			return 0;
 		}
 		return temp.intValue();
+	}
+
+	public Spaceship getSpacecraft() {
+		return spacecraft;
+	}
+
+	public void setSpacecraft(Spaceship spacecraft) {
+		this.spacecraft = spacecraft;
 	}
 }

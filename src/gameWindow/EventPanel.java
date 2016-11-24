@@ -21,23 +21,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextArea;
+import java.util.Random;
 
 public class EventPanel extends JPanel {
 	
 	private final ButtonGroup btnGroupChoice = new ButtonGroup();
 	
 	private boolean EventActive;
-	private int Severity;
+	//private int Severity;
 	private int Resolution;
-	private boolean Penalty;
-	private int penaltyType;
-	private int skillType;
+	//private boolean Penalty;
+	//private int penaltyType;
+	//private int skillType;
 	private int Cost;
 	private double Chance;
 	private boolean event;
 	private boolean Outcome;
 	//protected EventPool eventPool;
 	private Event currentEvent;
+	private static Random random;
 	
 	private final static int Low = 1;
 	private final static int Moderate = 2;
@@ -145,212 +147,122 @@ public class EventPanel extends JPanel {
 	}
 	
 	public void initEventData(){
-		Severity =   Low;		// Lowest Risk
+		random = new Random();
+		//Severity =   Low;		// Lowest Risk
 		setResolution(1); 	    // Option A
-		setPenalty(false);     //  No penalty
-		setPenaltyType(0);     //  No penalty type
+		//setPenalty(false);     //  No penalty
+		//setPenaltyType(0);     //  No penalty type
 		setCost(0);         // 0 resource cost of penalty/resolution
 		setChance(0.50);      //  standard 50% success
 		setOutcome(true);       //  Encounter Resolved 
 		EventActive = false;
-		setSkillType(Person.none);
+		//setSkillType(Person.none);
 		EventPool.initEventPool();
 	}
 	
-	public void setEventData(int severity, boolean penalty, int type, int cost, double chance, int skillType){
-		Severity = severity;		
-		setResolution(1); 	    // Option A default
-		setPenalty(penalty);    
-		setPenaltyType(type);    
-		setCost(cost);         
-		setChance(chance);      
-		setOutcome(true);      // default outcome 
-		setSkillType(skillType);
-	}
-	
-	public void setEventPanel(int select, GameData gameData){
-		switch (select) {
-			case 0://Event ID
-				currentEvent = EventPool.getEvent(0);
-				//Set color based off severity
-				lblTitle.setForeground(new Color(0, 255, 255));
-				//Event data configuration
-				setEventData(Low, true, GameData.parts, 25, 0.50, Person.engineer);
-				//Check Resources
-				eventResourceCheck(gameData);
-				//Set Event info
-				eventInfo.setText("The ship is experiencing minor power malfunctions. Currently the severity is low. You can resolve the issue\n "
-						+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
-				//Set option text
-				rdbtnOption1.setText("[Success chance "+ Chance*100 +"%] Attempt to resolve power outtage youself.");
-				rdbtnOption2.setText("["+ String.valueOf(Cost - 15) + " "+ getTypeString(penaltyType) +"] Assign an Engineer to fix the problem. The power outtage will be resolved at a minimal cost to resources.");
-				rdbtnOption3.setText("[5 - 25 "+ getTypeString(penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more parts.");
-				rdbtnOption4.setText("The severity of the malfunction is low. You decide to ignore the problem for now.");
-				
-				lblEventImage.setIcon(new ImageIcon(EventPanel.class.getResource("/images/powerLoss.png")));
-				lblEventImage.setBounds(466, 95, 300, 300);
-				
-				super.repaint();
-				break;
-			case 1:
-				currentEvent = EventPool.getEvent(1);
-				//Set color based off severity
-				lblTitle.setForeground(Color.YELLOW);
-				//Event data set
-				setEventData(Moderate, true, GameData.water, 15, 0.35, Person.scientist);
-				//Check Resources
-				eventResourceCheck(gameData);
-				//Set Event info
-				eventInfo.setText("There is a fire in the cargo area. The fire must be put out to avoid ship damage. You can resolve the issue\n "
-						+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
-				//Set option text
-				rdbtnOption1.setText("[Success chance "+ Chance*100 +"%] Attempt to resolve fire youself.");
-				rdbtnOption2.setText("["+ String.valueOf(Cost - 15) + " "+ getTypeString(penaltyType) +"] Assign a Scientist to fix the problem. The fire will be resolved at no cost to resources.");
-				rdbtnOption3.setText("[0 - 15 "+ getTypeString(penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more water.");
-				rdbtnOption4.setText("You hope nothing will go wrong and ignore the fire.");
-				
-				lblEventImage.setIcon(new ImageIcon(EventPanel.class.getResource("/images/fire.png")));
-				lblEventImage.setBounds(440, 75, 453, 350);
-				break;
-			default:
-				currentEvent = EventPool.getEvent(0);
-				//Set color based off severity
-				lblTitle.setForeground(new Color(0, 255, 255));
-				//Event data configuration
-				setEventData(Low, true, GameData.parts, 25, 0.50, Person.engineer);
-				//Check Resources
-				eventResourceCheck(gameData);
-				//Set option text
-				rdbtnOption1.setText("[Success chance "+ Chance*100 +"%] Attempt to resolve power outtage youself.");
-				rdbtnOption2.setText("["+ String.valueOf(Cost - 15) + " "+ getTypeString(penaltyType) +"] Assign an Engineer to fix the problem. The power outtage will be resolved at a minimal cost to resources.");
-				rdbtnOption3.setText("[5 - 25 "+ getTypeString(penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more parts.");
-				rdbtnOption4.setText("The severity of the malfunction is low. You decide to ignore the problem for now.");
-				break;	
+//	public void setEventData(int severity, boolean penalty, int type, int cost, double chance, int skillType){
+//		Severity = severity;		
+//		setResolution(1); 	    // Option A default
+//		setPenalty(penalty);    
+//		setPenaltyType(type);    
+//		setCost(cost);         
+//		setChance(chance);      
+//		setOutcome(true);      // default outcome 
+//		setSkillType(skillType);
+//	}
+//	
+	public void setEventPanel(GameData gameData){
 		
-		}
+		currentEvent = EventPool.getRandomEvent();
+		//Set color based off severity
+		lblTitle.setForeground(currentEvent.getTitleColor());
+		//Event data configuration
+		//setEventData(Low, true, GameData.parts, 25, 0.50, Person.engineer);
+		//Check Resources
+		eventResourceCheck(gameData);
+		//Set Event info
+		eventInfo.setText(currentEvent.getDescription());
+		//Set option text
+		rdbtnOption1.setText(currentEvent.getOption1());
+		rdbtnOption2.setText(currentEvent.getOption2());
+		rdbtnOption3.setText(currentEvent.getOption3());
+		rdbtnOption4.setText(currentEvent.getOption4());
+		
+		lblEventImage.setIcon(new ImageIcon(EventPanel.class.getResource(currentEvent.getIconLocation())));
+		lblEventImage.setBounds(currentEvent.getIconBounds());
+		super.repaint();	
+		
 	}
 	
 	//Displays the specified Event panel encounter
 	public void displayEventEncounter(GameData gameData){
 		
 		EventActive = true;
-		setEventPanel(randomEvent(2), gameData);
+		setEventPanel(gameData);
 		super.setVisible(true);
 		
 	}
-	//Returns a random event id (int) between 0 and numEvents
-	public int randomEvent(int numEvents){
-		Double temp;
-		
-		temp = new Double((Math.random() * (numEvents)));
-		
-		return temp.intValue();
-	}
 	
 	public void eventResourceCheck(GameData gameData){
+
 		//Assume sufficient resources display all options
 		rdbtnOption2.setEnabled(true);
 		rdbtnOption3.setEnabled(true);
-		//Check for sufficient resources
-		if(gameData.getResource(penaltyType) < (Cost - 15)) rdbtnOption2.setEnabled(false);
-		if(gameData.getResource(penaltyType) < (Cost)) 		rdbtnOption3.setEnabled(false);
+		//Check for insufficient resources or required skill not available
+		if((gameData.getResource(currentEvent.getPenaltyType()) < (currentEvent.getCost() - 15)) || 
+			!gameData.checkCrewForSkill(currentEvent.getSkillType())) 
+			rdbtnOption2.setEnabled(false);
+		//Check for insufficient resources
+		if(gameData.getResource(currentEvent.getPenaltyType()) < (currentEvent.getCost())) 		
+			rdbtnOption3.setEnabled(false);
 	}
 	//Resolves the event window and updates all relevant data of encounter
 	private void determineOutcome(){
 		
 		Resolution = getResolution();
 		event = false;
-		
-		switch (Severity){
-			case Low:
-				if(Penalty){
-					if(Resolution == 1){
-						Cost = 0;
-						event = (Math.random() < Chance);
-						Outcome = event;
-					}else if(Resolution == 2){
-						Cost = Cost - 15;
-						Outcome = true;
-					}else if(Resolution == 3){
-						Cost = randomCost(Cost, 0.50);
-						Outcome = true;
-					}else{
-						//event = (Math.random() < (Chance - 10));
-						Outcome = false;
-					}
-				}else{
-					Cost = 0;
-					Outcome = true;
+
+		if(currentEvent.isPenalty()){
+			if(Resolution == 1){
+				Cost = 0;
+				event = (Math.random() < Chance);
+				Outcome = event;
+			}else if(Resolution == 2){
+				Cost = currentEvent.getCost() - 15;
+				Outcome = true;
+			}else if(Resolution == 3){
+				Cost = randomCost(currentEvent.getCost());
+				Outcome = true;
+			}else{
+				Outcome = false;
+			}
+		}else{
+			Cost = 0;
+			Outcome = true;
+			if(Resolution == 1){
+				Cost = 0;
+				event = (Math.random() < Chance);
+				if(event){
+					Cost = currentEvent.getCost();
 				}
-				EventActive = false;
-				break;
-			case Moderate:
-				if(Penalty){
-					if(Resolution == 1){
-						Cost = 0;
-						event = (Math.random() < Chance);
-						Outcome = event;
-					}else if(Resolution == 2){
-						Cost = Cost - 15;
-						Outcome = true;
-					}else if(Resolution == 3){
-						Cost = randomCost(Cost, 0.50);
-						Outcome = true;
-					}else{
-						//event = (Math.random() < (Chance - 15));
-						Outcome = false;
-					}
-				}else{
-					Cost = 0;
-					Outcome = true;
-				}
-				EventActive = false;
-				break;
-			case Critical:
-				if(Penalty){
-					if(Resolution == 1){
-						Cost = 0;
-						event = (Math.random() < Chance);
-						Outcome = event;
-					}else if(Resolution == 2){
-						Cost = Cost - 15;
-						Outcome = true;
-					}else if(Resolution == 3){
-						Cost = randomCost(Cost, 0.50);
-						Outcome = true;
-					}else{
-						//Ignoring critical event is an automatic failure condition
-						Outcome = false;
-					}
-				}else{
-					Cost = 0;
-					Outcome = true;
-				}
-				EventActive = false;
-				break;
+			}else if(Resolution == 2){
+				Cost = currentEvent.getCost() - 15;
+			}else if(Resolution == 3){
+				Cost = randomCost(currentEvent.getCost());
+			}else{
+				Cost = 0;
+			}
+			Outcome = true;
 		}
-		System.out.println("EventActive: " +EventActive+ "\nSeverity: " + Severity +"\nResolution Selected: "+ Resolution+"\nOutcome: " +Outcome + "\nCost:" + Cost);
+		currentEvent.setOutcome(Outcome);
+		EventActive = false;
+	
+		System.out.println("EventActive: " +EventActive+ "\nSeverity: " + currentEvent.getSeverity()+"\nResolution Selected: "+ Resolution+"\nOutcome: " +Outcome + "\nCost:" + Cost);
 		
 	}
 
-	
-	public int randomCost(int cost, double chance){
-		
-		Double temp;
-		//Chance of cost being between 5 and Cost
-		if(Math.random() < chance){
-			
-			temp = new Double((Math.random() * Cost) - 5);
-			cost = (temp.intValue()%5)*5 + 5;
-			
-		}//Chance of cost being between 15 and Cost
-		else{
-			
-			temp = new Double(Math.random() * Cost - 15);
-			cost = (temp.intValue()%5)*5 + 15;
-		}
-		
-		return cost;
+	public int randomCost(int cost){
+		return random.nextInt(cost);
 	}
 	/**
 	 * Getters and Setters
@@ -366,20 +278,20 @@ public class EventPanel extends JPanel {
 		return null;
 	}
 	
-	public String getTypeString(boolean override){
-		
-		if(override){
-			if(penaltyType == GameData.fuel) return "Fuel";
-			else if(penaltyType == GameData.food) return "Food";
-			else if(penaltyType == GameData.water) return "Water";
-			else if(penaltyType == GameData.parts) return "Spare parts";
-		}
-		return null;
-	}
-	
-	public int getSeverity(){
-		return Severity;
-	}
+//	public String getTypeString(boolean override){
+//		
+//		if(override){
+//			if(penaltyType == GameData.fuel) return "Fuel";
+//			else if(penaltyType == GameData.food) return "Food";
+//			else if(penaltyType == GameData.water) return "Water";
+//			else if(penaltyType == GameData.parts) return "Spare parts";
+//		}
+//		return null;
+//	}
+//	
+//	public int getSeverity(){
+//		return Severity;
+//	}
 
 	public int getResolution() {
 		if(rdbtnOption1.isSelected()) return 1;
@@ -394,13 +306,13 @@ public class EventPanel extends JPanel {
 		Resolution = resolution;
 	}
 
-	public boolean isPenalty() {
-		return Penalty;
-	}
-
-	public void setPenalty(boolean penalty) {
-		Penalty = penalty;
-	}
+//	public boolean isPenalty() {
+//		return Penalty;
+//	}
+//
+//	public void setPenalty(boolean penalty) {
+//		Penalty = penalty;
+//	}
 
 	public int getCost() {
 		return Cost;
@@ -426,13 +338,13 @@ public class EventPanel extends JPanel {
 		Outcome = outcome;
 	}
 
-	public int getPenaltyType() {
-		return penaltyType;
-	}
-
-	public void setPenaltyType(int penaltyType) {
-		this.penaltyType = penaltyType;
-	}
+//	public int getPenaltyType() {
+//		return penaltyType;
+//	}
+//
+//	public void setPenaltyType(int penaltyType) {
+//		this.penaltyType = penaltyType;
+//	}
 
 	public boolean isEventActive() {
 		return EventActive;
@@ -442,15 +354,15 @@ public class EventPanel extends JPanel {
 		EventActive = eventActive;
 	}
 
-	public int getSkillType() {
-		return skillType;
-	}
-
-	public void setSkillType(int skillType) {
-		this.skillType = skillType;
-	}
+//	public int getSkillType() {
+//		return skillType;
+//	}
+//
+//	public void setSkillType(int skillType) {
+//		this.skillType = skillType;
+//	}
 	
-	public Event getEvent(){
+	public Event getCurrentEvent(){
 		return currentEvent;
 	}
 }

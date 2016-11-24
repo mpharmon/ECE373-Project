@@ -91,18 +91,17 @@ public class GameDriver implements Runnable {
 											  supplyWindow.getWater(),
 											  supplyWindow.getParts());
 						//Next Window
-						transferWindow.ManagerSetup(transferWindow.getGameData());
-						transferWindow.setVisible(true);
+						transferWindow.startup();
 						currentWindow = transferWindow.getWindowId();
 						player.pause();
 						player.setPath(sp.getPath(18));
 						if(player.play(-1)) System.out.println("Playing Transfer");
+						System.out.println("Live crew: " + transferWindow.getGameData().liveCrew());
 					}
 					supplyWindow.updateProgress();
 					break;
 				case 5:
 					transferWindow.TransferUpdate();
-					transferWindow.updateManagerUI();
 					if(transferWindow.getGameData().getCurrentDistance() > 130000000 && !trackReset){
 						player.setPath(sp.getPath(3));
 						if(player.play(-1)) System.out.println("Playing Second Track");
