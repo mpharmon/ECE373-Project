@@ -31,7 +31,6 @@ public class GameTimer extends JApplet {
 	      // Start the timer.
 	      timer.start();
 	}
-	
    private class TimerListener implements ActionListener
    {
       public void actionPerformed(ActionEvent e)

@@ -1,6 +1,8 @@
 package gameExecution;
 
 import java.awt.EventQueue;
+import java.util.Random;
+
 import gameSound.CustomPlayer;
 import gameWindow.*;
 import sounds.SongPath;
@@ -8,7 +10,8 @@ import sounds.SongPath;
 public class GameDriver implements Runnable {
 
 	boolean running = false;
-	private boolean trackReset = false;
+	private int track;
+	private Random rand = new Random();
 
 	public void start() {
 		running = true;
@@ -17,9 +20,6 @@ public class GameDriver implements Runnable {
 
 	public void run() {
 		
-		
-		
-
 		// Instantiate Windows
 		StartMenu startWindow = new StartMenu();
 		DifficultySet difficultyWindow = new DifficultySet();
@@ -68,8 +68,10 @@ public class GameDriver implements Runnable {
 					break;
 				case 2:
 					if (preparationWindow.checkButtons() == 1) {
+						preparationWindow.updateGameData(transferWindow.getGameData());
 						preparationWindow.setVisible(false);
 						//Next Window
+						selectCrewWindow.checkGameData(transferWindow.getGameData());
 						selectCrewWindow.setVisible(true);
 						currentWindow = selectCrewWindow.getWindowId();
 					}
@@ -94,19 +96,21 @@ public class GameDriver implements Runnable {
 						transferWindow.startup();
 						currentWindow = transferWindow.getWindowId();
 						player.pause();
-						player.setPath(sp.getPath(18));
-						if(player.play(-1)) System.out.println("Playing Transfer");
+						track = rand.nextInt(18);
+						player.setPath(sp.getPath(track));
+						if(player.play(-1)) System.out.println("Playing Transfer track: "+ track);
 						System.out.println("Live crew: " + transferWindow.getGameData().liveCrew());
+						
 					}
 					supplyWindow.updateProgress();
 					break;
 				case 5:
 					transferWindow.TransferUpdate();
-					if(transferWindow.getGameData().getCurrentDistance() > 130000000 && !trackReset){
-						player.setPath(sp.getPath(3));
-						if(player.play(-1)) System.out.println("Playing Second Track");
-						else System.out.println("Exit");
-						trackReset = true;
+					if(player.isOver()){
+						player.setPath(sp.getPath(track));
+						player.play(-1);
+						if(track <= 18) track++;
+						else track = 1;
 					}
 					break;
 				}

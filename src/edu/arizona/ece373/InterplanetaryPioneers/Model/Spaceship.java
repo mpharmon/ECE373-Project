@@ -2,9 +2,11 @@ package edu.arizona.ece373.InterplanetaryPioneers.Model;
 
 public class Spaceship {
 	private String name;
+	private int id;
 	private int hull;				//Hit-points of ship
 	private int maxVelocity;
 	private int maxHP;
+	private int crewCapacity;
 	
 	//Hull definitions
 	public static final int destroyed = 0; 
@@ -18,6 +20,24 @@ public class Spaceship {
 		this.setHull(3);
 		maxVelocity = 50000; //KPH
 		setMaxHP(3);
+	}
+	
+	public Spaceship(int select){
+		if(select == 1){
+			setId(1);
+			this.name = "Orion Spacecraft";
+			this.setHull(3);
+			maxVelocity = 55000; //KPH
+			setMaxHP(3);
+			crewCapacity = 4;
+		}else{
+			setId(2);
+			this.name = "SpaceX Shuttle";
+			this.setHull(4);
+			maxVelocity = 50000; //KPH
+			setMaxHP(4);
+			crewCapacity = 5;
+		}
 	}
 
 	// Get'ers and Set'ers
@@ -82,6 +102,22 @@ public class Spaceship {
 		}
 		
 		return false;
+	}
+
+	public int getCrewCapacity() {
+		return crewCapacity;
+	}
+
+	public void setCrewCapacity(int crewCapacity) {
+		this.crewCapacity = crewCapacity;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

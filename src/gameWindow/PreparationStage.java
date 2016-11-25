@@ -5,6 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import edu.arizona.ece373.InterplanetaryPioneers.Model.Destination;
+import edu.arizona.ece373.InterplanetaryPioneers.Model.Spaceship;
+import gameExecution.GameData;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.ImageIcon;
@@ -124,6 +129,15 @@ public class PreparationStage extends JFrame {
 		rdbtnOrion.setForeground(new Color(255, 255, 255));
 		rdbtnOrion.setBounds(593, 394, 182, 23);
 		contentPane.add(rdbtnOrion);
+		
+		JTextArea txtOrionData = new JTextArea();
+		txtOrionData.setText("> Crew slots: 4\r\n> Max transfer velocity: 55,000 KPH\r\n> Ship integrity: 3");
+		txtOrionData.setFont(new Font("Slider", Font.PLAIN, 16));
+		txtOrionData.setForeground(Color.WHITE);
+		txtOrionData.setOpaque(false);
+		txtOrionData.setEditable(false);
+		txtOrionData.setBounds(517, 431, 299, 89);
+		contentPane.add(txtOrionData);
 
 		rdbtnSpaceX = new JRadioButton("SpaceX Shuttle");
 		rdbtnSpaceX.setOpaque(false);
@@ -133,6 +147,15 @@ public class PreparationStage extends JFrame {
 		rdbtnSpaceX.setFont(new Font("Slider", Font.PLAIN, 18));
 		rdbtnSpaceX.setBounds(970, 389, 156, 23);
 		contentPane.add(rdbtnSpaceX);
+		
+		JTextArea txtSpaceX_Data = new JTextArea();
+		txtSpaceX_Data.setText("> Crew slots: 5\r\n> Max transfer velocity: 50,000 KPH\r\n> Ship integrity: 4");
+		txtSpaceX_Data.setOpaque(false);
+		txtSpaceX_Data.setForeground(Color.WHITE);
+		txtSpaceX_Data.setFont(new Font("Slider", Font.PLAIN, 16));
+		txtSpaceX_Data.setEditable(false);
+		txtSpaceX_Data.setBounds(837, 431, 299, 89);
+		contentPane.add(txtSpaceX_Data);
 		btnProceed.setBounds(593, 591, 182, 55);
 		contentPane.add(btnProceed);
 
@@ -205,5 +228,20 @@ public class PreparationStage extends JFrame {
 		if(rdbtnOrion.isSelected()) return 1;
 		else if(rdbtnSpaceX.isSelected()) return 2;
 		else return 0;
+	}
+	
+	public void updateGameData(GameData gameData){
+		if(getSpacecraftId() == 1){
+			gameData.setSpacecraft(new Spaceship(1));
+			gameData.setShipVelocity(gameData.getSpacecraft().getMaxVelocity());
+		}else{
+			gameData.setSpacecraft(new Spaceship(2));
+			gameData.setShipVelocity(gameData.getSpacecraft().getMaxVelocity());
+		}
+		if(getDestinationId() == 1){
+			Destination.initDestination(1);
+		}else{
+			Destination.initDestination(2);
+		}
 	}
 }

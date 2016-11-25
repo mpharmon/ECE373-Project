@@ -12,6 +12,7 @@ import javax.swing.JProgressBar;
 import edu.arizona.ece373.InterplanetaryPioneers.Model.Person;
 import edu.arizona.ece373.InterplanetaryPioneers.Model.Spaceship;
 import gameExecution.GameData;
+import javax.swing.JTextField;
 
 public class ManagerPanel extends JPanel {
 	
@@ -26,14 +27,16 @@ public class ManagerPanel extends JPanel {
 	protected  JLabel lblWater;
 	protected  JLabel lblSpareParts;
 	
-	protected  JLabel crewSkill1; protected  JLabel crewName1; protected  JLabel CrewIcon1;
+	protected  JLabel crewSkill1; protected  JLabel crewName1; protected  JLabel CrewIcon3;
 	protected  JLabel crewSkill2; protected  JLabel crewName2; protected  JLabel CrewIcon2;
-	protected  JLabel crewSkill3; protected JLabel crewName3;  protected  JLabel CrewIcon3;
-	protected  JLabel crewSkill4; protected  JLabel crewName4; protected  JLabel CrewIcon4;
+	protected  JLabel crewSkill3; protected JLabel crewName3;  protected  JLabel CrewIcon4;
+	protected  JLabel crewSkill4; protected  JLabel crewName4; protected  JLabel CrewIcon1;
 	protected  JLabel crewSkill5; protected  JLabel crewName5; protected  JLabel CrewIcon5;
 	
 	protected  JLabel shipIcon;
 	protected  JLabel hullStatus;
+	private JTextField txtGameTime;
+	private int seconds;
 
 	/**
 	 * Create the panel.
@@ -47,7 +50,7 @@ public class ManagerPanel extends JPanel {
 		
 		CrewIcon1 = new JLabel("");
 		CrewIcon1.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
-		CrewIcon1.setBounds(1003, 16, 58, 57);
+		CrewIcon1.setBounds(867, 16, 58, 57);
 		add(CrewIcon1);
 		
 		CrewIcon2 = new JLabel("");
@@ -57,12 +60,12 @@ public class ManagerPanel extends JPanel {
 		
 		CrewIcon3 = new JLabel("");
 		CrewIcon3.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
-		CrewIcon3.setBounds(1071, 16, 58, 57);
+		CrewIcon3.setBounds(1003, 16, 58, 57);
 		add(CrewIcon3);
 		
 		CrewIcon4 = new JLabel("");
 		CrewIcon4.setIcon(new ImageIcon(TransferStage.class.getResource("/images/crewNominal.png")));
-		CrewIcon4.setBounds(867, 16, 58, 57);
+		CrewIcon4.setBounds(1071, 16, 58, 57);
 		add(CrewIcon4);
 		
 		CrewIcon5 = new JLabel("");
@@ -184,6 +187,16 @@ public class ManagerPanel extends JPanel {
 		hullStatus.setFont(new Font("Slider", Font.BOLD, 12));
 		hullStatus.setBounds(1139, 260, 68, 14);
 		add(hullStatus);
+		
+		txtGameTime = new JTextField();
+		txtGameTime.setBorder(null);
+		txtGameTime.setOpaque(false);
+		txtGameTime.setForeground(Color.CYAN);
+		txtGameTime.setText("Game time: ");
+		txtGameTime.setFont(new Font("Slider", Font.PLAIN, 18));
+		txtGameTime.setBounds(130, 16, 375, 20);
+		add(txtGameTime);
+		txtGameTime.setColumns(10);
 	}
 	
 	public void initResources(int fuel, int food, int water, int parts){
@@ -198,29 +211,40 @@ public class ManagerPanel extends JPanel {
 	}
 	
 	public void ManagerSetup(GameData gameData){
+		seconds = 0;
 		//Set Crew Names in Manager UI
 		crewName1.setText(gameData.getCrew().get(0).getName());
 		crewName2.setText(gameData.getCrew().get(1).getName());
 		crewName3.setText(gameData.getCrew().get(2).getName());
 		crewName4.setText(gameData.getCrew().get(3).getName());
-		crewName5.setText(gameData.getCrew().get(4).getName());
+
 		//Set Crew Skills in Manager UI
 		crewSkill1.setText(gameData.getCrew().get(0).getSkill(true));
 		crewSkill2.setText(gameData.getCrew().get(1).getSkill(true));
 		crewSkill3.setText(gameData.getCrew().get(2).getSkill(true));
 		crewSkill4.setText(gameData.getCrew().get(3).getSkill(true));
-		crewSkill5.setText(gameData.getCrew().get(4).getSkill(true));
+		if(gameData.getCrew().size() > 4){
+			crewName5.setText(gameData.getCrew().get(4).getName());
+			crewSkill5.setText(gameData.getCrew().get(4).getSkill(true));
+		}else{
+			crewName5.setVisible(false);
+			crewSkill5.setVisible(false);
+			CrewIcon5.setVisible(false);
+		}
 	}
 	
-	public void updateManager(GameData gameData){
+	public void updateManager(GameData gameData, boolean IconUpdate){
 		FuelBar.setValue(gameData.getFuel());
 		FoodBar.setValue(gameData.getFood());
 		WaterBar.setValue(gameData.getWater());
 		PartBar.setValue(gameData.getParts());
-		for(int i = 0; i< gameData.getCrew().size(); i++){
-			updateCrewIcon(gameData.getCrew().get(i), i);
+		if(IconUpdate){
+			for(int i = 0; i < gameData.getCrew().size(); i++){
+				System.out.println("Crew member "+i+": " + gameData.getCrew().get(i).getName()+" "+ gameData.getCrew().get(i).getHealthStatus());
+				updateCrewIcon(gameData.getCrew().get(i), i);
+			}
+			 updateShipIcon(gameData.getSpacecraft().getHull());
 		}
-		 updateShipIcon(gameData.getSpacecraft().getHull());
 	}
 	
 	public void updateCrewIcon(Person crewMember, int id){
@@ -237,16 +261,16 @@ public class ManagerPanel extends JPanel {
 	}
 	
 	public JLabel getCrewIcon(int id){
-		switch(id+1){
-			case 1:
+		switch(id){
+			case 0:
 				return CrewIcon1;
-			case 2:
+			case 1:
 				return CrewIcon2;
-			case 3:
+			case 2:
 				return CrewIcon3;
-			case 4:
+			case 3:
 				return CrewIcon4;
-			case 5:
+			case 4:
 				return CrewIcon5;
 			default:
 				return CrewIcon1;
@@ -272,5 +296,14 @@ public class ManagerPanel extends JPanel {
 			hullStatus.setForeground(Color.GRAY);
 		}
 	}
-
+	
+	public boolean updateTimeElapsed(){
+		seconds++;
+		if(seconds <= 720){
+			//%[argument_index$][flags][width]conversion
+			txtGameTime.setText("Game time: "+  seconds/60 +":" + String.format(java.util.Locale.US, "%02d" , seconds%60));
+			return true;
+		}
+		return false;
+	}
 }

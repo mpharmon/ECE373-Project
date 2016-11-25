@@ -69,7 +69,7 @@ public class EventPool {
 	}
     
     public static Event getRandomEvent(){
-    	return EventPool.events.get(rand.nextInt((EventPool.events.size() - 1)));
+    	return EventPool.events.get(rand.nextInt((EventPool.events.size())));
     }
     
     public static Event getEvent(int index){

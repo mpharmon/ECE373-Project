@@ -40,6 +40,7 @@ public class SelectCrew extends JFrame {
 	private JTextField CaptainName;
 	
 	private ArrayList<Person> Crew;
+	private int crewCapacity = 5;
 	
 	private final ButtonGroup buttonVIP_Group = new ButtonGroup();
 	private boolean confirm;
@@ -300,25 +301,25 @@ public class SelectCrew extends JFrame {
 	//Build Person objects and build crew person array
 	private boolean buildCrew(){
 		
-		Person crewMember1;
-		Person crewMember2;
-		Person crewMember3;
-		Person crewMember4;
-		Person crewMember5;
+		Person crewMember1 = null;
+		Person crewMember2 = null;
+		Person crewMember3 = null;
+		Person crewMember4 = null;
+		Person crewMember5 = null;
 		
 		crewMember1 = new Person(crewMemberName1.getText(), comboBox_1.getSelectedIndex()+1, Person.nominal);
 		crewMember2 = new Person(crewMemberName2.getText(), comboBox_2.getSelectedIndex()+1, Person.nominal);
 		crewMember3 = new Person(crewMemberName3.getText(), comboBox_3.getSelectedIndex()+1, Person.nominal);
 		crewMember4 = new Person(crewMemberName4.getText(), comboBox_4.getSelectedIndex()+1, Person.nominal);
-		crewMember5 = new Person(crewMemberName5.getText(), comboBox_5.getSelectedIndex()+1, Person.nominal);
+		if(crewCapacity > 4) crewMember5 = new Person(crewMemberName5.getText(), comboBox_5.getSelectedIndex()+1, Person.nominal);
 		
 		getCrew().add(crewMember1);
 		getCrew().add(crewMember2);
 		getCrew().add(crewMember3);
 		getCrew().add(crewMember4);
-		getCrew().add(crewMember5);
+		if(crewCapacity > 4) getCrew().add(crewMember5);
 		
-		if(getCrew().size() == 5) return true;
+		if(getCrew().size() >= 4) return true;
 		return false;
 	}
 
@@ -328,5 +329,15 @@ public class SelectCrew extends JFrame {
 
 	public void setCrew(ArrayList<Person> crew) {
 		Crew = crew;
+	}
+	public void checkGameData(GameData gameData){
+		crewCapacity = gameData.getSpacecraft().getCrewCapacity();
+		if(crewCapacity < 5){
+			crewMemberName5.setEnabled(false);
+			comboBox_5.setEnabled(false);
+		}else{
+			crewMemberName5.setEnabled(true);
+			comboBox_5.setEnabled(true);
+		}
 	}
 }

@@ -6,20 +6,19 @@ import edu.arizona.ece373.InterplanetaryPioneers.Model.*;
 public class GameData {
 	
 	private int difficulty;
-	private int destination;
 	
 	private double Days;
 	private double Years;
 						 
-	private double Fuel;  private static final double FUEL_RATE = 0.00095;  //25 units consumed after 10 minutes @warp
-	private double Food;  private static final double FOOD_RATE = 0.002;   //50 units consumed after 10 minutes	@warp
-	private double Water; private static final double WATER_RATE = 0.002;  //50 units consumed after 10 minutes @warp
+	private double Fuel;  private static final double FUEL_RATE = 0.0026;  //25 units consumed after 10 minutes @warp
+	private double Food;  private static final double FOOD_RATE = 0.0052;   //50 units consumed after 10 minutes @warp
+	private double Water; private static final double WATER_RATE = 0.0052;  //50 units consumed after 10 minutes @warp
 	private double Parts; //private static final double PARTS_RATE = 0.001;
 	
 	private double voyageDistance;
 	private double currentDistance; //KM
-	private static final int shipVelocity = 50000; // KPH
-	private static final double MarsDistance = 500000000; // 500 MKM
+	private int shipVelocity = 50000; // KPH
+	public static final double MarsDistance = 500000000; // 500 MKM
 	
 	public final static int fuel = 1;
 	public final static int food = 2;
@@ -34,14 +33,12 @@ public class GameData {
 	
 	GameTimer gameTimer;
 	
-	
 	public GameData() {
 		gameTimer = new GameTimer(1000);
 		Crew = new ArrayList<Person>();
 		setSpacecraft(new Spaceship("SpaceX Shuttle"));
 		
 		setDifficulty(1);
-		setDestination(1);
 		setDays(0);
 		setYears(0);
 		Fuel = 0;
@@ -52,11 +49,10 @@ public class GameData {
 		currentDistance = 0;
 	}
 	
-	public GameData(int diff,int dest, double days, double years) {
+	public GameData(int diff, double days, double years) {
 		gameTimer = new GameTimer(1000);
 		Crew = new ArrayList<Person>();
 		setDifficulty(diff);
-		setDestination(dest);
 		setDays(days);
 		setYears(years);
 		Fuel = 0;
@@ -70,10 +66,10 @@ public class GameData {
 	public void dataUpdate(boolean Warp, boolean EventActive, boolean ResultActive, boolean resultReady, int Resolution, Event event, int cost){
 		if(gameTimer.isUpdate() && !EventActive && !ResultActive){
 			if(Warp){
-				Fuel = Fuel - 5*FUEL_RATE;
-				Food = Food - 5*FOOD_RATE;
-				Water = Water - 5*WATER_RATE;
-				currentDistance = (currentDistance + 7.2*shipVelocity);
+				Fuel = Fuel - 16*FUEL_RATE;
+				Food = Food - 16*FOOD_RATE;
+				Water = Water - 16*WATER_RATE;
+				currentDistance = (currentDistance + 16.667*shipVelocity);
 			}else{
 				Fuel = Fuel - FUEL_RATE;
 				Food = Food - FOOD_RATE;
@@ -96,7 +92,10 @@ public class GameData {
 	}
 	
 	public boolean updateCrewInjury(Event event){
-		if(Crew.get(event.randomCrewInjury(liveCrew())).updateHealth(1)) return true;
+		if(Crew.get(event.randomCrewInjury(liveCrew())).updateHealth(1)){
+			System.out.println("injured id: " + event.getCrewInjuried());
+			return true;
+		}
 		else return false;
 	}
 	public boolean updateShipDamage(){
@@ -125,7 +124,7 @@ public class GameData {
 	}
 	//Checks for alive crew members
 	public int liveCrew(){
-		return (5 - deadCrew());
+		return (spacecraft.getCrewCapacity() - deadCrew());
 	}
 	
 	/**
@@ -141,12 +140,7 @@ public class GameData {
 	}
 
 	public int getDestination() {
-		return destination;
-	}
-
-	public void setDestination(int destination) {
-		if(destination == 1) voyageDistance = MarsDistance;
-		this.destination = destination;
+		return Destination.getId();
 	}
 
 	public double getDays() {
@@ -260,5 +254,13 @@ public class GameData {
 
 	public void setSpacecraft(Spaceship spacecraft) {
 		this.spacecraft = spacecraft;
+	}
+
+	public int getShipVelocity() {
+		return shipVelocity;
+	}
+
+	public void setShipVelocity(int shipVelocity) {
+		this.shipVelocity = shipVelocity;
 	}
 }

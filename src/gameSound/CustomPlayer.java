@@ -13,6 +13,7 @@ package gameSound;
 public class CustomPlayer {
 	
 	private Player player;
+	private int track;
 	private FileInputStream FIS;
 	private BufferedInputStream BIS;
 	private boolean canResume;
@@ -20,6 +21,7 @@ public class CustomPlayer {
 	private int total;
 	private int stopped;
 	private boolean valid;
+	private boolean over;
 	
 
 	public static void main(String[] args)
@@ -77,6 +79,7 @@ public class CustomPlayer {
 	}
 
 	public boolean play(int pos){
+
 	    valid = true;
 	    canResume = false;
 	    try{
@@ -103,7 +106,17 @@ public class CustomPlayer {
 	    }
 	    return valid;
 	}
+	
+	public boolean isOver(){
+		
+		try {
+			if(FIS.available() >= 10) over = false;
+			else over = true;
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return over;
+	}
 
 }
-
-
