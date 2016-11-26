@@ -16,8 +16,9 @@ public class Person {
 	public static final int pilot = 	1; 
 	public static final int engineer =  2;
 	public static final int scientist=  3;
-	public static final int doctor = 	4;
-	public static final int botanist =  5; 
+	public static final int botanist =  4; 
+	public static final int doctor = 	5;
+	
 	//VIP ID definitions
 	public static final int Trump =  1; 
 	public static final int Elon =  2; 

@@ -7,13 +7,19 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.Timer;
 
 import gameExecution.GameData;
 import gameModel.Destination;
 import gameModel.Person;
+import gameSound.CustomPlayer;
+import sounds.SongPath;
 
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -22,6 +28,12 @@ public class FinalScorePanel extends JPanel {
 	
 	private boolean scoreActive = false;
 	private boolean Continue = false;
+	private int SF_CNT = 0;
+	private Timer scoreTimer;
+	private boolean update = false;
+	private Integer base = 0;
+	private int result = 0;
+	
 	private JTextField textFinalScore;
 	private JTextField txtDestination;
 	private JTextField txtBase;
@@ -33,6 +45,7 @@ public class FinalScorePanel extends JPanel {
 	private JTextField txtBotanists;
 	private JTextField txtDifficulty;
 	private JLabel lblDifficultyIcon;
+	private CustomPlayer player;
 	
 	/**
 	 * Create the panel.
@@ -54,6 +67,7 @@ public class FinalScorePanel extends JPanel {
 		add(lblBase);
 		
 		txtBase = new JTextField();
+		txtBase.setEnabled(false);
 		txtBase.setText("10");
 		txtBase.setOpaque(false);
 		txtBase.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -73,8 +87,9 @@ public class FinalScorePanel extends JPanel {
 		add(lblDest);
 		
 		txtDestination = new JTextField();
+		txtDestination.setEnabled(false);
 		txtDestination.setBorder(null);
-		txtDestination.setText("MARS x  1");
+		txtDestination.setText("0");
 		txtDestination.setOpaque(false);
 		txtDestination.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtDestination.setForeground(Color.CYAN);
@@ -92,7 +107,8 @@ public class FinalScorePanel extends JPanel {
 		add(lblBotanist);
 		
 		txtBotanists = new JTextField();
-		txtBotanists.setText("x 2");
+		txtBotanists.setEnabled(false);
+		txtBotanists.setText("0");
 		txtBotanists.setOpaque(false);
 		txtBotanists.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtBotanists.setForeground(Color.CYAN);
@@ -111,7 +127,8 @@ public class FinalScorePanel extends JPanel {
 		add(lblCrewAlive);
 		
 		txtCrewAlive = new JTextField();
-		txtCrewAlive.setText("x 5");
+		txtCrewAlive.setEnabled(false);
+		txtCrewAlive.setText("0");
 		txtCrewAlive.setOpaque(false);
 		txtCrewAlive.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtCrewAlive.setForeground(Color.CYAN);
@@ -130,7 +147,8 @@ public class FinalScorePanel extends JPanel {
 		add(lblEvents);
 		
 		txtEvents = new JTextField();
-		txtEvents.setText("x 10");
+		txtEvents.setEnabled(false);
+		txtEvents.setText("0");
 		txtEvents.setOpaque(false);
 		txtEvents.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtEvents.setForeground(Color.CYAN);
@@ -169,7 +187,8 @@ public class FinalScorePanel extends JPanel {
 		add(lblParts);
 		
 		txtFood = new JTextField();
-		txtFood.setText("x 50");
+		txtFood.setEnabled(false);
+		txtFood.setText("0");
 		txtFood.setOpaque(false);
 		txtFood.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtFood.setForeground(Color.CYAN);
@@ -181,7 +200,8 @@ public class FinalScorePanel extends JPanel {
 		add(txtFood);
 		
 		txtWater = new JTextField();
-		txtWater.setText("x 50");
+		txtWater.setEnabled(false);
+		txtWater.setText("0");
 		txtWater.setOpaque(false);
 		txtWater.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtWater.setForeground(Color.CYAN);
@@ -193,7 +213,8 @@ public class FinalScorePanel extends JPanel {
 		add(txtWater);
 		
 		txtParts = new JTextField();
-		txtParts.setText("x 50");
+		txtParts.setEnabled(false);
+		txtParts.setText("0");
 		txtParts.setOpaque(false);
 		txtParts.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtParts.setForeground(Color.CYAN);
@@ -205,10 +226,11 @@ public class FinalScorePanel extends JPanel {
 		add(txtParts);
 		
 		textFinalScore = new JTextField();
+		textFinalScore.setEnabled(false);
 		textFinalScore.setEditable(false);
 		textFinalScore.setOpaque(false);
 		textFinalScore.setHorizontalAlignment(SwingConstants.RIGHT);
-		textFinalScore.setText("250,000,000");
+		textFinalScore.setText("0");
 		textFinalScore.setForeground(Color.CYAN);
 		textFinalScore.setFont(new Font("Slider", Font.PLAIN, 32));
 		textFinalScore.setBounds(484, 567, 390, 28);
@@ -223,7 +245,8 @@ public class FinalScorePanel extends JPanel {
 		add(lblDifficulty);
 		
 		txtDifficulty = new JTextField();
-		txtDifficulty.setText("SPACE PIONEER x 2");
+		txtDifficulty.setEnabled(false);
+		txtDifficulty.setText("0");
 		txtDifficulty.setOpaque(false);
 		txtDifficulty.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtDifficulty.setForeground(Color.CYAN);
@@ -264,36 +287,108 @@ public class FinalScorePanel extends JPanel {
 		lblBackground.setIcon(new ImageIcon(FinalScorePanel.class.getResource("/images/hud_bg_full.jpg")));
 		lblBackground.setBounds(0, 0, 1280, 720);
 		add(lblBackground);
-
+		
+		ActionListener taskPerformer = new ActionListener() {
+		    public void actionPerformed(ActionEvent evt) {
+		    	if((SF_CNT < 9) && !update){
+		    		SF_CNT++; update = true;
+			    	if(SF_CNT < 9){ 
+			    		player.setPath(SongPath.getPath(25));
+			    		player.play(-1);
+			    	}else {
+			    		player.setPath(SongPath.getPath(26));
+			    		player.play(-1);
+			    	}
+		    	}
+		    }
+		};
+		scoreTimer = new Timer(1000 , taskPerformer);
+		scoreTimer.stop();
+		player = new CustomPlayer();
 	}
 	
 	public void displayScoreScreen(GameData gameData){
+		if(SF_CNT > 9) {
+			scoreTimer.stop();
+		}
 		if(!scoreActive){
+			SF_CNT = 0;
+			update = true;
+			scoreTimer.start();	
+		}
+		
+		if((SF_CNT < 10) && update){
+			update = false;
 			Continue = false;
 			scoreActive = true;
 			setVisible(true);
-			Integer base = 100;
-			int result = 0;
 			
-			txtBase.setText(base.toString());
-			txtDestination.setText(Destination.getName() + " x " + Destination.getId());
-			txtBotanists.setText("x "+ gameData.crewSkillCount(Person.botanist));
-			txtCrewAlive.setText("x "+ gameData.liveCrew());
-			txtEvents.setText("x " + gameData.getTotalEvents());
-			txtFood.setText("x " + gameData.getFood());
-			txtWater.setText("x " + gameData.getWater());
-			txtParts.setText("x " + gameData.getParts());
-			txtDifficulty.setText(DifficultySet.getDiffString(gameData.getDifficulty())+" x " + gameData.getDifficulty());
-			result = base*Destination.getId()*(gameData.crewSkillCount(Person.botanist))*gameData.liveCrew()*gameData.getTotalEvents()*gameData.getFood()*gameData.getWater()*gameData.getParts();
-			textFinalScore.setText(EndGameStage.scoreFormat.format(result));
-			if(gameData.getDifficulty() ==  DifficultySet.Easy)
-				lblDifficultyIcon.setIcon(new ImageIcon(FinalScorePanel.class.getResource("/images/SpaceMonkey.jpg")));
-			else if(gameData.getDifficulty() ==  DifficultySet.Normal)
-				lblDifficultyIcon.setIcon(new ImageIcon(FinalScorePanel.class.getResource("/images/SpacePioneer.jpg")));
-			else
-				lblDifficultyIcon.setIcon(new ImageIcon(FinalScorePanel.class.getResource("/images/deadAstronaut.jpg")));
+			if(SF_CNT < 1){
+				result = base;
+				txtBase.setText(base.toString());
+				txtBase.setEnabled(true);
+				if(gameData.getDifficulty() ==  DifficultySet.Easy)
+					lblDifficultyIcon.setIcon(new ImageIcon(FinalScorePanel.class.getResource("/images/SpaceMonkey.jpg")));
+				else if(gameData.getDifficulty() ==  DifficultySet.Normal)
+					lblDifficultyIcon.setIcon(new ImageIcon(FinalScorePanel.class.getResource("/images/SpacePioneer.jpg")));
+				else
+					lblDifficultyIcon.setIcon(new ImageIcon(FinalScorePanel.class.getResource("/images/deadAstronaut.jpg")));
+			}
+			else if(SF_CNT < 2){
+				result = result + 100000*Destination.getId();
+				txtDestination.setText(Destination.getName() + " 100000 x " + Destination.getId());
+				txtDestination.setEnabled(true);
+			}
+			else if(SF_CNT < 3){
+				if(gameData.crewSkillCount(Person.botanist)>0)
+					result = result + 200000*gameData.crewSkillCount(Person.botanist);
+				txtBotanists.setText("200000 x "+gameData.crewSkillCount(Person.botanist));
+				txtBotanists.setEnabled(true);
+			}
+			else if(SF_CNT < 4){
+				if(gameData.liveCrew() > 0)
+					result = result + 100000*gameData.liveCrew();
+				txtCrewAlive.setText("100000 x "+ gameData.liveCrew());
+				txtCrewAlive.setEnabled(true);
+			}
+			else if(SF_CNT < 5){
+				if(gameData.getTotalEvents() > 0)
+					result = result + 25000*gameData.getTotalEvents();
+				txtEvents.setText("25000 x "+ gameData.getTotalEvents());
+				txtEvents.setEnabled(true);
+			}
+			else if(SF_CNT < 6){
+				if(gameData.getFood() > 0)
+					result = result + 50000*gameData.getFood();
+				txtFood.setText("50000 x " + gameData.getFood());
+				txtFood.setEnabled(true);
+			}
+			else if(SF_CNT < 7){
+				if(gameData.getWater() > 0)
+					result = result + 50000*gameData.getWater();
+				txtWater.setText("50000 x " + gameData.getWater());
+				txtWater.setEnabled(true);
+			}
+			else if(SF_CNT < 8){
+				if(gameData.getParts() > 0)
+					result = result + 25000*gameData.getParts();
+				txtParts.setText("25000 x " + gameData.getParts());
+				txtParts.setEnabled(true);
+			}
+			else if(SF_CNT < 9){
+				result = result*gameData.getDifficulty();
+				txtDifficulty.setText("Score x " + gameData.getDifficulty());
+				txtDifficulty.setEnabled(true);
+			}
+			//result = base*Destination.getId()*(gameData.crewSkillCount(Person.botanist))*gameData.liveCrew()*gameData.getTotalEvents()*gameData.getFood()*gameData.getWater()*gameData.getParts();
+			if(SF_CNT < 10 ){
+				textFinalScore.setEnabled(true);
+				textFinalScore.setText(EndGameStage.scoreFormat.format(result));
+			}
+			System.out.println("Display Score: "+SF_CNT);
 		}
 	}
+	
 
 	public boolean isContinue() {
 		return Continue;

@@ -4,7 +4,7 @@ import java.io.File;
 
 public class SongPath {
 	
-	public String getPath(int songNumber){
+	public static String getPath(int songNumber){
 		
 		File currentDirFile = new File(".");
 		
@@ -59,6 +59,12 @@ public class SongPath {
 				return ProjectFolder + "\\src\\sounds\\271287_spinozz_distorted-neuro-electro-basse.mp3";
 			case 23:
 				return ProjectFolder + "\\src\\sounds\\19 Running Out.mp3";
+			case 24:
+				return ProjectFolder + "\\src\\sounds\\345271_soneproject_ecofuture2.mp3";
+			case 25:
+				return ProjectFolder + "\\src\\sounds\\gameaudio_win-spacey.mp3";
+			case 26:
+				return ProjectFolder + "\\src\\sounds\\pera_introgui.mp3";
 		}
 		
 		return null;

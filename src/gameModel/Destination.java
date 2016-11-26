@@ -16,7 +16,7 @@ public class Destination {
 	public static final int IN_PROGRESS = 0;
 	public static final int DESTINATION_APPROACH = 1;
 	public static final int DESTINATION_REACHED = 2;
-	public static final int PROXIMITY = 25000000;
+	public static int PROXIMITY = 25000000;
 	public static DecimalFormat distFormat = new DecimalFormat("###,###,###");
 	
 	public static void initDestination(int select){
@@ -25,11 +25,13 @@ public class Destination {
 			name = "Mars";
 			type = "Planet";
 			distance = MarsDistance; //250 MKM
+			PROXIMITY = 15000000;
 		}else{
 			id = 2;
 			name = "Europa";
 			type = "Moon";
 			distance = EuropaDistance; //800 MKM
+			PROXIMITY = 50000000;
 		}
 	}
 	

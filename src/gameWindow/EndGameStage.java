@@ -59,6 +59,8 @@ public class EndGameStage extends JFrame {
 		if(destPanel.isScore() && !scorePanel.isScoreActive()){
 			destPanel.setVisible(false);
 			scorePanel.displayScoreScreen(gameData);
+		}else if(scorePanel.isScoreActive()){
+			scorePanel.displayScoreScreen(gameData);
 		}
 		
 		if(scorePanel.isContinue()) return true;

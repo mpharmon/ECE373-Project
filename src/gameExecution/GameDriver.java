@@ -29,10 +29,10 @@ public class GameDriver implements Runnable {
 		TransferStage transferWindow = new TransferStage();
 		EndGameStage endGameWindow = new EndGameStage();
 		
-		SongPath sp = new SongPath();
+		//SongPath sp = new SongPath();
 		CustomPlayer player = new CustomPlayer();
 			
-		player.setPath(sp.getPath(9));
+		player.setPath(SongPath.getPath(9));
 		if(player.play(-1)) System.out.println("Playing Intro");
 		else System.out.println("Exit");
 		
@@ -99,7 +99,7 @@ public class GameDriver implements Runnable {
 						currentWindow = transferWindow.getWindowId();
 						player.pause();
 						track = rand.nextInt(18);
-						player.setPath(sp.getPath(track));
+						player.setPath(SongPath.getPath(track));
 						if(player.play(-1)) System.out.println("Playing Transfer track: "+ track);
 						System.out.println("Live crew: " + transferWindow.getGameData().liveCrew());
 						
@@ -107,13 +107,13 @@ public class GameDriver implements Runnable {
 					supplyWindow.updateProgress(transferWindow.getGameData().getVipID());
 					break;
 				case 5:
-					if(transferWindow.TransferUpdate()){
+					if(transferWindow.TransferUpdate()){ //Returns true if destination reached
 						transferWindow.setVisible(false);
 						endGameWindow.setVisible(true);
 						currentWindow = endGameWindow.getWindowId();
 					}
 					if(player.isOver()){
-						player.setPath(sp.getPath(track));
+						player.setPath(SongPath.getPath(track));
 						player.play(-1);
 						if(track <= 18) track++;
 						else track = 1;
@@ -121,7 +121,7 @@ public class GameDriver implements Runnable {
 					if(transferWindow.getGameOverPanel().isGameOver()){
 						currentWindow = RESET;
 						player.pause();
-						player.setPath(sp.getPath(23));
+						player.setPath(SongPath.getPath(23));
 						if(player.play(-1)) System.out.println("Playing Game Over");
 						else System.out.println("Exit");
 					}
@@ -146,7 +146,7 @@ public class GameDriver implements Runnable {
 						endGameWindow = new EndGameStage();
 						player.pause();
 						player = new CustomPlayer();
-						player.setPath(sp.getPath(9));
+						player.setPath(SongPath.getPath(9));
 						if(player.play(-1)) System.out.println("Playing Intro");
 						else System.out.println("Exit");
 					}
