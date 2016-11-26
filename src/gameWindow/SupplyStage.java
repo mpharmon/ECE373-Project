@@ -10,6 +10,10 @@ import javax.swing.JSlider;
 import java.awt.Color;
 import java.awt.Font;
 import com.jgoodies.forms.factories.DefaultComponentFactory;
+
+import gameExecution.GameData;
+import gameModel.Person;
+
 import javax.swing.JProgressBar;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
@@ -40,9 +44,9 @@ public class SupplyStage extends JFrame {
 	private int Parts;
 	private float MAX_SUPPLIES = 1000;
 	private final static float  w1 = (float) 4;
-	private final static float  w2 = (float) 2;
+	private final static float  w2 = (float) 1;
 	private final static float  w3 = (float) 1;
-	private final static float  w4 = (float) 3;
+	private final static float  w4 = (float) 4;
 	
 	JSlider Fuel_Slider;
 	JSlider Food_Slider;
@@ -252,6 +256,7 @@ public class SupplyStage extends JFrame {
 		contentPane.add(lblPartsIcon);
 		
 		btnConfirm = new JButton("Confirm");
+		btnConfirm.setToolTipText("All supplies must have meet the minimum amount.");
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -305,19 +310,41 @@ public class SupplyStage extends JFrame {
 
 	}
 	
-	public void updateProgress(){
+	public void updateProgress(int vipID){
+		Double temp = new Double(0);
 		
 		Resources = Fuel*w1 + Food*w2 + H2O*w3 + Parts*w4;
-		result = Math.round((Resources/MAX_SUPPLIES)*100);
-		
-		if(Resources > MAX_SUPPLIES){
-			textArea.setForeground(Color.RED);
-			textArea.setText("Insufficient Resources " + (MAX_SUPPLIES - Resources));
-			btnConfirm.setEnabled(false);
-		}else {
-			textArea.setForeground(Color.GREEN);
-			textArea.setText("Available Resources " + (MAX_SUPPLIES - Resources));
-			btnConfirm.setEnabled(true);
+		if(vipID == Person.Trump){
+			temp = (Resources/(MAX_SUPPLIES*1.05))*100;
+			result = temp.intValue();
+			if(Resources > (MAX_SUPPLIES*1.05)){
+				textArea.setForeground(Color.RED);
+				textArea.setText("Insufficient Resources " + (MAX_SUPPLIES*1.05 - Resources));
+				btnConfirm.setEnabled(false);
+			}else {
+				textArea.setForeground(Color.GREEN);
+				textArea.setText("Available Resources " + (MAX_SUPPLIES*1.05 - Resources));
+				if((Fuel>= 25) && (Parts >= 25) && (H2O >= 50) && (Food >= 50))
+					btnConfirm.setEnabled(true);
+				else{
+					btnConfirm.setEnabled(false);
+				}
+			}
+		}else{
+			result = Math.round((Resources/MAX_SUPPLIES)*100);
+			if(Resources > MAX_SUPPLIES){
+				textArea.setForeground(Color.RED);
+				textArea.setText("Insufficient Resources " + (MAX_SUPPLIES - Resources));
+				btnConfirm.setEnabled(false);
+			}else {
+				textArea.setForeground(Color.GREEN);
+				textArea.setText("Available Resources " + (MAX_SUPPLIES - Resources));
+				if((Fuel>= 25) && (Parts >= 25) && (H2O >= 50) && (Food >= 50))
+					btnConfirm.setEnabled(true);
+				else{
+					btnConfirm.setEnabled(false);
+				}
+			}
 		}
 		sliderHandler();
 		//System.out.println(Resources);
@@ -340,7 +367,7 @@ public class SupplyStage extends JFrame {
 			lblFuelStatus.setForeground(Color.GREEN);
 			lblFuelStatus.setText("Sufficient");
 		}
-		if(Food < 75 ){ 
+		if(Food < 50 ){ 
 			Food_Slider.setBorder(new LineBorder(Color.RED, 2, true));
 			lblFoodStatus.setForeground(Color.RED);
 			lblFoodStatus.setText("Insufficient");
@@ -353,7 +380,7 @@ public class SupplyStage extends JFrame {
 			lblFoodStatus.setForeground(Color.GREEN);
 			lblFoodStatus.setText("Sufficient");
 		}
-		if(H2O < 75 ){ 
+		if(H2O < 50 ){ 
 			H2O_Slider.setBorder(new LineBorder(Color.RED, 2, true));
 			lblWaterStatus.setForeground(Color.RED);
 			lblWaterStatus.setText("Insufficient");
@@ -381,13 +408,35 @@ public class SupplyStage extends JFrame {
 		}
 	}
 	
-	public void setResources(int difficulty){
-		MAX_SUPPLIES = (1000 - (difficulty*100) + 100);
-		Resources = (1000 - (difficulty*100) + 100);
-		Fuel = 100 - (difficulty*5) + 5;
-		Food = 100;
-		H2O = 100;
-		Parts = 100 - (difficulty*5) + 5;
+	public void setResources(GameData gameData){
+			
+			if(gameData.getDifficulty() == DifficultySet.Easy){
+				MAX_SUPPLIES = 1000;
+				Resources = 1000;
+				Fuel = 100;
+				Food = 100;
+				H2O = 100;
+				Parts = 100;
+			}else if(gameData.getDifficulty() == DifficultySet.Normal){
+				MAX_SUPPLIES = 800;
+				Resources = 800;
+				Fuel = 50;
+				Food = 100;
+				H2O = 100;
+				Parts = 50;
+			}else{
+				MAX_SUPPLIES = 700;
+				Resources = 700;
+				Fuel = 50;
+				Food = 100;
+				H2O = 100;
+				Parts = 25;
+			}
+			Fuel_Slider.setValue(Fuel);
+			Food_Slider.setValue(Food);
+			H2O_Slider.setValue(H2O);
+			Parts_Slider.setValue(Parts);
+			updateProgress(gameData.getVipID());
 	}
 	
 	public int getWindowId() {

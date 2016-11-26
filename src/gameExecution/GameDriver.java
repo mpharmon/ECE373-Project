@@ -27,6 +27,7 @@ public class GameDriver implements Runnable {
 		SelectCrew selectCrewWindow = new SelectCrew();
 		SupplyStage supplyWindow = new SupplyStage();
 		TransferStage transferWindow = new TransferStage();
+		EndGameStage endGameWindow = new EndGameStage();
 		
 		SongPath sp = new SongPath();
 		CustomPlayer player = new CustomPlayer();
@@ -59,7 +60,7 @@ public class GameDriver implements Runnable {
 				case 1:
 					if (difficultyWindow.checkButtons() == 1) {
 						transferWindow.getGameData().setDifficulty(difficultyWindow.getDifficulty());
-						supplyWindow.setResources(transferWindow.getGameData().getDifficulty());
+						supplyWindow.setResources(transferWindow.getGameData());
 						difficultyWindow.setVisible(false);
 						//Next Window
 						preparationWindow.setVisible(true);
@@ -79,6 +80,7 @@ public class GameDriver implements Runnable {
 				case 3:
 					if (selectCrewWindow.checkButtons() == 1) {
 						transferWindow.getGameData().Crew.addAll(selectCrewWindow.getCrew());
+						transferWindow.getGameData().setVipID(selectCrewWindow.getSelectedVIP());
 						selectCrewWindow.setVisible(false);
 						//Next Window
 						supplyWindow.setVisible(true);
@@ -102,10 +104,14 @@ public class GameDriver implements Runnable {
 						System.out.println("Live crew: " + transferWindow.getGameData().liveCrew());
 						
 					}
-					supplyWindow.updateProgress();
+					supplyWindow.updateProgress(transferWindow.getGameData().getVipID());
 					break;
 				case 5:
-					transferWindow.TransferUpdate();
+					if(transferWindow.TransferUpdate()){
+						transferWindow.setVisible(false);
+						endGameWindow.setVisible(true);
+						currentWindow = endGameWindow.getWindowId();
+					}
 					if(player.isOver()){
 						player.setPath(sp.getPath(track));
 						player.play(-1);
@@ -115,14 +121,20 @@ public class GameDriver implements Runnable {
 					if(transferWindow.getGameOverPanel().isGameOver()){
 						currentWindow = RESET;
 						player.pause();
-						player.setPath(sp.getPath(5));
+						player.setPath(sp.getPath(23));
 						if(player.play(-1)) System.out.println("Playing Game Over");
 						else System.out.println("Exit");
 					}
 					break;
+				case 6:
+					if(endGameWindow.updateEndGame(transferWindow.getGameData())){
+						endGameWindow.setVisible(false);
+						currentWindow = RESET;
+					}
+					break;
 				case 8://RESET
 					// Reset/Instantiate Windows
-					if(transferWindow.getGameOverPanel().isContinue()){
+					if(transferWindow.getGameOverPanel().isContinue() || endGameWindow.getScorePanel().isContinue()){
 						transferWindow.dispose();
 						startWindow = new StartMenu();
 						difficultyWindow = new DifficultySet();
@@ -131,6 +143,12 @@ public class GameDriver implements Runnable {
 						supplyWindow = new SupplyStage();
 						transferWindow = new TransferStage();
 						currentWindow = startWindow.getWindowId();
+						endGameWindow = new EndGameStage();
+						player.pause();
+						player = new CustomPlayer();
+						player.setPath(sp.getPath(9));
+						if(player.play(-1)) System.out.println("Playing Intro");
+						else System.out.println("Exit");
 					}
 					break;
 				}

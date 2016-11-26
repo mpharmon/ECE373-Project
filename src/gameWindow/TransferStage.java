@@ -49,8 +49,8 @@ public class TransferStage extends JFrame {
 	private double X0_temp, X3_temp, X4_temp, X8_temp, X9_temp;
 	private double factor_3 = 0.075;          //Scales Earths movement
 	private double factor_4 = 0.015;          //Scales Moons movement
-	private double factor_8 = 0.015;		  //Scales Jupiter movement
-	private double factor_9 = 0.075;		  //Scales Destination movement
+	private double factor_8 = 0.075;		  //Scales Jupiter movement
+	private double factor_9 = 0.015;		  //Scales Destination movement
 	private double factor_0 = 0.000853;		//Scales Background Space movement
 	private static final int standard = 10;			//Game timer update w/o warp
 	private static final int TimeWarp = 2;			//Game timer update w/ warp
@@ -151,7 +151,7 @@ public class TransferStage extends JFrame {
 		X5_pos = -186; Y5_pos = 125;
 		X6_pos = 999;  Y6_pos = 295;
 		X7_pos = 1189; Y7_pos =  282;
-		X8_pos = -746;    X8_temp = -746;
+		X8_pos = -476;    X8_temp = -476;
 		X9_pos = -270;    X9_temp = -270; 
 		Y9_pos = 100;
 		
@@ -464,7 +464,10 @@ public class TransferStage extends JFrame {
 							eventPanel.getCost());
 		if(resultPanel.isDataReady()) resultPanel.setDataReady(false);
 		
-		return Warp;
+		if(destinationSequence(gameData.getCurrentDistance()) == Destination.DESTINATION_REACHED)
+			return true;
+		else 
+			return false;
 	}
 	
 	public void moveSpace(){
@@ -509,18 +512,19 @@ public class TransferStage extends JFrame {
 			X4_temp = (X4_temp) + (speed*factor_3);
 			X4_pos = (int) Math.round(X4_temp);
 			lblMoon.setBounds(X4_pos, 0, 362, 384);
-		}else{
+		}else if(X9_pos < 1080) {
 			if(destinationSequence(gameData.getCurrentDistance()) == Destination.DESTINATION_APPROACH ){
 				X8_temp = (X8_temp) + (speed*factor_8);
 				X8_pos = (int) Math.round(X8_temp);
-				if(Destination.getId() == Destination.EUROPA) lblJupiter.setLocation(X8_pos, 0);
-			}else if(destinationSequence(gameData.getCurrentDistance()) == Destination.DESTINATION_REACHED){
 				X9_temp = (X9_temp) + (speed*factor_9);
 				X9_pos = (int) Math.round(X9_temp);
-				lblDestination.setLocation(X9_pos, 100);
+				lblDestination.setLocation(X9_pos, Y9_pos);
+				if(Destination.getId() == Destination.EUROPA) lblJupiter.setLocation(X8_pos, 0);
+			}else if(destinationSequence(gameData.getCurrentDistance()) == Destination.DESTINATION_REACHED){
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 	
 	public void moveSatelites(){

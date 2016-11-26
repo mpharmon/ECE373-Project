@@ -16,7 +16,7 @@ public class Destination {
 	public static final int IN_PROGRESS = 0;
 	public static final int DESTINATION_APPROACH = 1;
 	public static final int DESTINATION_REACHED = 2;
-	public static final int PROXIMITY = 50000000;
+	public static final int PROXIMITY = 25000000;
 	public static DecimalFormat distFormat = new DecimalFormat("###,###,###");
 	
 	public static void initDestination(int select){

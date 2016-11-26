@@ -264,6 +264,7 @@ public class EventPanel extends JPanel {
 	}
 
 	public int randomCost(int cost){
+	
 		return random.nextInt(cost);
 	}
 	/**

@@ -13,6 +13,9 @@ public class Spaceship {
 	public static final int critical = 1;
 	public static final int damaged = 2;
 	public static final int nominal = 3;
+	
+	public static final int ORION_CAPSULE = 1;
+	public static final int SPACEX_SHUTTLE = 2;
 
 	// Constructor(s)
 	public Spaceship(String name) {

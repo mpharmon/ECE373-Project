@@ -27,7 +27,7 @@ public class GameTimer extends JApplet {
 	public void initTimer(){
 		// Create a Timer object and register an ActionListener.
 	      timer = new Timer(delay, new TimerListener());
-	      
+
 	      // Start the timer.
 	      timer.start();
 	}

@@ -32,6 +32,7 @@ public class GameData {
 	
 	protected ArrayList<Person> Crew;
 	private Spaceship spacecraft;
+	private int vipID;
 	protected int shipStatus;
 	private int totalEvents;
 	private int resolvedEvents;
@@ -132,6 +133,14 @@ public class GameData {
 	//Checks for alive crew members
 	public int liveCrew(){
 		return (spacecraft.getCrewCapacity() - deadCrew());
+	}
+	
+	public int crewSkillCount(int skill){
+		int skillCnt = 0;
+		for(int i = 0; i<Crew.size(); i++){
+			if(Crew.get(i).getSkill() == skill) skillCnt++;
+		}
+		return skillCnt;
 	}
 	
 	/**
@@ -297,5 +306,13 @@ public class GameData {
 
 	public void setResolvedEvents(int resolvedEvents) {
 		this.resolvedEvents = resolvedEvents;
+	}
+
+	public int getVipID() {
+		return vipID;
+	}
+
+	public void setVipID(int vipID) {
+		this.vipID = vipID;
 	}
 }

@@ -18,6 +18,10 @@ public class Person {
 	public static final int scientist=  3;
 	public static final int doctor = 	4;
 	public static final int botanist =  5; 
+	//VIP ID definitions
+	public static final int Trump =  1; 
+	public static final int Elon =  2; 
+	public static final int Oprah =  3; 
 	
 	public Person(){
 		name = "Unknown";

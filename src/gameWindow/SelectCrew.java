@@ -104,11 +104,27 @@ public class SelectCrew extends JFrame {
 		lblDoanldImage.setIcon(new ImageIcon(SelectCrew.class.getResource("/images/Donald_Small2.jpg")));
 		lblDoanldImage.setBounds(340, 140, 211, 237);
 		contentPane.add(lblDoanldImage);
+		
+		JTextArea txtrBonus = new JTextArea();
+		txtrBonus.setFont(new Font("Slider", Font.PLAIN, 15));
+		txtrBonus.setText("> 5% Bonus to resources");
+		txtrBonus.setForeground(Color.WHITE);
+		txtrBonus.setOpaque(false);
+		txtrBonus.setBounds(331, 396, 200, 22);
+		contentPane.add(txtrBonus);
 
 		JLabel lblElonimage = new JLabel("ElonImage");
 		lblElonimage.setIcon(new ImageIcon(SelectCrew.class.getResource("/images/Elon_Small.jpg")));
 		lblElonimage.setBounds(571, 154, 149, 208);
 		contentPane.add(lblElonimage);
+		
+		JTextArea txtrBonus_1 = new JTextArea();
+		txtrBonus_1.setText("> 5% Bonus to ship speed");
+		txtrBonus_1.setOpaque(false);
+		txtrBonus_1.setForeground(Color.WHITE);
+		txtrBonus_1.setFont(new Font("Slider", Font.PLAIN, 15));
+		txtrBonus_1.setBounds(546, 396, 200, 35);
+		contentPane.add(txtrBonus_1);
 
 		JLabel lblOprahImage = new JLabel("New label");
 		lblOprahImage.setIcon(new ImageIcon(SelectCrew.class.getResource("/images/Oprah.jpg")));
@@ -125,6 +141,14 @@ public class SelectCrew extends JFrame {
 				confirm = true;
 			}
 		});
+		
+		JTextArea txtrBonus_2 = new JTextArea();
+		txtrBonus_2.setText("> 5% Bonus to event \r\n   outcomes");
+		txtrBonus_2.setOpaque(false);
+		txtrBonus_2.setForeground(Color.WHITE);
+		txtrBonus_2.setFont(new Font("Slider", Font.PLAIN, 15));
+		txtrBonus_2.setBounds(756, 396, 200, 51);
+		contentPane.add(txtrBonus_2);
 		btnConfirm.setFont(new Font("Slider", Font.PLAIN, 18));
 		btnConfirm.setForeground(new Color(0, 0, 0));
 		btnConfirm.setBounds(565, 602, 181, 51);
