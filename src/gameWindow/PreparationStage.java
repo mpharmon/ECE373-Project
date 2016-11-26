@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import edu.arizona.ece373.InterplanetaryPioneers.Model.Destination;
-import edu.arizona.ece373.InterplanetaryPioneers.Model.Spaceship;
 import gameExecution.GameData;
+import gameModel.Destination;
+import gameModel.Spaceship;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -170,17 +170,17 @@ public class PreparationStage extends JFrame {
 		txtrEuropaInfo.setForeground(new Color(255, 255, 255));
 		txtrEuropaInfo.setFont(new Font("Slider", Font.PLAIN, 14));
 		txtrEuropaInfo.setText(
-				"Name: Europa\r\nClass: Moon\r\nType: Barren Ice world\r\nWater: Subterranean\r\nDistance from Sun: 483.8 M mi\r\n");
-		txtrEuropaInfo.setBounds(260, 432, 217, 88);
+				"Name: Europa\r\nClass: Moon\r\nType: Barren Ice world\r\nWater: Subterranean\r\nVoyage distance: 800 M Km\r\n");
+		txtrEuropaInfo.setBounds(260, 432, 232, 106);
 		contentPane.add(txtrEuropaInfo);
 
 		JTextArea textMarsInfo = new JTextArea();
 		textMarsInfo.setForeground(new Color(255, 255, 255));
 		textMarsInfo.setOpaque(false);
 		textMarsInfo.setText(
-				"Name: Mars\r\nClass: Planet\r\nType: Arid world\r\nWater: Northern Ice Caps\r\nDistance from Sun: 141.6 M mi\r\n");
+				"Name: Mars\r\nClass: Planet\r\nType: Arid world\r\nWater: Northern Ice Caps\r\nVoyage distance: 250 M Km\r\n");
 		textMarsInfo.setFont(new Font("Slider", Font.PLAIN, 14));
-		textMarsInfo.setBounds(260, 166, 217, 88);
+		textMarsInfo.setBounds(260, 166, 232, 106);
 		contentPane.add(textMarsInfo);
 
 		JLabel lblBackground = new JLabel("");
@@ -240,8 +240,10 @@ public class PreparationStage extends JFrame {
 		}
 		if(getDestinationId() == 1){
 			Destination.initDestination(1);
+			gameData.setVoyageDistance(Destination.getDistance());
 		}else{
 			Destination.initDestination(2);
+			gameData.setVoyageDistance(Destination.getDistance());
 		}
 	}
 }

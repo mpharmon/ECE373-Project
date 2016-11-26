@@ -26,9 +26,9 @@ public class DifficultySet extends JFrame {
 	private final ButtonGroup Difficulty_buttonGroup = new ButtonGroup();
 
 	private int windowId;
-	final private static int Easy = 1;
-	final private static int Normal = 2;
-	final private static int Hard = 3;
+	public static int Easy = 1;
+	public static int Normal = 2;
+	public static int Hard = 3;
 	
 	JToggleButton tglbtnSuicideMission;
 	JToggleButton tglbtnSpacePioneer;

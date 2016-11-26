@@ -13,8 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import edu.arizona.ece373.InterplanetaryPioneers.Model.Person;
 import gameExecution.GameData;
+import gameModel.Person;
 
 import javax.swing.ImageIcon;
 import javax.swing.JProgressBar;

@@ -2,7 +2,6 @@ package gameExecution;
 
 import java.awt.EventQueue;
 import java.util.Random;
-
 import gameSound.CustomPlayer;
 import gameWindow.*;
 import sounds.SongPath;
@@ -12,6 +11,7 @@ public class GameDriver implements Runnable {
 	boolean running = false;
 	private int track;
 	private Random rand = new Random();
+	private static int RESET = 8;
 
 	public void start() {
 		running = true;
@@ -111,6 +111,26 @@ public class GameDriver implements Runnable {
 						player.play(-1);
 						if(track <= 18) track++;
 						else track = 1;
+					}
+					if(transferWindow.getGameOverPanel().isGameOver()){
+						currentWindow = RESET;
+						player.pause();
+						player.setPath(sp.getPath(5));
+						if(player.play(-1)) System.out.println("Playing Game Over");
+						else System.out.println("Exit");
+					}
+					break;
+				case 8://RESET
+					// Reset/Instantiate Windows
+					if(transferWindow.getGameOverPanel().isContinue()){
+						transferWindow.dispose();
+						startWindow = new StartMenu();
+						difficultyWindow = new DifficultySet();
+						preparationWindow = new PreparationStage();
+						selectCrewWindow = new SelectCrew();
+						supplyWindow = new SupplyStage();
+						transferWindow = new TransferStage();
+						currentWindow = startWindow.getWindowId();
 					}
 					break;
 				}

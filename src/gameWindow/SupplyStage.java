@@ -31,6 +31,7 @@ public class SupplyStage extends JFrame {
 	private JPanel contentPane;
 	
 	private boolean Confirm;
+	private JButton btnConfirm;
 	
 	private float Resources;
 	private int Fuel;
@@ -191,7 +192,7 @@ public class SupplyStage extends JFrame {
 		progressBar = new JProgressBar();
 		progressBar.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
-				
+	
 			}
 		});
 		progressBar.setBounds(377, 509, 536, 36);
@@ -250,11 +251,12 @@ public class SupplyStage extends JFrame {
 		lblPartsIcon.setBounds(986, 149, 151, 140);
 		contentPane.add(lblPartsIcon);
 		
-		JButton btnConfirm = new JButton("Confirm");
+		btnConfirm = new JButton("Confirm");
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Confirm = true;
+				if(btnConfirm.isEnabled())
+					Confirm = true;
 			}
 		});
 		btnConfirm.setBackground(Color.CYAN);
@@ -311,9 +313,11 @@ public class SupplyStage extends JFrame {
 		if(Resources > MAX_SUPPLIES){
 			textArea.setForeground(Color.RED);
 			textArea.setText("Insufficient Resources " + (MAX_SUPPLIES - Resources));
+			btnConfirm.setEnabled(false);
 		}else {
 			textArea.setForeground(Color.GREEN);
 			textArea.setText("Available Resources " + (MAX_SUPPLIES - Resources));
+			btnConfirm.setEnabled(true);
 		}
 		sliderHandler();
 		//System.out.println(Resources);

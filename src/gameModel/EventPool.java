@@ -1,4 +1,4 @@
-package edu.arizona.ece373.InterplanetaryPioneers.Model;
+package gameModel;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -52,7 +52,7 @@ public class EventPool {
         /*
          *	Event #3 - Infectious Agent 1
          */
-    	newEvent = new Event(Event.Moderate, true, GameData.water, 20, 0.35, Person.scientist, true, false);
+    	newEvent = new Event(Event.Moderate, true, GameData.water, 20, 0.35, Person.doctor, true, false);
 		newEvent.titleColor = Color.YELLOW;
 		newEvent.setDescription("There appears to be an infectious agent on board. The infectious agent must be contained before it infects someone. You can resolve the issue\n "
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");

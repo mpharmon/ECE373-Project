@@ -3,10 +3,10 @@ package gameWindow;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import edu.arizona.ece373.InterplanetaryPioneers.Model.Event;
-import edu.arizona.ece373.InterplanetaryPioneers.Model.EventPool;
-import edu.arizona.ece373.InterplanetaryPioneers.Model.Person;
 import gameExecution.GameData;
+import gameModel.Event;
+import gameModel.EventPool;
+import gameModel.Person;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JRadioButton;
@@ -200,6 +200,7 @@ public class EventPanel extends JPanel {
 		
 		EventActive = true;
 		setEventPanel(gameData);
+		gameData.setTotalEvents(gameData.getTotalEvents()+1);
 		super.setVisible(true);
 		
 	}

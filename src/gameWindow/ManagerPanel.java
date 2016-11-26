@@ -9,9 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-import edu.arizona.ece373.InterplanetaryPioneers.Model.Person;
-import edu.arizona.ece373.InterplanetaryPioneers.Model.Spaceship;
 import gameExecution.GameData;
+import gameModel.Person;
+import gameModel.Spaceship;
+
 import javax.swing.JTextField;
 
 public class ManagerPanel extends JPanel {
@@ -299,7 +300,7 @@ public class ManagerPanel extends JPanel {
 	
 	public boolean updateTimeElapsed(){
 		seconds++;
-		if(seconds <= 720){
+		if(seconds <= 1200){
 			//%[argument_index$][flags][width]conversion
 			txtGameTime.setText("Game time: "+  seconds/60 +":" + String.format(java.util.Locale.US, "%02d" , seconds%60));
 			return true;

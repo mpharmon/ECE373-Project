@@ -1,4 +1,4 @@
-package edu.arizona.ece373.InterplanetaryPioneers.Model;
+package gameModel;
 
 import java.util.ArrayList;
 import java.util.Iterator;

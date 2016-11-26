@@ -46,7 +46,7 @@ public class StartMenu extends JFrame {
 	 */
 	public StartMenu() {
 
-		setWindowId(0);
+		windowId = 0;
 
 		// Initialize button tracking variables
 		StartBtn = false;

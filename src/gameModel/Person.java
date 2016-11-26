@@ -1,4 +1,4 @@
-package edu.arizona.ece373.InterplanetaryPioneers.Model;
+package gameModel;
 
 public class Person {
 	

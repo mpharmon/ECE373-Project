@@ -7,8 +7,8 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
 
-import edu.arizona.ece373.InterplanetaryPioneers.Model.Event;
 import gameExecution.GameData;
+import gameModel.Event;
 
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
@@ -207,6 +207,7 @@ public class ResolutionPanel extends JPanel {
 		setResolutionActive(true);
 		
 		if(Outcome){
+			gameData.setResolvedEvents(gameData.getResolvedEvents()+1);
 			ResultField.setForeground(Color.GREEN);
 			ResultField.setText("Resolved!");
 			if(event.isPenalty()){

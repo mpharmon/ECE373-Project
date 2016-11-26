@@ -1,4 +1,4 @@
-package edu.arizona.ece373.InterplanetaryPioneers.Model;
+package gameModel;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -42,6 +42,9 @@ public class Event {
 	public final static int Option2 = 2;
 	public final static int Option3 = 3;
 	public final static int Option4 = 4;
+	
+	public final static boolean RESOLVED = true;
+	public final static boolean FAILED = false;
 	
 	// Constructor(s)
 	public Event() {
