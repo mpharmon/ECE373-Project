@@ -33,7 +33,7 @@ import javax.swing.JTextField;
 
 public class TransferStage extends JFrame {
 	
-	public static boolean Debug = true;  //For debugging end game disables events
+	public static boolean Debug = false;  //For debugging end game disables events
 	
 	private int windowId;
 	
