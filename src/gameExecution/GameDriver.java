@@ -98,7 +98,7 @@ public class GameDriver implements Runnable {
 						transferWindow.startup();
 						currentWindow = transferWindow.getWindowId();
 						player.pause();
-						track = rand.nextInt(18);
+						track = rand.nextInt(4);
 						player.setPath(SongPath.getPath(track));
 						if(player.play(-1)) System.out.println("Playing Transfer track: "+ track);
 						System.out.println("Live crew: " + transferWindow.getGameData().liveCrew());
@@ -131,7 +131,7 @@ public class GameDriver implements Runnable {
 						currentWindow = RESET;
 					}
 					break;
-				case 8://RESET
+				case 8:
 					// Reset/Instantiate Windows
 					if(transferWindow.getGameOverPanel().isContinue() || endGameWindow.getScorePanel().isContinue()){
 						transferWindow.dispose();

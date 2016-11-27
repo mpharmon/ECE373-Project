@@ -2,11 +2,13 @@ package gameWindow;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
 import gameExecution.GameData;
 import gameModel.Event;
 import gameModel.EventPool;
 import gameModel.Person;
+import sounds.SongPath;
 
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JRadioButton;
@@ -46,6 +48,7 @@ public class EventPanel extends JPanel {
 	private final static int Critical = 3;
 	
 	private JButton btnConfirm; 
+	Timer resultTimer;
 	
 	/**
 	 * Modular Event Panel Parameters
@@ -109,9 +112,12 @@ public class EventPanel extends JPanel {
 		btnConfirm.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				confirm = !confirm;
-				determineOutcome();
-				setVisible(false);
+				if(btnConfirm.isEnabled()){
+					confirm = true;
+					resultTimer.stop();
+					determineOutcome();
+					setVisible(false);
+				}
 			}
 		});
 		
@@ -158,6 +164,20 @@ public class EventPanel extends JPanel {
 		EventActive = false;
 		//setSkillType(Person.none);
 		EventPool.initEventPool();
+		
+		ActionListener taskPerformer = new ActionListener() {
+		    public void actionPerformed(ActionEvent evt) {
+		    	if((getResolution() == 2) && !rdbtnOption2.isEnabled()){
+		    		btnConfirm.setEnabled(false);
+		    	}else if((getResolution() == 3) && !rdbtnOption3.isEnabled()){
+		    		btnConfirm.setEnabled(false);
+		    	}else{
+		    		btnConfirm.setEnabled(true);
+		    	}
+		    }
+		};
+		resultTimer = new Timer(50 , taskPerformer);
+		resultTimer.stop();
 	}
 	
 	public void setEventPanel(GameData gameData){
@@ -184,8 +204,10 @@ public class EventPanel extends JPanel {
 	
 	//Displays the specified Event panel encounter
 	public void displayEventEncounter(GameData gameData){
-		
+		rdbtnOption1.setSelected(true);
+		resultTimer.start();
 		EventActive = true;
+		confirm = false;
 		setEventPanel(gameData);
 		gameData.setTotalEvents(gameData.getTotalEvents()+1);
 		super.setVisible(true);

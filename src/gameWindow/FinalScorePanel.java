@@ -335,44 +335,44 @@ public class FinalScorePanel extends JPanel {
 					lblDifficultyIcon.setIcon(new ImageIcon(FinalScorePanel.class.getResource("/images/deadAstronaut.jpg")));
 			}
 			else if(SF_CNT < 2){
-				result = result + 100000*Destination.getId();
-				txtDestination.setText(Destination.getName() + " 100000 x " + Destination.getId());
+				result = result + 10000*Destination.getId();
+				txtDestination.setText(Destination.getName() + " 10000 x " + Destination.getId());
 				txtDestination.setEnabled(true);
 			}
 			else if(SF_CNT < 3){
 				if(gameData.crewSkillCount(Person.botanist)>0)
-					result = result + 200000*gameData.crewSkillCount(Person.botanist);
-				txtBotanists.setText("200000 x "+gameData.crewSkillCount(Person.botanist));
+					result = result + 10000*gameData.crewSkillCount(Person.botanist);
+				txtBotanists.setText("10000 x "+gameData.crewSkillCount(Person.botanist));
 				txtBotanists.setEnabled(true);
 			}
 			else if(SF_CNT < 4){
 				if(gameData.liveCrew() > 0)
-					result = result + 100000*gameData.liveCrew();
-				txtCrewAlive.setText("100000 x "+ gameData.liveCrew());
+					result = result + 10000*gameData.liveCrew();
+				txtCrewAlive.setText("10000 x "+ gameData.liveCrew());
 				txtCrewAlive.setEnabled(true);
 			}
 			else if(SF_CNT < 5){
 				if(gameData.getTotalEvents() > 0)
-					result = result + 25000*gameData.getTotalEvents();
-				txtEvents.setText("25000 x "+ gameData.getTotalEvents());
+					result = result + 1500*gameData.getTotalEvents();
+				txtEvents.setText("1500 x "+ gameData.getTotalEvents());
 				txtEvents.setEnabled(true);
 			}
 			else if(SF_CNT < 6){
 				if(gameData.getFood() > 0)
-					result = result + 50000*gameData.getFood();
-				txtFood.setText("50000 x " + gameData.getFood());
+					result = result + 10000*gameData.getFood();
+				txtFood.setText("10000 x " + gameData.getFood());
 				txtFood.setEnabled(true);
 			}
 			else if(SF_CNT < 7){
 				if(gameData.getWater() > 0)
-					result = result + 50000*gameData.getWater();
-				txtWater.setText("50000 x " + gameData.getWater());
+					result = result + 10000*gameData.getWater();
+				txtWater.setText("10000 x " + gameData.getWater());
 				txtWater.setEnabled(true);
 			}
 			else if(SF_CNT < 8){
 				if(gameData.getParts() > 0)
-					result = result + 25000*gameData.getParts();
-				txtParts.setText("25000 x " + gameData.getParts());
+					result = result + 2500*gameData.getParts();
+				txtParts.setText("2500 x " + gameData.getParts());
 				txtParts.setEnabled(true);
 			}
 			else if(SF_CNT < 9){
