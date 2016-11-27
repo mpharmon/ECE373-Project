@@ -160,25 +160,12 @@ public class EventPanel extends JPanel {
 		EventPool.initEventPool();
 	}
 	
-//	public void setEventData(int severity, boolean penalty, int type, int cost, double chance, int skillType){
-//		Severity = severity;		
-//		setResolution(1); 	    // Option A default
-//		setPenalty(penalty);    
-//		setPenaltyType(type);    
-//		setCost(cost);         
-//		setChance(chance);      
-//		setOutcome(true);      // default outcome 
-//		setSkillType(skillType);
-//	}
-//	
 	public void setEventPanel(GameData gameData){
 		
 		currentEvent = EventPool.getRandomEvent();
-		//currentEvent = EventPool.getEvent(2);
+		//currentEvent = EventPool.getEvent(3);			//For debugging specific event
 		//Set color based off severity
 		lblTitle.setForeground(currentEvent.getTitleColor());
-		//Event data configuration
-		//setEventData(Low, true, GameData.parts, 25, 0.50, Person.engineer);
 		//Check Resources
 		eventResourceCheck(gameData);
 		//Set Event info

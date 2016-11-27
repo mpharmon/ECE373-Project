@@ -16,7 +16,7 @@ public class EventPool {
         /*
          *	Event #1 - Power Malfunction
          */
-		newEvent = new Event(Event.Low, true, GameData.parts, 25, 0.50, Person.engineer, false, true);
+		newEvent = new Event(Event.Low, true, GameData.parts, 25, 0.25, Person.engineer, false, true);
 		//Set event text
 		newEvent.setDescription("The ship is experiencing minor power malfunctions. Currently the severity is low. You can resolve the issue\n "
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
@@ -64,6 +64,25 @@ public class EventPool {
 		//Set Icon location
 		newEvent.iconLocation = "/images/infectiousAgent1.jpg";
 		newEvent.setIconBounds(440, 75, 434, 300); 
+		
+        EventPool.events.add(newEvent);
+        
+        /*
+         *	Event #4 - Black Hole
+         */
+    	newEvent = new Event(Event.Critical, true, GameData.fuel, 20, 0.20, Person.pilot, false, true);
+		newEvent.titleColor = Color.RED;
+		newEvent.setDescription("A rogue black hole will pass dangerously close to our path. A course correction is required in order to avoid it's"
+								+ "sphere of influence. Either assign a member of the crew to perform the course correction or perform it yourself."
+								+ " The \ndecision is yours captain.");
+		//Set option text
+		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Attempt to navigate around the black hole yourself. Who needs a pilot right?");
+		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " "+ Event.getTypeString(newEvent.getPenaltyType()) +"] Assign a Pilot to perform the course correction. The pilot will perform the optimal maneuver.");
+		newEvent.setOption3("[0 - "+ newEvent.getCost()+" " + Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to resolve the course correction. Potentially more or less efficient fuel use.");
+		newEvent.setOption4("You pretend like everything is perfectly fine and claim black holes are a myth.");
+		//Set Icon location
+		newEvent.iconLocation = "/images/blackHole.jpg";
+		newEvent.setIconBounds(340, 45, 630, 325); 
 		
         EventPool.events.add(newEvent);
 	}

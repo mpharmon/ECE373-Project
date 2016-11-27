@@ -420,17 +420,17 @@ public class SupplyStage extends JFrame {
 			}else if(gameData.getDifficulty() == DifficultySet.Normal){
 				MAX_SUPPLIES = 800;
 				Resources = 800;
-				Fuel = 50;
+				Fuel = 100;
 				Food = 100;
 				H2O = 100;
 				Parts = 50;
 			}else{
 				MAX_SUPPLIES = 700;
 				Resources = 700;
-				Fuel = 50;
+				Fuel = 75;
 				Food = 100;
 				H2O = 100;
-				Parts = 25;
+				Parts = 50;
 			}
 			Fuel_Slider.setValue(Fuel);
 			Food_Slider.setValue(Food);

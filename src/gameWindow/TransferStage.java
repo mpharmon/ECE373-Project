@@ -431,6 +431,7 @@ public class TransferStage extends JFrame {
 				if(gameOverPanel.checkGameOver(gameData, eventPanel.getCurrentEvent())){
 					gameOverPanel.displayGameOver(gameData);
 					gameOverPanel.setVisible(true);
+					EventTimer.setUpdate(false);
 				}
 			}
 			moveSpace();
@@ -448,12 +449,12 @@ public class TransferStage extends JFrame {
 					First_Event = true;
 				}
 			}
-		}else if(resultPanel.isResolutionActive()){
-			if(!eventPanel.isEventActive()) resultPanel.DisplayResolution(eventPanel.isOutcome(),
-																		  eventPanel.getResolution(),
-																		  eventPanel.getCost(),
-																		  eventPanel.getCurrentEvent(),
-																		  gameData);
+		}else if(!eventPanel.isEventActive() && !getResultPanel().isUpdated()){
+				resultPanel.DisplayResolution(eventPanel.isOutcome(),
+										  eventPanel.getResolution(),
+										  eventPanel.getCost(),
+										  eventPanel.getCurrentEvent(),
+										  gameData);
 			//managerPanel.updateManager(gameData, true);
 			EventTimer.setUpdate(false);
 		}

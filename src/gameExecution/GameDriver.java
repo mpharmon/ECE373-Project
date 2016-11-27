@@ -113,10 +113,9 @@ public class GameDriver implements Runnable {
 						currentWindow = endGameWindow.getWindowId();
 					}
 					if(player.isOver()){
+						track = rand.nextInt(18);
 						player.setPath(SongPath.getPath(track));
 						player.play(-1);
-						if(track <= 18) track++;
-						else track = 1;
 					}
 					if(transferWindow.getGameOverPanel().isGameOver()){
 						currentWindow = RESET;

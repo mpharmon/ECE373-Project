@@ -30,10 +30,11 @@ public class ResolutionPanel extends JPanel {
 	private JTextField crewLostField;
 	private JTextField shipDamageField;
 	
-	protected boolean Continue;
+	private boolean Continue;
 	private boolean ResolutionActive;
 	private boolean dataReady;
 	private boolean penaltyUpdated;
+	private boolean updated = false;
 	
 	/**
 	 * Create the panel.
@@ -180,6 +181,7 @@ public class ResolutionPanel extends JPanel {
 				setResolutionActive(false);
 				setVisible(false);
 				penaltyUpdated = false;
+				updated = false;
 			}
 		});
 		btnNewButton.setBackground(new Color(0, 255, 255));
@@ -204,56 +206,57 @@ public class ResolutionPanel extends JPanel {
 	public boolean DisplayResolution(boolean Outcome, int resolution, int cost, Event event, GameData gameData ){
 		Continue = false;
 		dataReady = false;
-		setResolutionActive(true);
 		
-		if(Outcome){
-			gameData.setResolvedEvents(gameData.getResolvedEvents()+1);
-			ResultField.setForeground(Color.GREEN);
-			ResultField.setText("Resolved!");
-			if(event.isPenalty()){
-				usedField.setText(cost    +" "+ Event.getTypeString(event.getPenaltyType()));
+		if(!updated){
+			if(Outcome){
+				gameData.setResolvedEvents(gameData.getResolvedEvents()+1);
+				ResultField.setForeground(Color.GREEN);
+				ResultField.setText("Resolved!");
+				if(event.isPenalty()){
+					usedField.setText(cost    +" "+ Event.getTypeString(event.getPenaltyType()));
+					recoveredField.setText(String.valueOf(0)  +" ");
+					crewInjuryField.setText(String.valueOf(0)   +" ");
+					crewLostField.setText(String.valueOf(0)   +" ");
+					shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
+				}else{
+					usedField.setText(String.valueOf(0)    +" ");
+					recoveredField.setText(cost  +" "+ Event.getTypeString(event.getPenaltyType()));
+					crewInjuryField.setText(String.valueOf(0)   +" "+ "none");
+					crewLostField.setText(String.valueOf(0)   +" "+ "none");
+					shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
+				}	
+			}else if(!penaltyUpdated){
+				penaltyUpdated = true;
+				ResultField.setForeground(Color.RED);
+				ResultField.setText("Unresolved!");
+				usedField.setText(String.valueOf(0) 	  +" "+ Event.getTypeString(event.getPenaltyType()));
 				recoveredField.setText(String.valueOf(0)  +" ");
 				crewInjuryField.setText(String.valueOf(0)   +" ");
-				crewLostField.setText(String.valueOf(0)   +" ");
-				shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
-			}else{
-				usedField.setText(String.valueOf(0)    +" ");
-				recoveredField.setText(cost  +" "+ Event.getTypeString(event.getPenaltyType()));
-				crewInjuryField.setText(String.valueOf(0)   +" "+ "none");
-				crewLostField.setText(String.valueOf(0)   +" "+ "none");
-				shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
-			}	
-		}else if(!penaltyUpdated){
-			penaltyUpdated = true;
-			ResultField.setForeground(Color.RED);
-			ResultField.setText("Unresolved!");
-			usedField.setText(String.valueOf(0) 	  +" "+ Event.getTypeString(event.getPenaltyType()));
-			recoveredField.setText(String.valueOf(0)  +" ");
-			crewInjuryField.setText(String.valueOf(0)   +" ");
-			if(event.isInjury()){
-				System.out.println("Crew Injury.");
-				shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
-				if(gameData.updateCrewInjury(event)) 
-					crewLostField.setText(String.valueOf(0)   +" ");
-				else{
-					System.out.println("Crew member "+ event.getCrewInjuried() +"lost.");
-					crewLostField.setText(String.valueOf(1)   +" "+ gameData.getCrew().get(event.getCrewInjuried()).getName());
+				if(event.isInjury()){
+					System.out.println("Crew Injury.");
+					shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
+					if(gameData.updateCrewInjury(event)) 
+						crewLostField.setText(String.valueOf(0)   +" ");
+					else{
+						System.out.println("Crew member "+ event.getCrewInjuried() +"lost.");
+						crewLostField.setText(String.valueOf(1)   +" "+ gameData.getCrew().get(event.getCrewInjuried()).getName());
+					}
+					crewInjuryField.setText(String.valueOf(1)   +" "+ gameData.getCrew().get(event.getCrewInjuried()).getName());
+					
+				}else if(event.isDamage()){
+					gameData.updateShipDamage();
+					crewLostField.setText(String.valueOf(0)   +" "+ "none");
+					shipDamageField.setText(String.valueOf(1) +" "+ "sustained");
+					System.out.println("Ship Damaged");
 				}
-				crewInjuryField.setText(String.valueOf(1)   +" "+ gameData.getCrew().get(event.getCrewInjuried()).getName());
-				
-			}else if(event.isDamage()){
-				gameData.updateShipDamage();
-				crewLostField.setText(String.valueOf(0)   +" "+ "none");
-				shipDamageField.setText(String.valueOf(1) +" "+ "sustained");
-				System.out.println("Ship Damaged");
+				System.out.println("Crew Alive: " + gameData.liveCrew() + "\nShip Integrity: " + gameData.getSpacecraft().getHull());
 			}
-			System.out.println("Crew Alive: " + gameData.liveCrew() + "\nShip Integrity: " + gameData.getSpacecraft().getHull());
 		}
-		
 		
 		//Panel configured can be displayed now
 		setVisible(true);
-		
+		ResolutionActive = true;
+		updated = true;
 		if(Continue) return true;
 		else return false;
 	}
@@ -280,5 +283,17 @@ public class ResolutionPanel extends JPanel {
 
 	public void setPenaltyUpdated(boolean penaltyUpdated) {
 		this.penaltyUpdated = penaltyUpdated;
+	}
+	
+	public boolean isContinue(){
+		return Continue;
+	}
+
+	public boolean isUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(boolean updated) {
+		this.updated = updated;
 	}
 }

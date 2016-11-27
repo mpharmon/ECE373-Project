@@ -210,9 +210,10 @@ public class GameOverPanel extends JPanel {
 		txtDistance.setText(Destination.distFormat.format(gameData.getCurrentDistance())+ " KM");
 		txtEvents.setText(String.valueOf(gameData.getTotalEvents()));
 		if(gameData.getTotalEvents() > 0){
-			Double temp = new Double(gameData.getResolvedEvents()/gameData.getTotalEvents());
-			temp = temp*100;
-			txtEventSuccess.setText(String.valueOf(temp.intValue()) + " %");
+			Double temp = new Double(gameData.getTotalEvents());
+			temp = (gameData.getResolvedEvents()/temp)*100.0;
+			System.out.println("Events successful: " + gameData.getResolvedEvents()+ "\n" + temp);
+			txtEventSuccess.setText(String.format(java.util.Locale.US, "%4.1f" , temp)+ " %");
 		}
 	}
 	
@@ -242,7 +243,7 @@ public class GameOverPanel extends JPanel {
 					return true;
 				}
 				//Check if insufficient fuel for landing
-				if(gameData.getFuel() < 25){
+				if(gameData.getFuel() <= 0){
 					lowFuel = true;
 					return true;
 				}
