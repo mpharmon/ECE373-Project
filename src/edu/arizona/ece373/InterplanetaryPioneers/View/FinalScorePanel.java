@@ -25,7 +25,7 @@ import java.awt.event.MouseEvent;
 
 public class FinalScorePanel extends JPanel {
 	private boolean scoreActive = false;
-	private boolean Continue = false;
+	private boolean proceed = false;
 	private int SF_CNT = 0;
 	private Timer scoreTimer;
 	private boolean update = false;
@@ -273,7 +273,7 @@ public class FinalScorePanel extends JPanel {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 		
 			public void mouseClicked(MouseEvent arg0) {
-				Continue = true;
+				proceed = true;
 			}
 		});
 		btnNewButton.setBackground(Color.CYAN);
@@ -317,7 +317,7 @@ public class FinalScorePanel extends JPanel {
 		
 		if((SF_CNT < 10) && update){
 			update = false;
-			Continue = false;
+			proceed = false;
 			scoreActive = true;
 			setVisible(true);
 			
@@ -358,13 +358,13 @@ public class FinalScorePanel extends JPanel {
 			else if(SF_CNT < 6){
 				if(GameData.food > 0)
 					result += (int) 10000 * GameData.food;
-				txtFood.setText("10000 x " + GameData.food);
+				txtFood.setText("10000 x " + GameData.food.intValue());
 				txtFood.setEnabled(true);
 			}
 			else if(SF_CNT < 7){
 				if(GameData.water > 0)
 					result += (int) 10000 * GameData.water;
-				txtWater.setText("10000 x " + GameData.water);
+				txtWater.setText("10000 x " + GameData.water.intValue());
 				txtWater.setEnabled(true);
 			}
 			else if(SF_CNT < 8){
@@ -382,17 +382,17 @@ public class FinalScorePanel extends JPanel {
 				textFinalScore.setEnabled(true);
 				textFinalScore.setText(EndGameStage.scoreFormat.format(result));
 			}
-			System.out.println("Display Score: "+SF_CNT);
+			System.out.println("Display Score: " + SF_CNT);
 		}
 	}
 	
 
 	public boolean isContinue() {
-		return Continue;
+		return proceed;
 	}
 
-	public void setContinue(boolean continue1) {
-		Continue = continue1;
+	public void setContinue(boolean p) {
+		proceed = p;
 	}
 
 	public boolean isScoreActive() {
