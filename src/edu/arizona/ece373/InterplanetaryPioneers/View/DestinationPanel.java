@@ -56,13 +56,14 @@ public class DestinationPanel extends JPanel {
 
 	}
 	
-	public void displayDestination(GameData gameData){
+	public void displayDestination(){
+	//public void displayDestination(GameData gameData){
 		setScore(false);
 		setDestinationActive(true);
 		setVisible(true);
 		
 		if(Destination.getId() == Destination.MARS){
-			if(gameData.getSpacecraft().getId() == Spaceship.ORION_CAPSULE){
+			if(GameData.spacecraft.getId() == Spaceship.ORION_CAPSULE){
 				lblDestination.setIcon(new ImageIcon("lib/images/ColonistsMarsFIT.png"));
 				lblDestination.setBounds(120, 70, 1084, 463);
 			}else{

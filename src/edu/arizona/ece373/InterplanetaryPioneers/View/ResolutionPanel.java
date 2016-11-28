@@ -199,13 +199,14 @@ public class ResolutionPanel extends JPanel {
 
 	}
 	
-	public boolean DisplayResolution(boolean Outcome, int resolution, int cost, Event event, GameData gameData ){
+	public boolean DisplayResolution(boolean Outcome, int resolution, int cost, Event event){
+	//public boolean DisplayResolution(boolean Outcome, int resolution, int cost, Event event, GameData gameData ){
 		Continue = false;
 		dataReady = false;
 		
 		if(!updated){
 			if(Outcome){
-				gameData.setResolvedEvents(gameData.getResolvedEvents()+1);
+				GameData.resolvedEvents += 1;
 				ResultField.setForeground(Color.GREEN);
 				ResultField.setText("Resolved!");
 				if(event.isPenalty()){
@@ -225,27 +226,27 @@ public class ResolutionPanel extends JPanel {
 				penaltyUpdated = true;
 				ResultField.setForeground(Color.RED);
 				ResultField.setText("Unresolved!");
-				usedField.setText(String.valueOf(0) 	  +" "+ Event.getTypeString(event.getPenaltyType()));
-				recoveredField.setText(String.valueOf(0)  +" ");
-				crewInjuryField.setText(String.valueOf(0)   +" ");
+				usedField.setText(String.valueOf(0) +" "+ Event.getTypeString(event.getPenaltyType()));
+				recoveredField.setText(String.valueOf(0) +" ");
+				crewInjuryField.setText(String.valueOf(0) +" ");
 				if(event.isInjury()){
 					System.out.println("Crew Injury.");
 					shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
-					if(gameData.updateCrewInjury(event)) 
-						crewLostField.setText(String.valueOf(0)   +" ");
+					if(GameData.updateCrewInjury(event)) 
+						crewLostField.setText(String.valueOf(0) +" ");
 					else{
 						System.out.println("Crew member "+ event.getCrewInjuried() +"lost.");
-						crewLostField.setText(String.valueOf(1)   +" "+ gameData.getCrew().get(event.getCrewInjuried()).getName());
+						crewLostField.setText(String.valueOf(1) +" "+ GameData.crew.get(event.getCrewInjuried()).getName());
 					}
-					crewInjuryField.setText(String.valueOf(1)   +" "+ gameData.getCrew().get(event.getCrewInjuried()).getName());
+					crewInjuryField.setText(String.valueOf(1) + " " + GameData.crew.get(event.getCrewInjuried()).getName());
 					
 				}else if(event.isDamage()){
-					gameData.updateShipDamage();
+					GameData.updateShipDamage();
 					crewLostField.setText(String.valueOf(0)   +" "+ "none");
 					shipDamageField.setText(String.valueOf(1) +" "+ "sustained");
 					System.out.println("Ship Damaged");
 				}
-				System.out.println("Crew Alive: " + gameData.liveCrew() + "\nShip Integrity: " + gameData.getSpacecraft().getHull());
+				System.out.println("Crew Alive: " + GameData.liveCrew() + "\nShip Integrity: " + GameData.spacecraft.getHull());
 			}
 		}
 		

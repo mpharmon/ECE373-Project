@@ -186,7 +186,8 @@ public class GameOverPanel extends JPanel {
 		GameOver = gameOver;
 	}
 	
-	public void displayGameOver(GameData gameData){
+	public void displayGameOver(){
+	//public void displayGameOver(GameData gameData){
 		GameOverActive = true;
 		GameOver = true;
 		Continue = false;
@@ -205,18 +206,19 @@ public class GameOverPanel extends JPanel {
 		}else{
 			txtCondition.setText("An anomaly occured which ended your voyage early.");
 		}
-		txtDays.setText(String.format(java.util.Locale.US, "%.0f" , gameData.getDays()));
-		txtDistance.setText(Destination.distFormat.format(gameData.getCurrentDistance())+ " KM");
-		txtEvents.setText(String.valueOf(gameData.getTotalEvents()));
-		if(gameData.getTotalEvents() > 0){
-			Double temp = new Double(gameData.getTotalEvents());
-			temp = (gameData.getResolvedEvents()/temp)*100.0;
-			System.out.println("Events successful: " + gameData.getResolvedEvents()+ "\n" + temp);
+		txtDays.setText(String.format(java.util.Locale.US, "%.0f" , GameData.days));
+		txtDistance.setText(Destination.distFormat.format(GameData.currentDistance)+ " KM");
+		txtEvents.setText(String.valueOf(GameData.totalEvents));
+		if(GameData.totalEvents > 0){
+			Double temp = new Double(GameData.totalEvents);
+			temp = (GameData.totalEvents / temp) * 100.0;
+			System.out.println("Events successful: " + GameData.resolvedEvents + "\n" + temp);
 			txtEventSuccess.setText(String.format(java.util.Locale.US, "%4.1f" , temp)+ " %");
 		}
 	}
 	
-	public boolean checkGameOver(GameData gameData, Event currentEvent){
+	public boolean checkGameOver(Event currentEvent){
+	//public boolean checkGameOver(GameData gameData, Event currentEvent){
 		//Check if critical event failed
 		if(currentEvent.getSeverity() == Event.Critical){
 			if(currentEvent.isOutcome() == Event.FAILED){
@@ -225,24 +227,24 @@ public class GameOverPanel extends JPanel {
 			}
 		}else	
 		{	//Check if ship destroyed
-			if(gameData.getSpacecraft().getHull() <= Spaceship.destroyed){
+			if(GameData.spacecraft.getHull() <= Spaceship.destroyed){
 				Destroyed = true;
 				return true;
 			}
 			//Additional game over conditions for difficulties above easy
-			if(gameData.getDifficulty() > DifficultySet.Easy){
+			if(GameData.difficulty > DifficultySet.Easy){
 				//Check if out of food
-				if(gameData.getFood() <= 0){
+				if(GameData.food <= 0){
 					noFood = true;
 					return true;
 				}
 				//Check if out of Water
-				if(gameData.getWater() <= 0){
+				if(GameData.water <= 0){
 					noWater = true;
 					return true;
 				}
 				//Check if insufficient fuel for landing
-				if(gameData.getFuel() <= 0){
+				if(GameData.fuel <= 0){
 					lowFuel = true;
 					return true;
 				}

@@ -225,20 +225,20 @@ public class PreparationStage extends JFrame {
 		else return 0;
 	}
 	
-	public void updateGameData(GameData gameData){
+	public void updateGameData(){
+	//public void updateGameData(GameData gameData){
 		if(getSpacecraftId() == 1){
-			gameData.setSpacecraft(new Spaceship(1));
-			gameData.setShipVelocity(gameData.getSpacecraft().getMaxVelocity());
+			GameData.spacecraft = new Spaceship(1);
+			GameData.shipVelocity = GameData.spacecraft.getMaxVelocity();
 		}else{
-			gameData.setSpacecraft(new Spaceship(2));
-			gameData.setShipVelocity(gameData.getSpacecraft().getMaxVelocity());
+			GameData.spacecraft = new Spaceship(2);
 		}
 		if(getDestinationId() == 1){
 			Destination.initDestination(1);
-			gameData.setVoyageDistance(Destination.getDistance());
 		}else{
 			Destination.initDestination(2);
-			gameData.setVoyageDistance(Destination.getDistance());
 		}
+		GameData.shipVelocity = GameData.spacecraft.getMaxVelocity();
+		GameData.voyageDistance = Destination.getDistance().doubleValue();
 	}
 }

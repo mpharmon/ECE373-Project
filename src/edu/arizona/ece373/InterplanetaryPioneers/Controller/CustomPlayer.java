@@ -9,7 +9,7 @@ import javazoom.jl.player.Player;
 public class CustomPlayer {
 	
 	private Player player;
-	private int track;
+	//private int track;
 	private FileInputStream FIS;
 	private BufferedInputStream BIS;
 	private boolean canResume;

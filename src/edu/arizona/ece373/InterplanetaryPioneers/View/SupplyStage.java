@@ -1,6 +1,5 @@
 package edu.arizona.ece373.InterplanetaryPioneers.View;
 
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -53,26 +52,6 @@ public class SupplyStage extends JFrame {
 	private int result = 0;
 	JTextArea textArea;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SupplyStage frame = new SupplyStage();
-					frame.setVisible(true);
-					//frame.updateProgress();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public SupplyStage() {
 		
 		windowId = 4;
@@ -401,16 +380,17 @@ public class SupplyStage extends JFrame {
 		}
 	}
 	
-	public void setResources(GameData gameData){
+	public void setResources(){
+	//public void setResources(GameData gameData){
 			
-			if(gameData.getDifficulty() == DifficultySet.Easy){
+			if(GameData.difficulty == DifficultySet.Easy){
 				MAX_SUPPLIES = 1000;
 				Resources = 1000;
 				Fuel = 100;
 				Food = 100;
 				H2O = 100;
 				Parts = 100;
-			}else if(gameData.getDifficulty() == DifficultySet.Normal){
+			}else if(GameData.difficulty == DifficultySet.Normal){
 				MAX_SUPPLIES = 800;
 				Resources = 800;
 				Fuel = 100;
@@ -429,7 +409,7 @@ public class SupplyStage extends JFrame {
 			Food_Slider.setValue(Food);
 			H2O_Slider.setValue(H2O);
 			Parts_Slider.setValue(Parts);
-			updateProgress(gameData.getVipID());
+			updateProgress(GameData.vipID);
 	}
 	
 	public int getWindowId() {

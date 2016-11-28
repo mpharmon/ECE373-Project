@@ -347,8 +347,10 @@ public class SelectCrew extends JFrame {
 	public void setCrew(ArrayList<Person> crew) {
 		Crew = crew;
 	}
-	public void checkGameData(GameData gameData){
-		crewCapacity = gameData.getSpacecraft().getCrewCapacity();
+	
+	public void checkGameData(){
+	//public void checkGameData(GameData gameData){
+		crewCapacity = GameData.spacecraft.getCrewCapacity();
 		if(crewCapacity < 5){
 			crewMemberName5.setEnabled(false);
 			comboBox_5.setEnabled(false);

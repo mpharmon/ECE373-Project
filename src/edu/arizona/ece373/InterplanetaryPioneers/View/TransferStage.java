@@ -31,7 +31,7 @@ public class TransferStage extends JFrame {
 	
 	private int windowId;
 	
-	public GameData gameData;
+	//public GameData gameData;
 			 
 	private int X0_pos, X1_pos, X2_pos, X3_pos, X4_pos, X5_pos, X6_pos, X7_pos, X8_pos, X9_pos;
 	private int Y5_pos, Y6_pos, Y7_pos, Y9_pos;
@@ -108,10 +108,7 @@ public class TransferStage extends JFrame {
 	 * Initialize Game Data and Timers
 	 */
 	public void initTransfer(){
-		
-		gameData = new GameData();
-		
-
+		//gameData = new GameData();
 		player = new CustomPlayer();
 
 		spaceTimer = new GameTimer();
@@ -197,7 +194,7 @@ public class TransferStage extends JFrame {
 					}
 				lblVoyageManager.setEnabled(Manager);
 				if(Manager){
-					managerPanel.updateManager(gameData, true);
+					managerPanel.updateManager(true);
 					getManagerPanel().setVisible(true);
 				}
 				else getManagerPanel().setVisible(false);
@@ -316,7 +313,7 @@ public class TransferStage extends JFrame {
 	}
 	
 	public void startup(){
-		managerPanel.ManagerSetup(gameData);
+		managerPanel.ManagerSetup();
 		initSpacecraft();
 		initDestination();
 		ActionListener taskPerformer = new ActionListener() {
@@ -333,7 +330,7 @@ public class TransferStage extends JFrame {
 		factor_0 = 0.00043;		   //Scales Background Space movement
 		factor_3 = 0.075;          //Scales Earths movement
 		factor_4 = 0.015;          //Scales Moons movement
-		if(gameData.getSpacecraft().getId() == 2){
+		if(GameData.spacecraft.getId() == 2){
 			X6_pos = 999;  Y6_pos = 295;
 			X7_pos = 1189; Y7_pos =  282;
 			lblSpacecraft.setIcon(new ImageIcon("lib/images/SpaceXModel.png"));
@@ -356,7 +353,7 @@ public class TransferStage extends JFrame {
 	}
 	
 	public void initDestination(){
-		gameData.setDestinationId(Destination.getId());
+		GameData.destinationId = Destination.getId();
 		END_SEQUENCE_DIST = Destination.getDistance() - Destination.PROXIMITY;
 		lblDestination.setBounds(X9_pos, Y9_pos, 270, 284);
 		lblJupiter.setBounds(X8_pos, 0, 476, 435);
@@ -368,7 +365,7 @@ public class TransferStage extends JFrame {
 			lblDestination.repaint();
 			transferPane.repaint();
 		}
-		if(Debug) gameData.setCurrentDistance(END_SEQUENCE_DIST - Destination.PROXIMITY);
+		if(Debug) GameData.currentDistance = END_SEQUENCE_DIST - Destination.PROXIMITY;
 	}
 	
 	public int destinationSequence(Double currentDist){
@@ -383,10 +380,10 @@ public class TransferStage extends JFrame {
 	
 	private void initManagerPanel() {
 		managerPanel = new ManagerPanel();
-		managerPanel.initResources(gameData.getFuel(), 
-								        gameData.getFood(), 
-								        gameData.getWater(), 
-								        gameData.getParts());
+		managerPanel.initResources(GameData.fuel.intValue(), 
+								        GameData.food.intValue(), 
+								        GameData.water.intValue(), 
+								        GameData.parts.intValue());
 		transferPane.add(managerPanel);
 	}
 	
@@ -421,21 +418,21 @@ public class TransferStage extends JFrame {
 		if(!getEventPanel().isEventActive() && !getResultPanel().isResolutionActive() && !getGameOverPanel().isGameOverActive()){
 			
 			//Check for game over condition
-			if((destinationSequence(gameData.getCurrentDistance()) == Destination.IN_PROGRESS) && First_Event){
-				if(gameOverPanel.checkGameOver(gameData, eventPanel.getCurrentEvent())){
-					gameOverPanel.displayGameOver(gameData);
+			if((destinationSequence(GameData.currentDistance) == Destination.IN_PROGRESS) && First_Event){
+				if(gameOverPanel.checkGameOver(eventPanel.getCurrentEvent())){
+					gameOverPanel.displayGameOver();
 					gameOverPanel.setVisible(true);
 					EventTimer.setUpdate(false);
 				}
 			}
 			moveSpace();
 			
-			if(EventTimer.isUpdate()  && !Manager && (gameData.getCurrentDistance() > GameData.EventStartDist)
-					&& (gameData.getCurrentDistance() < (Destination.getDistance()-Destination.PROXIMITY))) {
+			if(EventTimer.isUpdate()  && !Manager && (GameData.currentDistance > GameData.EventStartDist)
+					&& (GameData.currentDistance < (Destination.getDistance()-Destination.PROXIMITY))) {
 				event = (Math.random() < EVENT_CHANCE);
 				EventTimer.setUpdate(false);
 				if(event) { 
-					getEventPanel().displayEventEncounter(gameData);
+					getEventPanel().displayEventEncounter();
 					getResultPanel().setResolutionActive(true);
 					player.setPath(SongPath.getPath(22));
 					player.play(-1);
@@ -447,13 +444,12 @@ public class TransferStage extends JFrame {
 				resultPanel.DisplayResolution(eventPanel.isOutcome(),
 										  eventPanel.getResolution(),
 										  eventPanel.getCost(),
-										  eventPanel.getCurrentEvent(),
-										  gameData);
+										  eventPanel.getCurrentEvent());
 			//managerPanel.updateManager(gameData, true);
 			EventTimer.setUpdate(false);
 		}
 		//Update GameData
-		gameData.dataUpdate(Warp, eventPanel.isEventActive(), 
+		GameData.dataUpdate(Warp, eventPanel.isEventActive(), 
 							resultPanel.isResolutionActive(), 
 							resultPanel.isDataReady(),
 							eventPanel.getResolution(),
@@ -461,7 +457,7 @@ public class TransferStage extends JFrame {
 							eventPanel.getCost());
 		if(resultPanel.isDataReady()) resultPanel.setDataReady(false);
 		
-		if(destinationSequence(gameData.getCurrentDistance()) == Destination.DESTINATION_REACHED)
+		if(destinationSequence(GameData.currentDistance) == Destination.DESTINATION_REACHED)
 			return true;
 		else 
 			return false;
@@ -490,8 +486,8 @@ public class TransferStage extends JFrame {
 			moveSatelites();
 			
 			//textDistance.setText(String.format(java.util.Locale.US, "%.0f" , gameData.getCurrentDistance()));
-			textDistance.setText(Destination.distFormat.format(gameData.getCurrentDistance()));
-			textDays.setText(String.format("%.2f", gameData.getDays()));
+			textDistance.setText(Destination.distFormat.format(GameData.currentDistance));
+			textDays.setText(String.format("%.2f", GameData.days));
 			
 			spaceTimer.setUpdate(false);
 			if(sateliteTimer.isUpdate()) sateliteTimer.setUpdate(false);
@@ -510,7 +506,7 @@ public class TransferStage extends JFrame {
 			X4_pos = (int) Math.round(X4_temp);
 			lblMoon.setBounds(X4_pos, 0, 362, 384);
 		}else {
-			if(destinationSequence(gameData.getCurrentDistance()) == Destination.DESTINATION_APPROACH ){
+			if(destinationSequence(GameData.currentDistance) == Destination.DESTINATION_APPROACH ){
 				X8_temp = (X8_temp) + (speed*factor_8);
 				X8_pos = (int) Math.round(X8_temp);
 				X9_temp = (X9_temp) + (speed*factor_9);
@@ -647,9 +643,9 @@ public class TransferStage extends JFrame {
 		this.resultPanel = resultPanel;
 	}
 	
-	public GameData getGameData(){
-		return gameData;
-	}
+	//public GameData getGameData(){
+	//	return gameData;
+	//}
 
 	public ManagerPanel getManagerPanel() {
 		return managerPanel;

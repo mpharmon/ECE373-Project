@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import edu.arizona.ece373.InterplanetaryPioneers.Controller.GameData;
 
 public class EndGameStage extends JFrame {
 	private int windowId;
@@ -47,15 +46,16 @@ public class EndGameStage extends JFrame {
 		getContentPane().add(scorePanel);
 	}
 	
-	public boolean updateEndGame(GameData gameData){
+	public boolean updateEndGame(){
+	//public boolean updateEndGame(GameData gameData){
 		
-		if(!destPanel.isDestinationActive()) destPanel.displayDestination(gameData);
+		if(!destPanel.isDestinationActive()) destPanel.displayDestination();
 		
 		if(destPanel.isScore() && !scorePanel.isScoreActive()){
 			destPanel.setVisible(false);
-			scorePanel.displayScoreScreen(gameData);
+			scorePanel.displayScoreScreen();
 		}else if(scorePanel.isScoreActive()){
-			scorePanel.displayScoreScreen(gameData);
+			scorePanel.displayScoreScreen();
 		}
 		
 		if(scorePanel.isContinue()) return true;
@@ -63,14 +63,16 @@ public class EndGameStage extends JFrame {
 		return false;
 	}
 	
-	public void displayDestination(GameData gameData){
-		destPanel.displayDestination(gameData);
+	public void displayDestination(){
+	//public void displayDestination(GameData gameData){
+		destPanel.displayDestination();
 	}
 	 
 
 	public DestinationPanel getDestPanel(){
 		return destPanel;
 	}
+	
 	public FinalScorePanel getScorePanel(){
 		return scorePanel;
 	}

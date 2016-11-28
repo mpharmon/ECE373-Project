@@ -21,25 +21,6 @@ public class StartMenu extends JFrame {
 	private boolean ExitBtn;
 	private int windowId;
 
-	/**
-	 * Launch the application.
-	 */
-	// public static void main(String[] args) {
-	// EventQueue.invokeLater(new Runnable() {
-	// public void run() {
-	// try {
-	// StartMenu frame = new StartMenu();
-	// frame.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
-	// }
-	// });
-	// }
-
-	/**
-	 * Create the frame.
-	 */
 	public StartMenu() {
 
 		windowId = 0;

@@ -48,7 +48,7 @@ public class Event {
 		title = "Event Ecounter";
 		setSeverity(Low);
 		setPenalty(false);
-		setPenaltyType(GameData.parts);
+		setPenaltyType(GameData.PARTS);
 		setCost(0);
 		chance = 0.50;
 		setSkillType(Person.none);

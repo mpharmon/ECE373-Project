@@ -13,8 +13,6 @@ import edu.arizona.ece373.InterplanetaryPioneers.Model.Person;
 import edu.arizona.ece373.InterplanetaryPioneers.Model.Spaceship;
 
 public class ManagerPanel extends JPanel {
-	
-	
 	protected JProgressBar FuelBar;
 	protected  JProgressBar FoodBar;
 	protected  JProgressBar WaterBar;
@@ -208,22 +206,23 @@ public class ManagerPanel extends JPanel {
 		else PartBar.setValue(parts);
 	}
 	
-	public void ManagerSetup(GameData gameData){
+	public void ManagerSetup(){
+	//public void ManagerSetup(GameData gameData){
 		seconds = 0;
 		//Set Crew Names in Manager UI
-		crewName1.setText(gameData.getCrew().get(0).getName());
-		crewName2.setText(gameData.getCrew().get(1).getName());
-		crewName3.setText(gameData.getCrew().get(2).getName());
-		crewName4.setText(gameData.getCrew().get(3).getName());
+		crewName1.setText(GameData.crew.get(0).getName());
+		crewName2.setText(GameData.crew.get(1).getName());
+		crewName3.setText(GameData.crew.get(2).getName());
+		crewName4.setText(GameData.crew.get(3).getName());
 
 		//Set Crew Skills in Manager UI
-		crewSkill1.setText(gameData.getCrew().get(0).getSkill(true));
-		crewSkill2.setText(gameData.getCrew().get(1).getSkill(true));
-		crewSkill3.setText(gameData.getCrew().get(2).getSkill(true));
-		crewSkill4.setText(gameData.getCrew().get(3).getSkill(true));
-		if(gameData.getCrew().size() > 4){
-			crewName5.setText(gameData.getCrew().get(4).getName());
-			crewSkill5.setText(gameData.getCrew().get(4).getSkill(true));
+		crewSkill1.setText(GameData.crew.get(0).getSkill(true));
+		crewSkill2.setText(GameData.crew.get(1).getSkill(true));
+		crewSkill3.setText(GameData.crew.get(2).getSkill(true));
+		crewSkill4.setText(GameData.crew.get(3).getSkill(true));
+		if(GameData.crew.size() > 4){
+			crewName5.setText(GameData.crew.get(4).getName());
+			crewSkill5.setText(GameData.crew.get(4).getSkill(true));
 		}else{
 			crewName5.setVisible(false);
 			crewSkill5.setVisible(false);
@@ -231,17 +230,18 @@ public class ManagerPanel extends JPanel {
 		}
 	}
 	
-	public void updateManager(GameData gameData, boolean IconUpdate){
-		FuelBar.setValue(gameData.getFuel());
-		FoodBar.setValue(gameData.getFood());
-		WaterBar.setValue(gameData.getWater());
-		PartBar.setValue(gameData.getParts());
+	public void updateManager(boolean IconUpdate){
+	//public void updateManager(GameData gameData, boolean IconUpdate){
+		FuelBar.setValue(GameData.fuel.intValue());
+		FoodBar.setValue(GameData.food.intValue());
+		WaterBar.setValue(GameData.water.intValue());
+		PartBar.setValue(GameData.parts.intValue());
 		if(IconUpdate){
-			for(int i = 0; i < gameData.getCrew().size(); i++){
-				System.out.println("Crew member "+i+": " + gameData.getCrew().get(i).getName()+" "+ gameData.getCrew().get(i).getHealthStatus());
-				updateCrewIcon(gameData.getCrew().get(i), i);
+			for(int i = 0; i < GameData.crew.size(); i++){
+				System.out.println("Crew member "+i+": " + GameData.crew.get(i).getName()+" "+ GameData.crew.get(i).getHealthStatus());
+				updateCrewIcon(GameData.crew.get(i), i);
 			}
-			 updateShipIcon(gameData.getSpacecraft().getHull());
+			 updateShipIcon(GameData.spacecraft.getHull());
 		}
 	}
 	

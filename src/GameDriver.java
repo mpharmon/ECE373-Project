@@ -16,6 +16,8 @@ public class GameDriver implements Runnable {
 
 	public void run() {
 		
+		GameData.initialize();
+		
 		// Instantiate Windows
 		StartMenu startWindow = new StartMenu();
 		DifficultySet difficultyWindow = new DifficultySet();
@@ -25,14 +27,12 @@ public class GameDriver implements Runnable {
 		TransferStage transferWindow = new TransferStage();
 		EndGameStage endGameWindow = new EndGameStage();
 		
-		//SongPath sp = new SongPath();
 		CustomPlayer player = new CustomPlayer();
 			
 		player.setPath(SongPath.getPath(9));
 		if(player.play(-1)) System.out.println("Playing Intro");
 		else System.out.println("Exit");
 		
-
 		int currentWindow = startWindow.getWindowId();
 
 		while (running) {
@@ -55,8 +55,8 @@ public class GameDriver implements Runnable {
 					break;
 				case 1:
 					if (difficultyWindow.checkButtons() == 1) {
-						transferWindow.getGameData().setDifficulty(difficultyWindow.getDifficulty());
-						supplyWindow.setResources(transferWindow.getGameData());
+						GameData.difficulty = difficultyWindow.getDifficulty();
+						supplyWindow.setResources();
 						difficultyWindow.setVisible(false);
 						//Next Window
 						preparationWindow.setVisible(true);
@@ -65,18 +65,18 @@ public class GameDriver implements Runnable {
 					break;
 				case 2:
 					if (preparationWindow.checkButtons() == 1) {
-						preparationWindow.updateGameData(transferWindow.getGameData());
+						preparationWindow.updateGameData();
 						preparationWindow.setVisible(false);
 						//Next Window
-						selectCrewWindow.checkGameData(transferWindow.getGameData());
+						selectCrewWindow.checkGameData();
 						selectCrewWindow.setVisible(true);
 						currentWindow = selectCrewWindow.getWindowId();
 					}
 					break;
 				case 3:
 					if (selectCrewWindow.checkButtons() == 1) {
-						transferWindow.getGameData().getCrew().addAll(selectCrewWindow.getCrew());
-						transferWindow.getGameData().setVipID(selectCrewWindow.getSelectedVIP());
+						GameData.crew.addAll(selectCrewWindow.getCrew());
+						GameData.vipID = selectCrewWindow.getSelectedVIP();
 						selectCrewWindow.setVisible(false);
 						//Next Window
 						supplyWindow.setVisible(true);
@@ -86,7 +86,7 @@ public class GameDriver implements Runnable {
 				case 4:
 					if (supplyWindow.checkButtons() == 1) {
 						supplyWindow.setVisible(false);
-						transferWindow.getGameData().setResources(supplyWindow.getFuel(),
+						GameData.setResources(supplyWindow.getFuel(),
 											  supplyWindow.getFood(),
 											  supplyWindow.getWater(),
 											  supplyWindow.getParts());
@@ -97,10 +97,10 @@ public class GameDriver implements Runnable {
 						track = rand.nextInt(4);
 						player.setPath(SongPath.getPath(track));
 						if(player.play(-1)) System.out.println("Playing Transfer track: "+ track);
-						System.out.println("Live crew: " + transferWindow.getGameData().liveCrew());
+						System.out.println("Live crew: " + GameData.liveCrew());
 						
 					}
-					supplyWindow.updateProgress(transferWindow.getGameData().getVipID());
+					supplyWindow.updateProgress(GameData.vipID);
 					break;
 				case 5:
 					if(transferWindow.TransferUpdate()){ //Returns true if destination reached
@@ -122,7 +122,7 @@ public class GameDriver implements Runnable {
 					}
 					break;
 				case 6:
-					if(endGameWindow.updateEndGame(transferWindow.getGameData())){
+					if(endGameWindow.updateEndGame()){
 						endGameWindow.setVisible(false);
 						currentWindow = RESET;
 					}

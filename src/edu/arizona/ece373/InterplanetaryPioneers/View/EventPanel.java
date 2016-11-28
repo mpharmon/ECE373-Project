@@ -38,9 +38,9 @@ public class EventPanel extends JPanel {
 	private Event currentEvent;
 	private static Random random;
 	
-	private final static int Low = 1;
-	private final static int Moderate = 2;
-	private final static int Critical = 3;
+	private final static int LOW = 1;
+	private final static int MEDIUM = 2;
+	private final static int CRITICAL = 3;
 	
 	private JButton btnConfirm; 
 	Timer resultTimer;
@@ -175,14 +175,15 @@ public class EventPanel extends JPanel {
 		resultTimer.stop();
 	}
 	
-	public void setEventPanel(GameData gameData){
+	public void setEventPanel(){
+	//public void setEventPanel(GameData gameData){
 		
 		currentEvent = EventPool.getRandomEvent();
 		//currentEvent = EventPool.getEvent(3);			//For debugging specific event
 		//Set color based off severity
 		lblTitle.setForeground(currentEvent.getTitleColor());
 		//Check Resources
-		eventResourceCheck(gameData);
+		eventResourceCheck();
 		//Set Event info
 		eventInfo.setText(currentEvent.getDescription());
 		//Set option text
@@ -198,28 +199,29 @@ public class EventPanel extends JPanel {
 	}
 	
 	//Displays the specified Event panel encounter
-	public void displayEventEncounter(GameData gameData){
+	public void displayEventEncounter(){
+	//public void displayEventEncounter(GameData gameData){
 		rdbtnOption1.setSelected(true);
 		resultTimer.start();
 		EventActive = true;
 		confirm = false;
-		setEventPanel(gameData);
-		gameData.setTotalEvents(gameData.getTotalEvents()+1);
+		setEventPanel();
+		GameData.totalEvents += 1;
 		super.setVisible(true);
 		
 	}
 	
-	public void eventResourceCheck(GameData gameData){
-
+	public void eventResourceCheck(){
+	//public void eventResourceCheck(GameData gameData){
 		//Assume sufficient resources display all options
 		rdbtnOption2.setEnabled(true);
 		rdbtnOption3.setEnabled(true);
 		//Check for insufficient resources or required skill not available
-		if((gameData.getResource(currentEvent.getPenaltyType()) < (currentEvent.getCost() - 15)) || 
-			!gameData.checkCrewForSkill(currentEvent.getSkillType())) 
+		if((GameData.getResource(currentEvent.getPenaltyType()) < (currentEvent.getCost() - 15)) || 
+			!GameData.checkCrewForSkill(currentEvent.getSkillType())) 
 			rdbtnOption2.setEnabled(false);
 		//Check for insufficient resources
-		if(gameData.getResource(currentEvent.getPenaltyType()) < (currentEvent.getCost())) 		
+		if(GameData.getResource(currentEvent.getPenaltyType()) < (currentEvent.getCost())) 		
 			rdbtnOption3.setEnabled(false);
 	}
 	//Resolves the event window and updates all relevant data of encounter

@@ -16,7 +16,7 @@ public class EventPool {
         /*
          *	Event #1 - Power Malfunction
          */
-		newEvent = new Event(Event.Low, true, GameData.parts, 25, 0.25, Person.engineer, false, true);
+		newEvent = new Event(Event.Low, true, GameData.PARTS, 25, 0.25, Person.engineer, false, true);
 		//Set event text
 		newEvent.setDescription("The ship is experiencing minor power malfunctions. Currently the severity is low. You can resolve the issue\n "
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
@@ -34,7 +34,7 @@ public class EventPool {
 		/*
 		 *	Event #2 - Fire
 		 */
-		newEvent = new Event(Event.Moderate, true, GameData.water, 20, 0.35, Person.scientist, true, false);
+		newEvent = new Event(Event.Moderate, true, GameData.WATER, 20, 0.35, Person.scientist, true, false);
 		newEvent.titleColor = Color.YELLOW;
 		newEvent.setDescription("There is a fire in the cargo area. The fire must be put out to avoid ship damage. You can resolve the issue\n "
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
@@ -52,7 +52,7 @@ public class EventPool {
         /*
          *	Event #3 - Infectious Agent 1
          */
-    	newEvent = new Event(Event.Moderate, true, GameData.water, 20, 0.35, Person.doctor, true, false);
+    	newEvent = new Event(Event.Moderate, true, GameData.WATER, 20, 0.35, Person.doctor, true, false);
 		newEvent.titleColor = Color.YELLOW;
 		newEvent.setDescription("There appears to be an infectious agent on board. The infectious agent must be contained before it infects someone. You can resolve the issue\n "
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
@@ -70,7 +70,7 @@ public class EventPool {
         /*
          *	Event #4 - Black Hole
          */
-    	newEvent = new Event(Event.Critical, true, GameData.fuel, 20, 0.20, Person.pilot, false, true);
+    	newEvent = new Event(Event.Critical, true, GameData.FUEL, 20, 0.20, Person.pilot, false, true);
 		newEvent.titleColor = Color.RED;
 		newEvent.setDescription("A rogue black hole will pass dangerously close to our path. A course correction is required in order to avoid it's"
 								+ "sphere of influence. Either assign a member of the crew to perform the course correction or perform it yourself."

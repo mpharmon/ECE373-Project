@@ -305,7 +305,8 @@ public class FinalScorePanel extends JPanel {
 		player = new CustomPlayer();
 	}
 	
-	public void displayScoreScreen(GameData gameData){
+	public void displayScoreScreen(){
+	//public void displayScoreScreen(GameData gameData){
 		if(SF_CNT > 9) {
 			scoreTimer.stop();
 		}
@@ -325,9 +326,9 @@ public class FinalScorePanel extends JPanel {
 				result = base;
 				txtBase.setText(base.toString());
 				txtBase.setEnabled(true);
-				if(gameData.getDifficulty() ==  DifficultySet.Easy)
+				if(GameData.difficulty ==  DifficultySet.Easy)
 					lblDifficultyIcon.setIcon(new ImageIcon("lib/images/SpaceMonkey.jpg"));
-				else if(gameData.getDifficulty() ==  DifficultySet.Normal)
+				else if(GameData.difficulty ==  DifficultySet.Normal)
 					lblDifficultyIcon.setIcon(new ImageIcon("lib/images/SpacePioneer.jpg"));
 				else
 					lblDifficultyIcon.setIcon(new ImageIcon("lib/images/deadAstronaut.jpg"));
@@ -338,44 +339,44 @@ public class FinalScorePanel extends JPanel {
 				txtDestination.setEnabled(true);
 			}
 			else if(SF_CNT < 3){
-				if(gameData.crewSkillCount(Person.botanist)>0)
-					result = result + 10000*gameData.crewSkillCount(Person.botanist);
-				txtBotanists.setText("10000 x "+gameData.crewSkillCount(Person.botanist));
+				if(GameData.crewSkillCount(Person.botanist)>0)
+					result = result + 10000 * GameData.crewSkillCount(Person.botanist);
+				txtBotanists.setText("10000 x " + GameData.crewSkillCount(Person.botanist));
 				txtBotanists.setEnabled(true);
 			}
 			else if(SF_CNT < 4){
-				if(gameData.liveCrew() > 0)
-					result = result + 10000*gameData.liveCrew();
-				txtCrewAlive.setText("10000 x "+ gameData.liveCrew());
+				if(GameData.liveCrew() > 0)
+					result = result + 10000 * GameData.liveCrew();
+				txtCrewAlive.setText("10000 x "+ GameData.liveCrew());
 				txtCrewAlive.setEnabled(true);
 			}
 			else if(SF_CNT < 5){
-				if(gameData.getTotalEvents() > 0)
-					result = result + 1500*gameData.getTotalEvents();
-				txtEvents.setText("1500 x "+ gameData.getTotalEvents());
+				if(GameData.totalEvents > 0)
+					result = result + 1500 * GameData.totalEvents;
+				txtEvents.setText("1500 x " + GameData.totalEvents);
 				txtEvents.setEnabled(true);
 			}
 			else if(SF_CNT < 6){
-				if(gameData.getFood() > 0)
-					result = result + 10000*gameData.getFood();
-				txtFood.setText("10000 x " + gameData.getFood());
+				if(GameData.food > 0)
+					result += (int) 10000 * GameData.food;
+				txtFood.setText("10000 x " + GameData.food);
 				txtFood.setEnabled(true);
 			}
 			else if(SF_CNT < 7){
-				if(gameData.getWater() > 0)
-					result = result + 10000*gameData.getWater();
-				txtWater.setText("10000 x " + gameData.getWater());
+				if(GameData.water > 0)
+					result += (int) 10000 * GameData.water;
+				txtWater.setText("10000 x " + GameData.water);
 				txtWater.setEnabled(true);
 			}
 			else if(SF_CNT < 8){
-				if(gameData.getParts() > 0)
-					result = result + 2500*gameData.getParts();
-				txtParts.setText("2500 x " + gameData.getParts());
+				if(GameData.parts > 0)
+					result += 2500 * GameData.parts.intValue();
+				txtParts.setText("2500 x " + GameData.parts);
 				txtParts.setEnabled(true);
 			}
 			else if(SF_CNT < 9){
-				result = result*gameData.getDifficulty();
-				txtDifficulty.setText("Score x " + gameData.getDifficulty());
+				result = result * GameData.difficulty;
+				txtDifficulty.setText("Score x " + GameData.difficulty);
 				txtDifficulty.setEnabled(true);
 			}
 			//result = base*Destination.getId()*(gameData.crewSkillCount(Person.botanist))*gameData.liveCrew()*gameData.getTotalEvents()*gameData.getFood()*gameData.getWater()*gameData.getParts();
