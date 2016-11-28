@@ -193,7 +193,7 @@ public class ResolutionPanel extends JPanel {
 		add(lblNewLabel);
 		
 		JLabel lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon("/images/hud_bg_full.jpg"));
+		lblBackground.setIcon(new ImageIcon("lib/images/hud_bg_full.jpg"));
 		lblBackground.setBounds(0, 0, 1280, 720);
 		add(lblBackground);
 

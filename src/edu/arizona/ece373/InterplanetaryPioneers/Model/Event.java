@@ -128,10 +128,10 @@ public class Event {
 	public String	getOption4(){return this.option4;}
 	
 	public static String getTypeString(int type){
-		if(type == GameData.fuel) return "Fuel";
-		else if(type == GameData.food) return "Food";
-		else if(type == GameData.water) return "Water";
-		else if(type == GameData.parts) return "Spare Parts";
+		if(type == GameData.FUEL) return "Fuel";
+		else if(type == GameData.FOOD) return "Food";
+		else if(type == GameData.WATER) return "Water";
+		else if(type == GameData.PARTS) return "Spare Parts";
 		else return "ERROR";
 	}
 	public int getPenaltyType() {
