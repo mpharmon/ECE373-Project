@@ -5,7 +5,6 @@ import javax.swing.Timer;
 
 import edu.arizona.ece373.InterplanetaryPioneers.Controller.*;
 import edu.arizona.ece373.InterplanetaryPioneers.Model.*;
-//import edu.arizona.ece373.InterplanetaryPioneers.Controller.SongPath;
 import javax.swing.JRadioButton;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -176,8 +175,6 @@ public class EventPanel extends JPanel {
 	}
 	
 	public void setEventPanel(){
-	//public void setEventPanel(GameData gameData){
-		
 		currentEvent = EventPool.getRandomEvent();
 		//currentEvent = EventPool.getEvent(3);			//For debugging specific event
 		//Set color based off severity
@@ -200,7 +197,6 @@ public class EventPanel extends JPanel {
 	
 	//Displays the specified Event panel encounter
 	public void displayEventEncounter(){
-	//public void displayEventEncounter(GameData gameData){
 		rdbtnOption1.setSelected(true);
 		resultTimer.start();
 		EventActive = true;
@@ -212,7 +208,6 @@ public class EventPanel extends JPanel {
 	}
 	
 	public void eventResourceCheck(){
-	//public void eventResourceCheck(GameData gameData){
 		//Assume sufficient resources display all options
 		rdbtnOption2.setEnabled(true);
 		rdbtnOption3.setEnabled(true);

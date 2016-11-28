@@ -187,7 +187,6 @@ public class GameOverPanel extends JPanel {
 	}
 	
 	public void displayGameOver(){
-	//public void displayGameOver(GameData gameData){
 		GameOverActive = true;
 		GameOver = true;
 		Continue = false;
@@ -218,7 +217,6 @@ public class GameOverPanel extends JPanel {
 	}
 	
 	public boolean checkGameOver(Event currentEvent){
-	//public boolean checkGameOver(GameData gameData, Event currentEvent){
 		//Check if critical event failed
 		if(currentEvent.getSeverity() == Event.Critical){
 			if(currentEvent.isOutcome() == Event.FAILED){

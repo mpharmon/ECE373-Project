@@ -349,7 +349,6 @@ public class SelectCrew extends JFrame {
 	}
 	
 	public void checkGameData(){
-	//public void checkGameData(GameData gameData){
 		crewCapacity = GameData.spacecraft.getCrewCapacity();
 		if(crewCapacity < 5){
 			crewMemberName5.setEnabled(false);

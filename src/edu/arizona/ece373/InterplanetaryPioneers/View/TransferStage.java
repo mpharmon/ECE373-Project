@@ -30,8 +30,6 @@ public class TransferStage extends JFrame {
 	public static boolean Debug = false;  //For debugging end game disables events
 	
 	private int windowId;
-	
-	//public GameData gameData;
 			 
 	private int X0_pos, X1_pos, X2_pos, X3_pos, X4_pos, X5_pos, X6_pos, X7_pos, X8_pos, X9_pos;
 	private int Y5_pos, Y6_pos, Y7_pos, Y9_pos;
@@ -108,7 +106,6 @@ public class TransferStage extends JFrame {
 	 * Initialize Game Data and Timers
 	 */
 	public void initTransfer(){
-		//gameData = new GameData();
 		player = new CustomPlayer();
 
 		spaceTimer = new GameTimer();
@@ -642,10 +639,6 @@ public class TransferStage extends JFrame {
 	public void setResultPanel(ResolutionPanel resultPanel) {
 		this.resultPanel = resultPanel;
 	}
-	
-	//public GameData getGameData(){
-	//	return gameData;
-	//}
 
 	public ManagerPanel getManagerPanel() {
 		return managerPanel;

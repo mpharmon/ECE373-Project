@@ -200,7 +200,6 @@ public class ResolutionPanel extends JPanel {
 	}
 	
 	public boolean DisplayResolution(boolean Outcome, int resolution, int cost, Event event){
-	//public boolean DisplayResolution(boolean Outcome, int resolution, int cost, Event event, GameData gameData ){
 		Continue = false;
 		dataReady = false;
 		

@@ -381,35 +381,33 @@ public class SupplyStage extends JFrame {
 	}
 	
 	public void setResources(){
-	//public void setResources(GameData gameData){
-			
-			if(GameData.difficulty == DifficultySet.Easy){
-				MAX_SUPPLIES = 1000;
-				Resources = 1000;
-				Fuel = 100;
-				Food = 100;
-				H2O = 100;
-				Parts = 100;
-			}else if(GameData.difficulty == DifficultySet.Normal){
-				MAX_SUPPLIES = 800;
-				Resources = 800;
-				Fuel = 100;
-				Food = 100;
-				H2O = 100;
-				Parts = 50;
-			}else{
-				MAX_SUPPLIES = 700;
-				Resources = 700;
-				Fuel = 75;
-				Food = 100;
-				H2O = 100;
-				Parts = 50;
-			}
-			Fuel_Slider.setValue(Fuel);
-			Food_Slider.setValue(Food);
-			H2O_Slider.setValue(H2O);
-			Parts_Slider.setValue(Parts);
-			updateProgress(GameData.vipID);
+		if(GameData.difficulty == DifficultySet.Easy){
+			MAX_SUPPLIES = 1000;
+			Resources = 1000;
+			Fuel = 100;
+			Food = 100;
+			H2O = 100;
+			Parts = 100;
+		}else if(GameData.difficulty == DifficultySet.Normal){
+			MAX_SUPPLIES = 800;
+			Resources = 800;
+			Fuel = 100;
+			Food = 100;
+			H2O = 100;
+			Parts = 50;
+		}else{
+			MAX_SUPPLIES = 700;
+			Resources = 700;
+			Fuel = 75;
+			Food = 100;
+			H2O = 100;
+			Parts = 50;
+		}
+		Fuel_Slider.setValue(Fuel);
+		Food_Slider.setValue(Food);
+		H2O_Slider.setValue(H2O);
+		Parts_Slider.setValue(Parts);
+		updateProgress(GameData.vipID);
 	}
 	
 	public int getWindowId() {

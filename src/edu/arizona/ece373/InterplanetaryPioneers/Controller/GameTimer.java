@@ -10,7 +10,6 @@ public class GameTimer extends JApplet {
 	private int delay;
 	private boolean update;
 	
-	
 	public GameTimer(){
 		delay = 10;
 		update = false;
@@ -26,27 +25,25 @@ public class GameTimer extends JApplet {
 	
 	public void initTimer(){
 		// Create a Timer object and register an ActionListener.
-	      timer = new Timer(delay, new TimerListener());
-
-	      // Start the timer.
-	      timer.start();
+		timer = new Timer(delay, new TimerListener());
+		// Start the timer.
+		timer.start();
 	}
-   private class TimerListener implements ActionListener
-   {
-      public void actionPerformed(ActionEvent e)
-      {	 
-    	  update = true;
-    	  //System.out.println("Time Elapsed");
-      }
-   }
+	
+	private class TimerListener implements ActionListener{
+		public void actionPerformed(ActionEvent e)
+		{	 
+			update = true;
+		}
+	}
    
-   public Timer getTimer(){
-	   return timer;
-   }
+	public Timer getTimer(){
+		return timer;
+	}
    
-   public void setTimer(int delay){
-	   timer.setDelay(delay);
-   }
+	public void setTimer(int delay){
+		timer.setDelay(delay);
+	}
 
 	public boolean isUpdate() {
 		return update;
@@ -55,6 +52,4 @@ public class GameTimer extends JApplet {
 	public void setUpdate(boolean update) {
 		this.update = update;
 	}
-   
-
 }

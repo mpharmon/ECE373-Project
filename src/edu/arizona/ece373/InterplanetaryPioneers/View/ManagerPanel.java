@@ -207,7 +207,6 @@ public class ManagerPanel extends JPanel {
 	}
 	
 	public void ManagerSetup(){
-	//public void ManagerSetup(GameData gameData){
 		seconds = 0;
 		//Set Crew Names in Manager UI
 		crewName1.setText(GameData.crew.get(0).getName());
@@ -231,7 +230,6 @@ public class ManagerPanel extends JPanel {
 	}
 	
 	public void updateManager(boolean IconUpdate){
-	//public void updateManager(GameData gameData, boolean IconUpdate){
 		FuelBar.setValue(GameData.fuel.intValue());
 		FoodBar.setValue(GameData.food.intValue());
 		WaterBar.setValue(GameData.water.intValue());
@@ -298,7 +296,6 @@ public class ManagerPanel extends JPanel {
 	public boolean updateTimeElapsed(){
 		seconds++;
 		if(seconds <= 1200){
-			//%[argument_index$][flags][width]conversion
 			txtGameTime.setText("Game time: "+  seconds/60 +":" + String.format(java.util.Locale.US, "%02d" , seconds%60));
 			return true;
 		}

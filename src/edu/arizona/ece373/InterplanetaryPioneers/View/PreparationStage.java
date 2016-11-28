@@ -186,7 +186,6 @@ public class PreparationStage extends JFrame {
 	}
 
 	public int checkButtons() {
-		//System.out.println(getDestination());
 		if (proceedBtn)
 			return 1;
 		else
@@ -226,7 +225,6 @@ public class PreparationStage extends JFrame {
 	}
 	
 	public void updateGameData(){
-	//public void updateGameData(GameData gameData){
 		if(getSpacecraftId() == 1){
 			GameData.spacecraft = new Spaceship(1);
 			GameData.shipVelocity = GameData.spacecraft.getMaxVelocity();

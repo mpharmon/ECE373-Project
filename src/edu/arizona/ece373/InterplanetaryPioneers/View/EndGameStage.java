@@ -47,7 +47,6 @@ public class EndGameStage extends JFrame {
 	}
 	
 	public boolean updateEndGame(){
-	//public boolean updateEndGame(GameData gameData){
 		
 		if(!destPanel.isDestinationActive()) destPanel.displayDestination();
 		
@@ -64,7 +63,6 @@ public class EndGameStage extends JFrame {
 	}
 	
 	public void displayDestination(){
-	//public void displayDestination(GameData gameData){
 		destPanel.displayDestination();
 	}
 	 

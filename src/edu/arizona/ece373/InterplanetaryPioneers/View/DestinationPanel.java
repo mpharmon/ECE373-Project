@@ -57,7 +57,6 @@ public class DestinationPanel extends JPanel {
 	}
 	
 	public void displayDestination(){
-	//public void displayDestination(GameData gameData){
 		setScore(false);
 		setDestinationActive(true);
 		setVisible(true);

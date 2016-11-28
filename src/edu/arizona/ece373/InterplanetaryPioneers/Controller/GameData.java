@@ -43,13 +43,9 @@ public class GameData {
 		gameTimer = new GameTimer(1000);
 		crew = new ArrayList<Person>();
 		GameData.spacecraft = new Spaceship("SpaceX Shuttle");
-		//setSpacecraft(new Spaceship("SpaceX Shuttle"));
 		
-		//setDifficulty(1);
 		GameData.difficulty = 1;
-		//setDays(0);
 		GameData.days = 0.0;
-		//setYears(0);
 		GameData.years = 0.0;
 		fuel = 0.0;
 		food = 0.0;
@@ -58,43 +54,6 @@ public class GameData {
 		voyageDistance = 0.0;
 		currentDistance = 0.0;
 	}
-	
-	//public GameData() {
-	//	gameTimer = new GameTimer(1000);
-	//	crew = new ArrayList<Person>();
-	//	GameData.spacecraft = new Spaceship("SpaceX Shuttle");
-	//	//setSpacecraft(new Spaceship("SpaceX Shuttle"));
-	//	
-	//	//setDifficulty(1);
-	//	GameData.difficulty = 1;
-	//	//setDays(0);
-	//	GameData.days = 0.0;
-	//	//setYears(0);
-	//	GameData.years = 0.0;
-	//	fuel = 0.0;
-	//	food = 0.0;
-	//	water = 0.0;
-	//	parts = 0.0;
-	//	voyageDistance = 0.0;
-	//	currentDistance = 0.0;
-	//}
-	
-	//public GameData(int diff, double days, double years) {
-	//	gameTimer = new GameTimer(1000);
-	//	crew = new ArrayList<Person>();
-	//	//setDifficulty(diff);
-	//	GameData.difficulty = diff;
-	//	//setDays(days);
-	//	GameData.days = days;
-	//	//setYears(years);
-	//	GameData.years = years;
-	//	fuel = 0.0;
-	//	food = 0.0;
-	//	water = 0.0;
-	//	parts = 0.0;
-	//	voyageDistance = 0.0;
-	//	currentDistance = 0.0;
-	//}
 	
 	public static void dataUpdate(boolean Warp, boolean EventActive, boolean ResultActive, boolean resultReady, int Resolution, Event event, int cost){
 		if(gameTimer.isUpdate() && !EventActive && !ResultActive){
@@ -170,100 +129,12 @@ public class GameData {
 		return skillCnt;
 	}
 	
-	/**
-	 * Getters and Setters
-	 */
-	
-	//public int getDifficulty() {
-	//	return difficulty;
-	//}
-
-	//public void setDifficulty(int difficulty) {
-	//	this.difficulty = difficulty;
-	//}
-
-	//public int getDestination() {
-	//	return Destination.getId();
-	//}
-
-	//public double getDays() {
-	//	return days;
-	//}
-
-	//public void setDays(double days) {
-	//	Days = days;
-	//}
-
-	//public double getYears() {
-	//	return years;
-	//}
-
-	//public void setYears(double y) {
-	//	years = y;
-	//}
-
-	//public int getFuel() {
-	//	return (int) Math.round(fuel);
-	//}
-
-	//public void setFuel(int f) {
-	//	fuel = f;
-	//}
-
-	public int getFood() {
-		return (int) Math.round(food);
-	}
-
-	//public void setFood(int f) {
-	//	food = f;
-	//}
-
-	//public int getWater() {
-	//	return (int) Math.round(water);
-	//}
-
-	//public void setWater(int w) {
-	//	water = w;
-	//}
-
-	//public int getParts() {
-	//	return (int) Math.round(parts);
-	//}
-
-	//public void setParts(int p) {
-	//	parts = p;
-	//}
-	
 	public static void setResources(Integer fuel, Integer food, Integer water, Integer parts){
 		GameData.fuel = fuel.doubleValue();
 		GameData.food = food.doubleValue();
 		GameData.water = water.doubleValue();
 		GameData.parts = parts.doubleValue();
 	}
-
-	//public double getVoyageDistance() {
-	//	return voyageDistance;
-	//}
-
-	//public void setVoyageDistance(double voyageDistance) {
-	//	this.voyageDistance = voyageDistance;
-	//}
-
-	//public double getCurrentDistance() {
-	//	return currentDistance;
-	//}
-
-	//public void setCurrentDistance(double currentDistance) {
-	//	this.currentDistance = currentDistance;
-	//}
-
-	//public ArrayList<Person> getCrew() {
-	//	return crew;
-	//}
-
-	//public void setCrew(ArrayList<Person> c) {
-	//	crew = c;
-	//}
 	
 	public static void updateResource(int type, int diff){
 		if(type == 1){
@@ -276,6 +147,7 @@ public class GameData {
 			parts += diff;
 		}
 	}
+	
 	public static int getResource(int type){
 		Double temp;
 		if(type == 1){
@@ -292,26 +164,6 @@ public class GameData {
 		return temp.intValue();
 	}
 
-	//public Spaceship getSpacecraft() {
-	//	return spacecraft;
-	//}
-
-	//public void setSpacecraft(Spaceship spacecraft) {
-	//	this.spacecraft = spacecraft;
-	//}
-
-	//public int getShipVelocity() {
-	//	return shipVelocity;
-	//}
-
-	//public void setShipVelocity(int shipVelocity) {
-	//	this.shipVelocity = shipVelocity;
-	//}
-
-	//public int getDestinationId() {
-	//	return destinationId;
-	//}
-
 	public void setDestinationId(int dID) {
 		if(destinationId == 1)
 			GameData.destFactor = 1.0;
@@ -319,28 +171,4 @@ public class GameData {
 			GameData.destFactor = 3.2;
 		GameData.destinationId = dID;
 	}
-
-	//public int getTotalEvents() {
-	//	return totalEvents;
-	//}
-
-	//public void setTotalEvents(int totalEvents) {
-	//	this.totalEvents = totalEvents;
-	//}
-
-	//public int getResolvedEvents() {
-	//	return resolvedEvents;
-	//}
-
-	//public void setResolvedEvents(int resolvedEvents) {
-	//	this.resolvedEvents = resolvedEvents;
-	//}
-
-	//public int getVipID() {
-	//	return vipID;
-	//}
-
-	//public void setVipID(int vipID) {
-	//	this.vipID = vipID;
-	//}
 }

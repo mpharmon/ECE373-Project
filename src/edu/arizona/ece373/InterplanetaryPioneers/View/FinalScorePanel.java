@@ -306,7 +306,6 @@ public class FinalScorePanel extends JPanel {
 	}
 	
 	public void displayScoreScreen(){
-	//public void displayScoreScreen(GameData gameData){
 		if(SF_CNT > 9) {
 			scoreTimer.stop();
 		}
@@ -379,7 +378,6 @@ public class FinalScorePanel extends JPanel {
 				txtDifficulty.setText("Score x " + GameData.difficulty);
 				txtDifficulty.setEnabled(true);
 			}
-			//result = base*Destination.getId()*(gameData.crewSkillCount(Person.botanist))*gameData.liveCrew()*gameData.getTotalEvents()*gameData.getFood()*gameData.getWater()*gameData.getParts();
 			if(SF_CNT < 10 ){
 				textFinalScore.setEnabled(true);
 				textFinalScore.setText(EndGameStage.scoreFormat.format(result));

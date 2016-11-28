@@ -7,9 +7,7 @@ import javax.swing.JOptionPane;
 import javazoom.jl.player.Player;
 
 public class CustomPlayer {
-	
 	private Player player;
-	//private int track;
 	private FileInputStream FIS;
 	private BufferedInputStream BIS;
 	private boolean canResume;
@@ -18,15 +16,6 @@ public class CustomPlayer {
 	private int stopped;
 	private boolean valid;
 	private boolean over;
-	
-
-	//public static void main(String[] args){	
-	//	CustomPlayer player = new CustomPlayer();
-	//		
-	//	player.setPath(SongPath.getPath(19));
-	//	if(player.play(-1)) System.out.println("Playing");
-	//	else System.out.println("Exit");
-	//}
 	
 	public CustomPlayer(){
 	    player = null;
