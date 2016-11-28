@@ -411,6 +411,13 @@ public class TransferStage extends JFrame {
 	}
 	
 	public boolean TransferUpdate(){
+		//Update GameData
+				GameData.dataUpdate(Warp, eventPanel.isEventActive(), 
+									resultPanel.isResolutionActive(), 
+									resultPanel.isDataReady(),
+									eventPanel.getResolution(),
+									eventPanel.getCurrentEvent(),
+									eventPanel.getCost());
 		//If neither event, result, or gameover panel are active continue planetary transfer
 		if(!getEventPanel().isEventActive() && !getResultPanel().isResolutionActive() && !getGameOverPanel().isGameOverActive()){
 			
@@ -445,13 +452,13 @@ public class TransferStage extends JFrame {
 			//managerPanel.updateManager(gameData, true);
 			EventTimer.setUpdate(false);
 		}
-		//Update GameData
-		GameData.dataUpdate(Warp, eventPanel.isEventActive(), 
-							resultPanel.isResolutionActive(), 
-							resultPanel.isDataReady(),
-							eventPanel.getResolution(),
-							eventPanel.getCurrentEvent(),
-							eventPanel.getCost());
+//		//Update GameData
+//		GameData.dataUpdate(Warp, eventPanel.isEventActive(), 
+//							resultPanel.isResolutionActive(), 
+//							resultPanel.isDataReady(),
+//							eventPanel.getResolution(),
+//							eventPanel.getCurrentEvent(),
+//							eventPanel.getCost());
 		if(resultPanel.isDataReady()) resultPanel.setDataReady(false);
 		
 		if(destinationSequence(GameData.currentDistance) == Destination.DESTINATION_REACHED)

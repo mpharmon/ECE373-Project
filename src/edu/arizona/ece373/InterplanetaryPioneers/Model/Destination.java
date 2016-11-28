@@ -25,13 +25,13 @@ public class Destination {
 			name = "Mars";
 			type = "Planet";
 			distance = MarsDistance; //250 MKM
-			PROXIMITY = 15000000;
+			PROXIMITY = 10000000;
 		}else{
 			id = 2;
 			name = "Europa";
 			type = "Moon";
 			distance = EuropaDistance; //800 MKM
-			PROXIMITY = 50000000;
+			PROXIMITY = 40000000;
 		}
 	}
 	

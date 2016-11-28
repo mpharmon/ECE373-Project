@@ -53,6 +53,8 @@ public class GameData {
 		parts = 0.0;
 		voyageDistance = 0.0;
 		currentDistance = 0.0;
+		totalEvents = 0;
+		resolvedEvents = 0;
 	}
 	
 	public static void dataUpdate(boolean Warp, boolean EventActive, boolean ResultActive, boolean resultReady, int Resolution, Event event, int cost){

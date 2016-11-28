@@ -175,8 +175,8 @@ public class EventPanel extends JPanel {
 	}
 	
 	public void setEventPanel(){
-		currentEvent = EventPool.getRandomEvent();
-		//currentEvent = EventPool.getEvent(3);			//For debugging specific event
+		//currentEvent = EventPool.getRandomEvent();
+		currentEvent = EventPool.getEvent(3);			//For debugging specific event
 		//Set color based off severity
 		lblTitle.setForeground(currentEvent.getTitleColor());
 		//Check Resources
