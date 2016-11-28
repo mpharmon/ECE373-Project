@@ -209,7 +209,9 @@ public class GameOverPanel extends JPanel {
 		txtDistance.setText(Destination.distFormat.format(GameData.currentDistance)+ " KM");
 		txtEvents.setText(String.valueOf(GameData.totalEvents));
 		if(GameData.totalEvents > 0){
-			Double temp = GameData.resolvedEvents / GameData.totalEvents * 100.0;
+			System.out.println("resolvedEvents: " + GameData.resolvedEvents);
+			System.out.println("totalEvents: " + GameData.totalEvents);
+			Double temp = (GameData.resolvedEvents * 1.0) / GameData.totalEvents * 100.0;
 			System.out.println("Events successful: " + GameData.resolvedEvents + "\n" + temp);
 			txtEventSuccess.setText(String.format(java.util.Locale.US, "%4.1f" , temp) + " %");
 		}
