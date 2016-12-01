@@ -1,10 +1,12 @@
 package edu.arizona.ece373.InterplanetaryPioneers.Controller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-
 import edu.arizona.ece373.InterplanetaryPioneers.Model.*;
 
-public class GameData {
+
+
+public class GameData{
 	
 	public static int difficulty;
 	
@@ -36,6 +38,8 @@ public class GameData {
 	protected int shipStatus;
 	public static int totalEvents;
 	public static int resolvedEvents;
+	
+	public static int highScore = 0;
 	
 	static GameTimer gameTimer;
 	

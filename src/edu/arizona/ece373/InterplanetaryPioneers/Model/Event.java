@@ -46,7 +46,7 @@ public class Event {
 	
 	// Constructor(s)
 	public Event() {
-		title = "Event Ecounter";
+		title = "Event Encounter";
 		setSeverity(Low);
 		setPenalty(false);
 		setPenaltyType(GameData.PARTS);
