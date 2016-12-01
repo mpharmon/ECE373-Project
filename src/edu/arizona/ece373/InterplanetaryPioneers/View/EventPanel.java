@@ -34,7 +34,7 @@ public class EventPanel extends JPanel {
 	private boolean event;
 	private boolean Outcome;
 	//protected EventPool eventPool;
-	private Event currentEvent;
+	private Event currentEvent, prev1_Event, prev2_Event;
 	private static Random random;
 	
 	private final static int LOW = 1;
@@ -158,7 +158,9 @@ public class EventPanel extends JPanel {
 		EventActive = false;
 		//setSkillType(Person.none);
 		EventPool.initEventPool();
-		
+		currentEvent = EventPool.getEvent(0);
+		prev1_Event = currentEvent;
+		prev2_Event = currentEvent;
 		ActionListener taskPerformer = new ActionListener() {
 		    public void actionPerformed(ActionEvent evt) {
 		    	if((getResolution() == 2) && !rdbtnOption2.isEnabled()){
@@ -175,8 +177,16 @@ public class EventPanel extends JPanel {
 	}
 	
 	public void setEventPanel(){
-		//currentEvent = EventPool.getRandomEvent();
-		currentEvent = EventPool.getEvent(3);			//For debugging specific event
+		//Prevent duplicates more event variety
+		prev2_Event = prev1_Event;
+		prev1_Event = currentEvent;
+		int i = 0;
+		while(prev1_Event == currentEvent || prev2_Event == currentEvent){
+			currentEvent = EventPool.getRandomEvent();
+			i++;
+		}
+		System.out.println("Event Generations: "+ i);
+		//currentEvent = EventPool.getEvent(4);			//For debugging specific event
 		//Set color based off severity
 		lblTitle.setForeground(currentEvent.getTitleColor());
 		//Check Resources
@@ -249,12 +259,13 @@ public class EventPanel extends JPanel {
 					Cost = currentEvent.getCost();
 				}
 			}else if(Resolution == 2){
-				Cost = currentEvent.getCost() - 15;
+				Cost = currentEvent.getCost() - 5;
 			}else if(Resolution == 3){
 				Cost = randomCost(currentEvent.getCost());
 			}else{
 				Cost = 0;
 			}
+			currentEvent.setReward(Cost);
 			Outcome = true;
 		}
 		currentEvent.setOutcome(Outcome);

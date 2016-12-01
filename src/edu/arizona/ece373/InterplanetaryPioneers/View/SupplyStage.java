@@ -396,9 +396,9 @@ public class SupplyStage extends JFrame {
 			H2O = 100;
 			Parts = 50;
 		}else{
-			MAX_SUPPLIES = 700;
-			Resources = 700;
-			Fuel = 75;
+			MAX_SUPPLIES = 600;
+			Resources = 600;
+			Fuel = 50;
 			Food = 100;
 			H2O = 100;
 			Parts = 50;

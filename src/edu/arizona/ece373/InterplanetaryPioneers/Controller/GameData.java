@@ -75,12 +75,11 @@ public class GameData {
 			if(resultReady){ 							//Data ready to be updated after Result panel
 				if(event.isOutcome()){ 					//Event Resolved
 					if(event.isPenalty()) {				//Event has penalty
-						if(Resolution == Event.Option2 || Resolution == Event.Option3){
+						if(Resolution == Event.Option2 || Resolution == Event.Option3)
 							updateResource(event.getPenaltyType(), -cost);
-					}else{								//Event has no penalty
-						updateResource(event.getPenaltyType(), cost);
+					}else{
+						updateResource(event.getPenaltyType(), event.getReward());
 					}
-				}
 				}
 			}
 			gameTimer.setUpdate(false);
@@ -88,17 +87,23 @@ public class GameData {
 	}
 	
 	public static boolean updateCrewInjury(Event event){
-		if(crew.get(event.randomCrewInjury(liveCrew())).updateHealth(1)){
-			System.out.println("injured id: " + event.getCrewInjuried());
-			return true;
+		int crewInjured = event.randomCrewInjury(liveCrew());
+		if(crewInjured != -1){
+			if(crew.get(crewInjured).updateHealth(1)){
+				System.out.println("injured id: " + event.getCrewInjuried());
+				return true;
+			}
 		}
-		else return false;
+		return false;
 	}
 	public static boolean updateShipDamage(){
 		if(spacecraft.hullDamaged(1)) return true;
 		else return false;
 	}
-	
+	public static boolean updateShipDamage(int damage){
+		if(spacecraft.hullDamaged(damage)) return true;
+		else return false;
+	}
 	//Checks if current live crew complement has specified skill
 	public static boolean checkCrewForSkill(int skill){
 		System.out.println("Looking for skill: " + skill);
@@ -107,6 +112,14 @@ public class GameData {
 			if(skill == crew.get(i).getSkill() && crew.get(i).Alive()) return true;
 		}
 		return false;
+	}
+	
+	public static int LiveSkillCount(int skill){
+		int alive = 0;
+		for(int i = 0; i < crew.size(); i++){
+			if(skill == crew.get(i).getSkill() && crew.get(i).Alive()) alive++;
+		}
+		return alive;
 	}
 	
 	//Checks for dead crew members
@@ -129,6 +142,18 @@ public class GameData {
 			if(crew.get(i).getSkill() == skill) skillCnt++;
 		}
 		return skillCnt;
+	}
+	
+	public static int InjureAllCrew(int damage){
+		int dead = 0;
+		for(int i = 0; i < crew.size(); i++){
+			//Injure all live crew
+			if(crew.get(i).Alive()){
+				if(!crew.get(i).updateHealth(damage)) //if injury resulted in death
+					dead++;
+			}
+		}
+		return dead; //return all crew killed
 	}
 	
 	public static void setResources(Integer fuel, Integer food, Integer water, Integer parts){

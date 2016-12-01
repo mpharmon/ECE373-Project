@@ -12,6 +12,7 @@ public class Event {
 	private boolean 	Penalty;
 	protected int 	  	penaltyType;
 	private int	  		cost;
+	private int	  		reward;
 	protected double  	chance;
 	private int 	  	skillType;
 	protected String  	description;
@@ -81,12 +82,23 @@ public class Event {
 		if(severity == Critical) GAMEOVER = true;
 		else  GAMEOVER = false;
 		Outcome = false;
+		reward = 0;
 	}
 	
 	public int randomCrewInjury(int numAlive){
 		Random rand = new Random();
-		setCrewInjuried(rand.nextInt(numAlive-1));
-		return crewInjuried;
+		crewInjuried = rand.nextInt(GameData.crew.size());
+		if(GameData.crew.get(crewInjuried).Alive()){
+			return crewInjuried;
+		}else if(numAlive > 0){
+			while(!GameData.crew.get(crewInjuried).Alive()){
+				System.out.println("Crew member "+crewInjuried+": is dead");
+				crewInjuried = rand.nextInt(GameData.crew.size());
+			}
+			return crewInjuried;
+		}else{
+			return -1;
+		}
 	}
 
 	// Get'ers and Set'ers
@@ -187,6 +199,12 @@ public class Event {
 	}
 	public void setSkillType(int skillType) {
 		this.skillType = skillType;
+	}
+	public int getReward() {
+		return reward;
+	}
+	public void setReward(int reward) {
+		this.reward = reward;
 	}
 	
 }

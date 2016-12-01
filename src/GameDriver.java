@@ -94,7 +94,7 @@ public class GameDriver implements Runnable {
 						transferWindow.startup();
 						currentWindow = transferWindow.getWindowId();
 						player.pause();
-						track = rand.nextInt(4);
+						track = rand.nextInt(5);
 						player.setPath(SongPath.getPath(track));
 						if(player.play(-1)) System.out.println("Playing Transfer track: "+ track);
 						System.out.println("Live crew: " + GameData.liveCrew());
@@ -130,6 +130,7 @@ public class GameDriver implements Runnable {
 				case 8:
 					// Reset/Instantiate Windows
 					if(transferWindow.getGameOverPanel().isContinue() || endGameWindow.getScorePanel().isContinue()){
+						GameData.initialize(); 
 						transferWindow.dispose();
 						startWindow = new StartMenu();
 						difficultyWindow = new DifficultySet();
@@ -137,11 +138,11 @@ public class GameDriver implements Runnable {
 						selectCrewWindow = new SelectCrew();
 						supplyWindow = new SupplyStage();
 						transferWindow = new TransferStage();
-						currentWindow = startWindow.getWindowId();
 						endGameWindow = new EndGameStage();
 						player.pause();
 						player = new CustomPlayer();
 						player.setPath(SongPath.getPath(9));
+						currentWindow = startWindow.getWindowId();
 						if(player.play(-1)) System.out.println("Playing Intro");
 						else System.out.println("Exit");
 					}

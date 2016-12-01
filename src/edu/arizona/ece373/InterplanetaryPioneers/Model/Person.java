@@ -53,6 +53,9 @@ public class Person {
 		if(health > damage){
 			health = health - damage;
 			return true; 	//still alive
+		}else if(health > 0 && damage >= 1){
+			health = health - 1;
+			return false;
 		}else{
 			return false; 	//dead
 		}

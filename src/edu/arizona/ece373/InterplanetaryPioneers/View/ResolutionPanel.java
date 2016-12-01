@@ -231,18 +231,31 @@ public class ResolutionPanel extends JPanel {
 				if(event.isInjury()){
 					System.out.println("Crew Injury.");
 					shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
-					if(GameData.updateCrewInjury(event)) 
-						crewLostField.setText(String.valueOf(0) +" ");
-					else{
-						System.out.println("Crew member "+ event.getCrewInjuried() +"lost.");
-						crewLostField.setText(String.valueOf(1) +" "+ GameData.crew.get(event.getCrewInjuried()).getName());
+					if(event.getSeverity() == Event.Low){
+						if(GameData.updateCrewInjury(event)) 
+							crewLostField.setText(String.valueOf(0) +" ");
+						else{
+							System.out.println("Crew member "+ event.getCrewInjuried() +" lost.");
+							crewLostField.setText(String.valueOf(1) +" "+ GameData.crew.get(event.getCrewInjuried()).getName());
+						}
+						crewInjuryField.setText(String.valueOf(1) + " " + GameData.crew.get(event.getCrewInjuried()).getName());
+					}else{
+						System.out.println("Entire Crew Injured.");
+						int alive = GameData.liveCrew();
+						int killed = GameData.InjureAllCrew(1);
+						
+						if(killed == 0){ //no deaths
+							crewLostField.setText(String.valueOf(0) +" ");
+						}else{
+							System.out.println("Crew lost "+ killed +" total.");
+							crewLostField.setText(killed +" total");
+						}
+						crewInjuryField.setText(alive + " total");
 					}
-					crewInjuryField.setText(String.valueOf(1) + " " + GameData.crew.get(event.getCrewInjuried()).getName());
-					
 				}else if(event.isDamage()){
-					GameData.updateShipDamage();
+					GameData.updateShipDamage(event.getSeverity()); //Ship damage scaled by event severity 1-3
 					crewLostField.setText(String.valueOf(0)   +" "+ "none");
-					shipDamageField.setText(String.valueOf(1) +" "+ "sustained");
+					shipDamageField.setText(String.valueOf(event.getSeverity()) +" "+ "sustained");
 					System.out.println("Ship Damaged");
 				}
 				System.out.println("Crew Alive: " + GameData.liveCrew() + "\nShip Integrity: " + GameData.spacecraft.getHull());

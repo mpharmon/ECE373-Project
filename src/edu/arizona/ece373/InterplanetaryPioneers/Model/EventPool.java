@@ -39,7 +39,7 @@ public class EventPool {
 		newEvent.setDescription("There is a fire in the cargo area. The fire must be put out to avoid ship damage. You can resolve the issue\n "
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
 		//Set option text
-		newEvent.setOption1("[Success chance "+ newEvent.chance * 100 +"%] Attempt to resolve fire youself.");
+		newEvent.setOption1("[Success chance "+ newEvent.chance * 100 +"%] Attempt to resolve ship fire youself. Your not afraid of no fire.");
 		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " "+ Event.getTypeString(newEvent.getPenaltyType()) +"] Assign a Scientist to fix the problem. The fire will be resolved at no cost to resources.");
 		newEvent.setOption3("[0 - "+ newEvent.getCost()+" "+ Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more water.");
 		newEvent.setOption4("You hope nothing will go wrong and ignore the fire.");
@@ -54,8 +54,8 @@ public class EventPool {
          */
     	newEvent = new Event(Event.Moderate, true, GameData.WATER, 20, 0.35, Person.doctor, true, false);
 		newEvent.titleColor = Color.YELLOW;
-		newEvent.setDescription("There appears to be an infectious agent on board. The infectious agent must be contained before it infects someone. You can resolve the issue\n "
-							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
+		newEvent.setDescription("There appears to be an infectious agent on board. The infectious agent must be contained before it infects someone.\n "
+				                + "You can resolve the issue yourself or assign a crew member to resolve it. The decision is yours captain.");
 		//Set option text
 		newEvent.setOption1("[Success chance "+ newEvent.chance * 100 +"%] Attempt to eliminate the infectious agent youself.");
 		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " "+ Event.getTypeString(newEvent.getPenaltyType()) +"] Assign a Doctor to eradicate the agent. The infectious agent will be contained at minimal cost.");
@@ -83,6 +83,63 @@ public class EventPool {
 		//Set Icon location
 		newEvent.iconLocation = "lib/images/blackHole.jpg";
 		newEvent.setIconBounds(340, 45, 630, 325); 
+		
+        EventPool.events.add(newEvent);
+        
+        /*
+         *	Event #5 - Rogue AI
+         */
+    	newEvent = new Event(Event.Moderate, true, GameData.PARTS, 25, 0.25, Person.engineer, true, false);
+		newEvent.titleColor = Color.YELLOW;
+		newEvent.setDescription("The ships AI has gone rogue. It seems to ignore all commands given and is causing glitches in all the ship's "
+								+ "systems. \nLife support is among the systems at risk. Shutdown the AI yourself or assign an engineer to bypass "
+								+ "the AI's primary control circuits.");
+		//Set option text
+		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Attempt to shut down the rogue AI yourself.");
+		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " " + Event.getTypeString(newEvent.getPenaltyType()) +"] Assign an Engineer to shutdown the AI. The engineer will require parts to perform bypass.");
+		newEvent.setOption3("[0 - "+ newEvent.getCost()+" " + Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to shutdown the AI somehow. Potentially more or less efficient use of parts.");
+		newEvent.setOption4("You threaten the AI and demand it to shut itself down.");
+		//Set Icon location
+		newEvent.iconLocation = "lib/images/rogueAI.png";
+		newEvent.setIconBounds(360, 45, 524, 300); 
+		
+        EventPool.events.add(newEvent);
+        
+        /*
+         *	Event #6 - Satellite Salvage Opportunity
+         */
+    	newEvent = new Event(Event.Low, false, GameData.PARTS, 15, 0.25, Person.engineer, false, false);
+		newEvent.titleColor = Color.CYAN;
+		newEvent.setDescription("You have encountered an abandoned satellite which appears to have been drifting in space for a long time. You"
+								+ " can \nattempt to salavge some parts off the satellite yourself or assign a qualified crew member to do so."
+								+ " The decision is \nyours captain.");
+		//Set option text
+		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Attempt to salvage parts off the satellite yourself. Who needs an engineer right?");
+		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 5) + " " + Event.getTypeString(newEvent.getPenaltyType()) +"] Assign an Engineer to perform the salvage operation and recover some parts.");
+		newEvent.setOption3("[0 - "+ newEvent.getCost()+" " + Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to perform the salvage operation. Potentially more or less parts recovered.");
+		newEvent.setOption4("You decide not to perform the salvage operation. And claim your too civilized to be collecting garbage.");
+		//Set Icon location
+		newEvent.iconLocation = "lib/images/Voyager_spacecraft.jpg";
+		newEvent.setIconBounds(340, 45, 543, 335); 
+		
+        EventPool.events.add(newEvent);
+        
+        /*
+         *	Event #7 - Solar Wind Radiation
+         */
+    	newEvent = new Event(Event.Moderate, true, GameData.PARTS, 25, 0.35, Person.engineer, true, false);
+		newEvent.titleColor = Color.YELLOW;
+		newEvent.setDescription("You have recieved reports from scientists on earth that dangerous solar winds are imminent. They recommend you"
+								+ "reinforce the ship with any parts available to reduce the risk of dangerous radiation levels. You may"
+								+ "perform the \nreinforcements yourself or assign an Engineer to do so.");
+		//Set option text
+		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Attempt to rig the ship reinforcments yourself.");
+		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " " + Event.getTypeString(newEvent.getPenaltyType()) +"] Assign an Engineer to perform the required ship reinforcements.");
+		newEvent.setOption3("[0 - "+ newEvent.getCost()+" " + Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to delegate and supervise the ship reinforcements.");
+		newEvent.setOption4("You ignore the reports and continue on your journey keeping your crew completely oblivious.");
+		//Set Icon location
+		newEvent.iconLocation = "lib/images/SolarWind.jpg";
+		newEvent.setIconBounds(360, 45, 576, 324); 
 		
         EventPool.events.add(newEvent);
 	}
