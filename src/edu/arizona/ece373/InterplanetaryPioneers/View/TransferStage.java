@@ -28,8 +28,8 @@ import javax.swing.JTextField;
 public class TransferStage extends JFrame {
 	
 	public static boolean Debug = false;  //For debugging end game disables events
-	public static int DRIVER_FACTOR = 5;
-	public static double PERF_FACTOR = 2;   //Modify refresh rate to X number of ms
+	public static int DRIVER_FACTOR = 10;
+	public static double PERF_FACTOR = 5.0;   //Modify refresh rate to X number of ms
 	
 	private int windowId;
 			 
@@ -584,9 +584,9 @@ public class TransferStage extends JFrame {
 			WarpOut = true;
 		}else{
 			if(WarpOut){
-				if(offset > 0) offset = offset - cruise*PERF_FACTOR;
-				else if(offset < 0) offset = offset + cruise*PERF_FACTOR;
-				else {WarpOut = false; offset_temp = 0;}
+				if(offset > 2.0) offset = offset - cruise*PERF_FACTOR;
+				else if(offset < -2.0) offset = offset + cruise*PERF_FACTOR;
+				else {WarpOut = false; offset_temp = 0.0;}
 			}else{
 				
 				offset = oscillate(offset.intValue(), offset_temp, oscillate, 2, 0.05)*1.0;
@@ -594,7 +594,7 @@ public class TransferStage extends JFrame {
 			
 			if(X6_pos < 999){
 				X6_pos = (int) (X6_pos + speed);
-				X7_pos = (int) (X7_pos + cruise*PERF_FACTOR);				
+				X7_pos = (int) (X7_pos + speed);				
 			}
 			lblSpacecraft.setLocation(X6_pos, Y6_pos + offset.intValue());
 			lblThruster.setLocation(X7_pos, Y7_pos + offset.intValue());
