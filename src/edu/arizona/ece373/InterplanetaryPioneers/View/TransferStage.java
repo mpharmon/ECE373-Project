@@ -28,8 +28,8 @@ import javax.swing.JTextField;
 public class TransferStage extends JFrame {
 	
 	public static boolean Debug = false;  //For debugging end game disables events
-	public static int DRIVER_FACTOR = 10;
-	public static double PERF_FACTOR = 5.0;   //Modify refresh rate to X number of ms
+	public static int DRIVER_FACTOR = 8;
+	public static double PERF_FACTOR = 4;   //Modify refresh rate to X number of ms
 	
 	private int windowId;
 			 
@@ -43,10 +43,10 @@ public class TransferStage extends JFrame {
 	private double X0_temp, X3_temp, X4_temp, X8_temp, X9_temp;
 	private double factor_3 = 0.075;          //Scales Earths movement
 	private double factor_4 = 0.015;          //Scales Moons movement
-	private double factor_8 = 0.025;		  //Scales Jupiter movement
-	private double factor_9 = 0.0125;		  //Scales Destination movement
+	private double factor_8 = 0.0125;		  //Scales Jupiter movement
+	private double factor_9 = 0.0025;		  //Scales Destination movement
 	private double factor_0 = 0.000853;		//Scales Background Space movement
-	private static final int standard = 10;			//Game timer update w/o warp
+	private static final int standard = 20;			//Game timer update w/o warp
 	private static final int TimeWarp = 2;			//Game timer update w/ warp
 	private static final int cruise = 1;			//Pixel movement w/o warp
 	private static final int Supercruise = 5;       //Pixel movement w/ warp
@@ -310,6 +310,7 @@ public class TransferStage extends JFrame {
 		
 		if(GameData.difficulty == DifficultySet.Normal) EVENT_CHANCE = EVENT_CHANCE + 0.10;
 		else if(GameData.difficulty == DifficultySet.Hard) EVENT_CHANCE = EVENT_CHANCE + 0.15;
+		
 	}
 	
 	
@@ -357,6 +358,9 @@ public class TransferStage extends JFrame {
 	
 	public void initDestination(){
 		GameData.destinationId = Destination.getId();
+		
+		if(Destination.getId() == Destination.MARS) factor_9 = 0.0125;
+		
 		END_SEQUENCE_DIST = Destination.getDistance() - Destination.PROXIMITY;
 		lblDestination.setBounds(X9_pos, Y9_pos, 270, 284);
 		lblJupiter.setBounds(X8_pos, 0, 476, 435);
@@ -584,8 +588,8 @@ public class TransferStage extends JFrame {
 			WarpOut = true;
 		}else{
 			if(WarpOut){
-				if(offset > 2.0) offset = offset - cruise*PERF_FACTOR;
-				else if(offset < -2.0) offset = offset + cruise*PERF_FACTOR;
+				if(offset > 1.0) offset = offset - cruise*PERF_FACTOR*0.1;
+				else if(offset < -1.0) offset = offset + cruise*PERF_FACTOR*0.1;
 				else {WarpOut = false; offset_temp = 0.0;}
 			}else{
 				
@@ -593,8 +597,8 @@ public class TransferStage extends JFrame {
 			}
 			
 			if(X6_pos < 999){
-				X6_pos = (int) (X6_pos + speed);
-				X7_pos = (int) (X7_pos + speed);				
+				X6_pos = (int) (X6_pos + speed*0.5);
+				X7_pos = (int) (X7_pos + speed*0.5);				
 			}
 			lblSpacecraft.setLocation(X6_pos, Y6_pos + offset.intValue());
 			lblThruster.setLocation(X7_pos, Y7_pos + offset.intValue());

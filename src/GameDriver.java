@@ -44,6 +44,7 @@ public class GameDriver implements Runnable {
 				switch (currentWindow) {
 				case 0:
 					if (startWindow.checkButtons() == 1) {
+						startWindow.getHighScorePanel().autoLoad();
 						startWindow.setVisible(false);
 						//Next Window
 						difficultyWindow.setVisible(true);
