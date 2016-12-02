@@ -32,7 +32,7 @@ public class ManagerPanel extends JPanel {
 	protected  JLabel shipIcon;
 	protected  JLabel hullStatus;
 	private JTextField txtGameTime;
-	private int seconds;
+	public int seconds;
 
 	/**
 	 * Create the panel.
@@ -295,7 +295,7 @@ public class ManagerPanel extends JPanel {
 	
 	public boolean updateTimeElapsed(){
 		seconds++;
-		if(seconds <= 1200){
+		if(seconds <= 1800){
 			txtGameTime.setText("Game time: "+  seconds/60 +":" + String.format(java.util.Locale.US, "%02d" , seconds%60));
 			return true;
 		}

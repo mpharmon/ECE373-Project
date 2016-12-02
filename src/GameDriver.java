@@ -39,7 +39,7 @@ public class GameDriver implements Runnable {
 		while (running) {
 			try {
 				//More efficient on computer resources to limit loop to 1 KHz
-				Thread.sleep(1);
+				Thread.sleep(TransferStage.DRIVER_FACTOR);
 				
 				switch (currentWindow) {
 				case 0:

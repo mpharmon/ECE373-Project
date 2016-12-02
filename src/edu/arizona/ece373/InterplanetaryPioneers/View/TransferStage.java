@@ -27,7 +27,9 @@ import javax.swing.JTextField;
 
 public class TransferStage extends JFrame {
 	
-	public static boolean Debug = true;  //For debugging end game disables events
+	public static boolean Debug = false;  //For debugging end game disables events
+	public static int DRIVER_FACTOR = 5;
+	public static double PERF_FACTOR = 2;   //Modify refresh rate to X number of ms
 	
 	private int windowId;
 			 
@@ -53,7 +55,7 @@ public class TransferStage extends JFrame {
 	private boolean chance2 = false;
 	private boolean oscillate = false;
 	private boolean WarpOut = false;
-	private int offset = 0;
+	private Double offset = 0.0;
 	private double offset_temp = 0;
 	private static final double SAT_CHANCE = 0.50;
 	private static final double AST_CHANCE = 0.90;
@@ -107,9 +109,7 @@ public class TransferStage extends JFrame {
 	 */
 	public TransferStage() {
 		setResizable(false);
-		
-		initTransfer(); 	//Initialize Game Data!
-		
+
 		Warp = false;
 		Manager = false;
 		speed = 1;
@@ -307,11 +307,15 @@ public class TransferStage extends JFrame {
 		if(Debug) EventTimer.getTimer().stop();
 		shipBounds = new Rectangle();
 		thrustBounds = new Rectangle();
+		
+		if(GameData.difficulty == DifficultySet.Normal) EVENT_CHANCE = EVENT_CHANCE + 0.10;
+		else if(GameData.difficulty == DifficultySet.Hard) EVENT_CHANCE = EVENT_CHANCE + 0.15;
 	}
 	
 	
 	
 	public void startup(){
+		initTransfer(); 	//Initialize Game Data!
 		managerPanel.ManagerSetup();
 		initSpacecraft();
 		initDestination();
@@ -436,6 +440,7 @@ public class TransferStage extends JFrame {
 			if(EventTimer.isUpdate()  && !Manager && (GameData.currentDistance > GameData.EventStartDist)
 					&& (GameData.currentDistance < (Destination.getDistance()-Destination.PROXIMITY))) {
 				event = (Math.random() < EVENT_CHANCE);
+				System.out.println("Event occurence: " + event + " Event Chance: " + EVENT_CHANCE + " Events: " + GameData.totalEvents + " Timestamp: " + managerPanel.seconds);
 				EventTimer.setUpdate(false);
 				if(event) { 
 					getEventPanel().displayEventEncounter();
@@ -448,7 +453,10 @@ public class TransferStage extends JFrame {
 				}
 			}
 			//Reactivate timer if necessary
-			if(!EventTimer.getTimer().isRunning() && !Debug) EventTimer.getTimer().start();
+			if(!EventTimer.getTimer().isRunning() && !Debug){
+				EventTimer.getTimer().restart();
+				EventTimer.getTimer().start();
+			}
 			
 		}else if(!eventPanel.isEventActive() && !getResultPanel().isUpdated()){
 				resultPanel.DisplayResolution(eventPanel.isOutcome(),
@@ -565,31 +573,31 @@ public class TransferStage extends JFrame {
 	public void moveSpacecraft(){
 		
 		if(Warp){
-			offset = oscillate(offset, offset_temp, oscillate, 25, 0.05);
+			offset = oscillate(offset.intValue(), offset_temp, oscillate, 25, 0.05)*1.0;
 		
 			if(X6_pos > 800){ 
-				X6_pos = (int) (X6_pos - cruise);
-				X7_pos = (int) (X7_pos - cruise);
+				X6_pos = (int) (X6_pos - cruise*PERF_FACTOR);
+				X7_pos = (int) (X7_pos - cruise*PERF_FACTOR);
 			}
-			lblSpacecraft.setLocation(X6_pos, Y6_pos + offset);
-			lblThruster.setLocation(X7_pos, Y7_pos + offset);
+			lblSpacecraft.setLocation(X6_pos, Y6_pos + offset.intValue());
+			lblThruster.setLocation(X7_pos, Y7_pos + offset.intValue());
 			WarpOut = true;
 		}else{
 			if(WarpOut){
-				if(offset > 0) offset = offset - cruise;
-				else if(offset < 0) offset = offset + cruise;
+				if(offset > 0) offset = offset - cruise*PERF_FACTOR;
+				else if(offset < 0) offset = offset + cruise*PERF_FACTOR;
 				else {WarpOut = false; offset_temp = 0;}
 			}else{
 				
-				offset = oscillate(offset, offset_temp, oscillate, 2, 0.05);
+				offset = oscillate(offset.intValue(), offset_temp, oscillate, 2, 0.05)*1.0;
 			}
 			
 			if(X6_pos < 999){
 				X6_pos = (int) (X6_pos + speed);
-				X7_pos = (int) (X7_pos + cruise);				
+				X7_pos = (int) (X7_pos + cruise*PERF_FACTOR);				
 			}
-			lblSpacecraft.setLocation(X6_pos, Y6_pos + offset);
-			lblThruster.setLocation(X7_pos, Y7_pos + offset);
+			lblSpacecraft.setLocation(X6_pos, Y6_pos + offset.intValue());
+			lblThruster.setLocation(X7_pos, Y7_pos + offset.intValue());
 		}
 		
 	}
@@ -615,10 +623,10 @@ public class TransferStage extends JFrame {
 	
 	public void checkTimeWarp(){
 		if(Warp){
-			speed = Supercruise;
+			speed = Supercruise*PERF_FACTOR;
 			spaceTimer.getTimer().setDelay(TimeWarp);
 		}else{
-			speed = cruise;
+			speed = cruise*PERF_FACTOR;
 			spaceTimer.getTimer().setDelay(standard);
 		}
 	}
