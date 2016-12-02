@@ -44,7 +44,6 @@ public class Destination {
 	}
 	
 	public static String getName(int ID) {
-		
 		if(ID == MARS)
 			return "Mars";
 		else

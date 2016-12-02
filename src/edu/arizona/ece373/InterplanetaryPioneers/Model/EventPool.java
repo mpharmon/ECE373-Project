@@ -142,6 +142,26 @@ public class EventPool {
 		newEvent.setIconBounds(360, 45, 576, 324); 
 		
         EventPool.events.add(newEvent);
+        
+        /*
+         *	Event #8 - Space Anomaly
+         */
+    	newEvent = new Event(Event.Moderate, true, GameData.FOOD, 25, 0.35, Person.botanist, true, false);
+		newEvent.titleColor = Color.YELLOW;
+		newEvent.setDescription("There appears to be a spatial anomaly dangerously close to the ships path to " + Destination.getName() +"."
+								+ " The anomaly appears to\n drain energy. Earth scientists recommend you temporarily power down all"
+								+ " non critical systems and keep life support in low power mode. Your crew will consume extra food since"
+								+ " the ship will become extremely cold.");
+		//Set option text
+		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Attempt to navigate around the anomaly with all systems on.");
+		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " " + Event.getTypeString(newEvent.getPenaltyType()) +"] Assign a Botanist to hand out minimal rations compensated by ship grown food.");
+		newEvent.setOption3("[0 - "+ newEvent.getCost()+" " + Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to distribute extra food rations.");
+		newEvent.setOption4("You power down all systems and deny your crew extra food rations.");
+		//Set Icon location
+		newEvent.iconLocation = "lib/images/Space_Anamoly_1.jpg";
+		newEvent.setIconBounds(420, 45, 420, 333); 
+		
+        EventPool.events.add(newEvent);
 	}
     
     public static Event getRandomEvent(){

@@ -318,6 +318,7 @@ public class TransferStage extends JFrame {
 	public void startup(){
 		initTransfer(); 	//Initialize Game Data!
 		managerPanel.ManagerSetup();
+		eventPanel.initEventData();
 		initSpacecraft();
 		initDestination();
 		ActionListener taskPerformer = new ActionListener() {
