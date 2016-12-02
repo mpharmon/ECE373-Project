@@ -522,6 +522,10 @@ public class HighScorePanel extends JPanel {
 		setVisible(false);
 	}
 	
+	public void autoLoad(){
+		highScore = HighScore.loadData();
+	}
+	
 	public void displayHighScores(){
 		setVisible(true);
 		StartMenu = false;
