@@ -131,6 +131,7 @@ public class SelectCrew extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				if(buildCrew()) System.out.println("Crew Built: "+ crewMemberName1.getText() +" "+ crewMemberName2.getText() +" "+crewMemberName3.getText() 
 																+" "+crewMemberName4.getText() +" "+crewMemberName5.getText());
+				GameData.UserScore.setCaptName(CaptainName.getText());
 				confirm = true;
 			}
 		});

@@ -27,7 +27,7 @@ import javax.swing.JTextField;
 
 public class TransferStage extends JFrame {
 	
-	public static boolean Debug = false;  //For debugging end game disables events
+	public static boolean Debug = true;  //For debugging end game disables events
 	
 	private int windowId;
 			 
@@ -92,7 +92,7 @@ public class TransferStage extends JFrame {
 	
 	private EventPanel eventPanel;
 	private boolean event;
-	private double EVENT_CHANCE = 0.20;
+	private double EVENT_CHANCE = 0.25;
 	private boolean First_Event = false;
 	
 	private ResolutionPanel resultPanel;
@@ -101,20 +101,6 @@ public class TransferStage extends JFrame {
 	private CustomPlayer player;
 	private JLabel lblDays;
 	private JTextField textDays;
-	
-	/**
-	 * Initialize Game Data and Timers
-	 */
-	public void initTransfer(){
-		player = new CustomPlayer();
-
-		spaceTimer = new GameTimer();
-		sateliteTimer = new GameTimer(5000);
-		EventTimer = new GameTimer(10000);
-		if(Debug) EventTimer.getTimer().stop();
-		shipBounds = new Rectangle();
-		thrustBounds = new Rectangle();
-	}
 	
 	/**
 	 * Create the frame.
@@ -309,6 +295,22 @@ public class TransferStage extends JFrame {
 		transferPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblTimeWarp, lblSpaceFrame1, lblSpaceFrame2, lblBackground}));
 	}
 	
+	/**
+	 * Initialize Game Data and Timers
+	 */
+	public void initTransfer(){
+		player = new CustomPlayer();
+
+		spaceTimer = new GameTimer();
+		sateliteTimer = new GameTimer(5000);
+		EventTimer = new GameTimer(15000);
+		if(Debug) EventTimer.getTimer().stop();
+		shipBounds = new Rectangle();
+		thrustBounds = new Rectangle();
+	}
+	
+	
+	
 	public void startup(){
 		managerPanel.ManagerSetup();
 		initSpacecraft();
@@ -412,12 +414,12 @@ public class TransferStage extends JFrame {
 	
 	public boolean TransferUpdate(){
 		//Update GameData
-				GameData.dataUpdate(Warp, eventPanel.isEventActive(), 
-									resultPanel.isResolutionActive(), 
-									resultPanel.isDataReady(),
-									eventPanel.getResolution(),
-									eventPanel.getCurrentEvent(),
-									eventPanel.getCost());
+		GameData.dataUpdate(Warp, eventPanel.isEventActive(), 
+							resultPanel.isResolutionActive(), 
+							resultPanel.isDataReady(),
+							eventPanel.getResolution(),
+							eventPanel.getCurrentEvent(),
+							eventPanel.getCost());
 		//If neither event, result, or gameover panel are active continue planetary transfer
 		if(!getEventPanel().isEventActive() && !getResultPanel().isResolutionActive() && !getGameOverPanel().isGameOverActive()){
 			
@@ -440,10 +442,14 @@ public class TransferStage extends JFrame {
 					getResultPanel().setResolutionActive(true);
 					player.setPath(SongPath.getPath(22));
 					player.play(-1);
+					EventTimer.getTimer().stop();
 					event = false;
 					First_Event = true;
 				}
 			}
+			//Reactivate timer if necessary
+			if(!EventTimer.getTimer().isRunning() && !Debug) EventTimer.getTimer().start();
+			
 		}else if(!eventPanel.isEventActive() && !getResultPanel().isUpdated()){
 				resultPanel.DisplayResolution(eventPanel.isOutcome(),
 										  eventPanel.getResolution(),
@@ -452,13 +458,7 @@ public class TransferStage extends JFrame {
 			//managerPanel.updateManager(gameData, true);
 			EventTimer.setUpdate(false);
 		}
-//		//Update GameData
-//		GameData.dataUpdate(Warp, eventPanel.isEventActive(), 
-//							resultPanel.isResolutionActive(), 
-//							resultPanel.isDataReady(),
-//							eventPanel.getResolution(),
-//							eventPanel.getCurrentEvent(),
-//							eventPanel.getCost());
+
 		if(resultPanel.isDataReady()) resultPanel.setDataReady(false);
 		
 		if(destinationSequence(GameData.currentDistance) == Destination.DESTINATION_REACHED)

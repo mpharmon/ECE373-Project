@@ -42,6 +42,14 @@ public class Destination {
 	public static String getName() {
 		return name;
 	}
+	
+	public static String getName(int ID) {
+		
+		if(ID == MARS)
+			return "Mars";
+		else
+			return "Europa";
+	}
 
 	public static String getType() {
 		return type;

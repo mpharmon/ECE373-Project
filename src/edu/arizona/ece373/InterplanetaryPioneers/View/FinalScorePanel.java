@@ -30,7 +30,8 @@ public class FinalScorePanel extends JPanel {
 	private Timer scoreTimer;
 	private boolean update = false;
 	private Integer base = 0;
-	private int result = 0;
+	
+	public static int result = 0;
 	
 	private JTextField textFinalScore;
 	private JTextField txtDestination;

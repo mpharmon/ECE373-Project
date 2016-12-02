@@ -39,7 +39,7 @@ public class GameData{
 	public static int totalEvents;
 	public static int resolvedEvents;
 	
-	public static int highScore = 0;
+	public static Score UserScore;
 	
 	static GameTimer gameTimer;
 	
@@ -59,6 +59,7 @@ public class GameData{
 		currentDistance = 0.0;
 		totalEvents = 0;
 		resolvedEvents = 0;
+		UserScore = new Score();
 	}
 	
 	public static void dataUpdate(boolean Warp, boolean EventActive, boolean ResultActive, boolean resultReady, int Resolution, Event event, int cost){
@@ -202,4 +203,5 @@ public class GameData{
 			GameData.destFactor = 3.2;
 		GameData.destinationId = dID;
 	}
+
 }

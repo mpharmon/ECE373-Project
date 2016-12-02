@@ -49,6 +49,8 @@ public class Score implements Serializable{
 	public void setDestID(int destID) {
 		this.destID = destID;
 	}
+	public String toString(){
+		return (captName +" "+ destID +" "+ difficulty +" " + score);
+	}
 	
-
 }

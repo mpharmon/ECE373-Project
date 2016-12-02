@@ -23,9 +23,9 @@ public class DifficultySet extends JFrame {
 	public static int Easy = 1;
 	public static int Normal = 2;
 	public static int Hard = 3;
-	public static String SPACE_CRUISE = "SPACE CRUISE";
-	public static String SPACE_PIONEER = "SPACE PIONEER";
-	public static String SUICIDE_MISSION = "SUICIDE MISSION";
+	public static String SPACE_CRUISE = "Space Cruise";
+	public static String SPACE_PIONEER = "Space Pioneer";
+	public static String SUICIDE_MISSION = "Suicide Mission";
 	
 	JToggleButton tglbtnSuicideMission;
 	JToggleButton tglbtnSpacePioneer;

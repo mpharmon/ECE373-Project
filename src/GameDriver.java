@@ -1,5 +1,6 @@
 import java.util.Random;
 import edu.arizona.ece373.InterplanetaryPioneers.Controller.*;
+import edu.arizona.ece373.InterplanetaryPioneers.Model.Destination;
 import edu.arizona.ece373.InterplanetaryPioneers.View.*;
 
 public class GameDriver implements Runnable {
@@ -42,20 +43,19 @@ public class GameDriver implements Runnable {
 				
 				switch (currentWindow) {
 				case 0:
-					if (startWindow.checkButtons() == 0) {
-						startWindow.setVisible(true);
-					} else if (startWindow.checkButtons() == 3) {
-						running = false;
-					} else if (startWindow.checkButtons() == 1) {
+					if (startWindow.checkButtons() == 1) {
 						startWindow.setVisible(false);
 						//Next Window
 						difficultyWindow.setVisible(true);
 						currentWindow = difficultyWindow.getWindowId();
+					}else if (startWindow.checkButtons() == 3) {
+						running = false;
 					}
 					break;
 				case 1:
 					if (difficultyWindow.checkButtons() == 1) {
 						GameData.difficulty = difficultyWindow.getDifficulty();
+						GameData.UserScore.setDifficulty(GameData.difficulty);
 						supplyWindow.setResources();
 						difficultyWindow.setVisible(false);
 						//Next Window
@@ -65,6 +65,7 @@ public class GameDriver implements Runnable {
 					break;
 				case 2:
 					if (preparationWindow.checkButtons() == 1) {
+						GameData.UserScore.setDestID(Destination.getId());
 						preparationWindow.updateGameData();
 						preparationWindow.setVisible(false);
 						//Next Window
@@ -130,9 +131,9 @@ public class GameDriver implements Runnable {
 				case 8:
 					// Reset/Instantiate Windows
 					if(transferWindow.getGameOverPanel().isContinue() || endGameWindow.getScorePanel().isContinue()){
-						GameData.initialize(); 
 						transferWindow.dispose();
-						startWindow = new StartMenu();
+						startWindow.restart();
+						//startWindow = new StartMenu();
 						difficultyWindow = new DifficultySet();
 						preparationWindow = new PreparationStage();
 						selectCrewWindow = new SelectCrew();
