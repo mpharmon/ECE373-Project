@@ -122,5 +122,12 @@ public class Spaceship {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public static String getShipName(int id){
+		if(id == ORION_CAPSULE)
+			return "Orion";
+		else
+			return "SpaceX";
+	}
 
 }

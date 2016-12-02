@@ -76,6 +76,7 @@ public class StartMenu extends JFrame {
 	//Saves score data and returns user back to start menu w/gameData reset
 	public void restart(){
 		GameData.UserScore.setScore(FinalScorePanel.result);
+		GameData.UserScore.setShipID(GameData.spacecraft.getId());
 		System.out.println(GameData.UserScore.toString());
 		highScorePanel.getHighScore().addScore(GameData.UserScore);
 		highScorePanel.getHighScore().printData();
