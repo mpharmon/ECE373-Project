@@ -69,7 +69,7 @@ public class FinalScorePanel extends JPanel {
 		
 		txtShip = new JTextField();
 		txtShip.setEnabled(false);
-		txtShip.setText("10");
+		txtShip.setText("0");
 		txtShip.setOpaque(false);
 		txtShip.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtShip.setForeground(Color.CYAN);
@@ -359,8 +359,8 @@ public class FinalScorePanel extends JPanel {
 			}
 			else if(SF_CNT <= 5){
 				if(GameData.totalEvents > 0)
-					result = result + 1500 * GameData.totalEvents;
-				txtEvents.setText("1500 x " + GameData.totalEvents);
+					result = result + 2500 * GameData.totalEvents;
+				txtEvents.setText("2500 x " + GameData.totalEvents);
 				txtEvents.setEnabled(true);
 			}
 			else if(SF_CNT <= 6){

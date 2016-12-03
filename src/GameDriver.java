@@ -66,7 +66,6 @@ public class GameDriver implements Runnable {
 					break;
 				case 2:
 					if (preparationWindow.checkButtons() == 1) {
-						GameData.UserScore.setDestID(Destination.getId());
 						preparationWindow.updateGameData();
 						preparationWindow.setVisible(false);
 						//Next Window
@@ -77,6 +76,7 @@ public class GameDriver implements Runnable {
 					break;
 				case 3:
 					if (selectCrewWindow.checkButtons() == 1) {
+						GameData.UserScore.setDestID(Destination.getId());
 						GameData.crew.addAll(selectCrewWindow.getCrew());
 						GameData.vipID = selectCrewWindow.getSelectedVIP();
 						selectCrewWindow.setVisible(false);
@@ -96,7 +96,7 @@ public class GameDriver implements Runnable {
 						transferWindow.startup();
 						currentWindow = transferWindow.getWindowId();
 						player.pause();
-						track = rand.nextInt(5);
+						track = rand.nextInt(7);
 						player.setPath(SongPath.getPath(track));
 						if(player.play(-1)) System.out.println("Playing Transfer track: "+ track);
 						System.out.println("Live crew: " + GameData.liveCrew());

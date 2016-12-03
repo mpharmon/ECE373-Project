@@ -18,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextArea;
 import java.util.Random;
+import javax.swing.SwingConstants;
 
 public class EventPanel extends JPanel {
 	
@@ -34,7 +35,7 @@ public class EventPanel extends JPanel {
 	private boolean event;
 	private boolean Outcome;
 	//protected EventPool eventPool;
-	private Event currentEvent, prev1_Event, prev2_Event;
+	private Event currentEvent, prev1_Event, prev2_Event, prev3_Event;
 	private static Random random;
 	
 	private final static int LOW = 1;
@@ -66,10 +67,12 @@ public class EventPanel extends JPanel {
 		setLayout(null);
 		
 		
-		lblTitle = new JLabel("Event Ecounter");
+		lblTitle = new JLabel("Event Encounter");
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setBackground(new Color(192, 192, 192));
 		lblTitle.setForeground(new Color(0, 255, 255));
 		lblTitle.setFont(new Font("Slider", Font.PLAIN, 32));
-		lblTitle.setBounds(530, 11, 236, 38);
+		lblTitle.setBounds(406, 11, 524, 38);
 		add(lblTitle);
 		
 		lblEventImage = new JLabel("");
@@ -122,7 +125,7 @@ public class EventPanel extends JPanel {
 		rdbtnOption4.setFont(new Font("Slider", Font.PLAIN, 16));
 		rdbtnOption4.setBounds(151, 574, 950, 27);
 		add(rdbtnOption4);
-		btnConfirm.setFont(new Font("Slider", Font.PLAIN, 18));
+		btnConfirm.setFont(new Font("Slider", Font.BOLD, 18));
 		btnConfirm.setBackground(new Color(0, 255, 255));
 		btnConfirm.setBounds(554, 629, 185, 46);
 		add(btnConfirm);
@@ -178,16 +181,18 @@ public class EventPanel extends JPanel {
 	
 	public void setEventPanel(){
 		//Prevent duplicates more event variety
+		prev3_Event = prev2_Event;
 		prev2_Event = prev1_Event;
 		prev1_Event = currentEvent;
 		int i = 0;
-		while(prev1_Event == currentEvent || prev2_Event == currentEvent){
+		while(prev1_Event == currentEvent || prev2_Event == currentEvent || prev3_Event == currentEvent){
 			currentEvent = EventPool.getRandomEvent();
 			i++;
 		}
 		System.out.println("Event Generations: "+ i);
 		//currentEvent = EventPool.getEvent(7);			//For debugging specific event
 		//Set color based off severity
+		lblTitle.setText(currentEvent.getTitle());
 		lblTitle.setForeground(currentEvent.getTitleColor());
 		//Check Resources
 		eventResourceCheck();
@@ -277,7 +282,7 @@ public class EventPanel extends JPanel {
 
 	public int randomCost(int cost){
 	
-		return random.nextInt(cost);
+		return (random.nextInt(cost)/5)*5;
 	}
 	/**
 	 * Getters and Setters

@@ -9,13 +9,13 @@ public class Destination {
 	private static String type;
 	private static int distance;
 	
-	public static final Integer MARS = 1;
-	public static final Integer EUROPA = 2;
-	public static final Integer MarsDistance   = 250000000; // 250 MKM
-	public static final Integer EuropaDistance = 800000000; // 800 MKM
-	public static final Integer IN_PROGRESS = 0;
-	public static final Integer DESTINATION_APPROACH = 1;
-	public static final Integer DESTINATION_REACHED = 2;
+	public static final int MARS = 1;
+	public static final int EUROPA = 2;
+	public static final int MarsDistance   = 250000000; // 250 MKM
+	public static final int EuropaDistance = 800000000; // 800 MKM
+	public static final int IN_PROGRESS = 0;
+	public static final int DESTINATION_APPROACH = 1;
+	public static final int DESTINATION_REACHED = 2;
 	public static Integer PROXIMITY = 25000000;
 	public static DecimalFormat distFormat = new DecimalFormat("###,###,###");
 	
@@ -46,8 +46,10 @@ public class Destination {
 	public static String getName(int ID) {
 		if(ID == MARS)
 			return "Mars";
-		else
+		else if(ID == EUROPA)
 			return "Europa";
+		else
+			return "Unknown";
 	}
 
 	public static String getType() {
