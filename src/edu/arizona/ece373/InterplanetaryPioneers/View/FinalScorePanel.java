@@ -12,6 +12,7 @@ import javax.swing.Timer;
 import edu.arizona.ece373.InterplanetaryPioneers.Controller.GameData;
 import edu.arizona.ece373.InterplanetaryPioneers.Model.Destination;
 import edu.arizona.ece373.InterplanetaryPioneers.Model.Person;
+import edu.arizona.ece373.InterplanetaryPioneers.Model.Spaceship;
 import edu.arizona.ece373.InterplanetaryPioneers.Controller.CustomPlayer;
 import edu.arizona.ece373.InterplanetaryPioneers.Controller.SongPath;
 
@@ -35,7 +36,7 @@ public class FinalScorePanel extends JPanel {
 	
 	private JTextField textFinalScore;
 	private JTextField txtDestination;
-	private JTextField txtBase;
+	private JTextField txtShip;
 	private JTextField txtCrewAlive;
 	private JTextField txtEvents;
 	private JTextField txtFood;
@@ -45,6 +46,7 @@ public class FinalScorePanel extends JPanel {
 	private JTextField txtDifficulty;
 	private JLabel lblDifficultyIcon;
 	private CustomPlayer player;
+	private JButton btnContinue; 
 	
 	/**
 	 * Create the panel.
@@ -58,25 +60,25 @@ public class FinalScorePanel extends JPanel {
 		lblNewLabel.setBounds(550, 11, 242, 38);
 		add(lblNewLabel);
 		
-		JLabel lblBase = new JLabel("Base Score:");
+		JLabel lblBase = new JLabel("Spacecraft:");
 		lblBase.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblBase.setForeground(Color.CYAN);
 		lblBase.setFont(new Font("Slider", Font.PLAIN, 22));
 		lblBase.setBounds(246, 125, 186, 22);
 		add(lblBase);
 		
-		txtBase = new JTextField();
-		txtBase.setEnabled(false);
-		txtBase.setText("10");
-		txtBase.setOpaque(false);
-		txtBase.setHorizontalAlignment(SwingConstants.RIGHT);
-		txtBase.setForeground(Color.CYAN);
-		txtBase.setFont(new Font("Slider", Font.PLAIN, 22));
-		txtBase.setEditable(false);
-		txtBase.setColumns(10);
-		txtBase.setBorder(null);
-		txtBase.setBounds(457, 125, 400, 28);
-		add(txtBase);
+		txtShip = new JTextField();
+		txtShip.setEnabled(false);
+		txtShip.setText("0");
+		txtShip.setOpaque(false);
+		txtShip.setHorizontalAlignment(SwingConstants.RIGHT);
+		txtShip.setForeground(Color.CYAN);
+		txtShip.setFont(new Font("Slider", Font.PLAIN, 22));
+		txtShip.setEditable(false);
+		txtShip.setColumns(10);
+		txtShip.setBorder(null);
+		txtShip.setBounds(457, 125, 400, 28);
+		add(txtShip);
 		
 		JLabel lblDest = new JLabel("Destination:");
 		lblDest.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -270,17 +272,18 @@ public class FinalScorePanel extends JPanel {
 		txtDescription.setBounds(246, 616, 628, 51);
 		add(txtDescription);
 		
-		JButton btnNewButton = new JButton("Continue");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		btnContinue = new JButton("Continue");
+		btnContinue.addMouseListener(new MouseAdapter() {
 		
 			public void mouseClicked(MouseEvent arg0) {
-				proceed = true;
+				if(btnContinue.isEnabled())
+					proceed = true;
 			}
 		});
-		btnNewButton.setBackground(Color.CYAN);
-		btnNewButton.setFont(new Font("Slider", Font.PLAIN, 22));
-		btnNewButton.setBounds(905, 620, 222, 47);
-		add(btnNewButton);
+		btnContinue.setBackground(Color.CYAN);
+		btnContinue.setFont(new Font("Slider", Font.PLAIN, 22));
+		btnContinue.setBounds(905, 620, 222, 47);
+		add(btnContinue);
 		
 		JLabel lblBackground = new JLabel("New label");
 		lblBackground.setIcon(new ImageIcon("lib/images/hud_bg_full.jpg"));
@@ -311,6 +314,7 @@ public class FinalScorePanel extends JPanel {
 			scoreTimer.stop();
 		}
 		if(!scoreActive){
+			btnContinue.setEnabled(false);
 			SF_CNT = 0;
 			update = true;
 			scoreTimer.start();	
@@ -322,10 +326,7 @@ public class FinalScorePanel extends JPanel {
 			scoreActive = true;
 			setVisible(true);
 			
-			if(SF_CNT < 1){
-				result = base;
-				txtBase.setText(base.toString());
-				txtBase.setEnabled(true);
+			if(SF_CNT == 0){
 				if(GameData.difficulty ==  DifficultySet.Easy)
 					lblDifficultyIcon.setIcon(new ImageIcon("lib/images/SpaceMonkey.jpg"));
 				else if(GameData.difficulty ==  DifficultySet.Normal)
@@ -333,53 +334,60 @@ public class FinalScorePanel extends JPanel {
 				else
 					lblDifficultyIcon.setIcon(new ImageIcon("lib/images/deadAstronaut.jpg"));
 			}
-			else if(SF_CNT < 2){
+			else if(SF_CNT <= 1){
+				if(GameData.spacecraft.getId() == Spaceship.ORION_CAPSULE) result = 200000;
+				else result = 0;
+				txtShip.setText(GameData.spacecraft.getName() + " " + result);
+				txtShip.setEnabled(true);
+			}
+			else if(SF_CNT <= 2){
 				result = result + 10000*Destination.getId();
 				txtDestination.setText(Destination.getName() + " 10000 x " + Destination.getId());
 				txtDestination.setEnabled(true);
 			}
-			else if(SF_CNT < 3){
+			else if(SF_CNT <= 3){
 				if(GameData.crewSkillCount(Person.botanist)>0)
 					result = result + 10000 * GameData.crewSkillCount(Person.botanist);
 				txtBotanists.setText("10000 x " + GameData.crewSkillCount(Person.botanist));
 				txtBotanists.setEnabled(true);
 			}
-			else if(SF_CNT < 4){
+			else if(SF_CNT <= 4){
 				if(GameData.liveCrew() > 0)
 					result = result + 10000 * GameData.liveCrew();
 				txtCrewAlive.setText("10000 x "+ GameData.liveCrew());
 				txtCrewAlive.setEnabled(true);
 			}
-			else if(SF_CNT < 5){
+			else if(SF_CNT <= 5){
 				if(GameData.totalEvents > 0)
-					result = result + 1500 * GameData.totalEvents;
-				txtEvents.setText("1500 x " + GameData.totalEvents);
+					result = result + 2500 * GameData.totalEvents;
+				txtEvents.setText("2500 x " + GameData.totalEvents);
 				txtEvents.setEnabled(true);
 			}
-			else if(SF_CNT < 6){
+			else if(SF_CNT <= 6){
 				if(GameData.food > 0)
 					result += (int) 10000 * GameData.food;
 				txtFood.setText("10000 x " + GameData.food.intValue());
 				txtFood.setEnabled(true);
 			}
-			else if(SF_CNT < 7){
+			else if(SF_CNT <= 7){
 				if(GameData.water > 0)
 					result += (int) 10000 * GameData.water;
 				txtWater.setText("10000 x " + GameData.water.intValue());
 				txtWater.setEnabled(true);
 			}
-			else if(SF_CNT < 8){
+			else if(SF_CNT <= 8){
 				if(GameData.parts > 0)
 					result += 2500 * GameData.parts.intValue();
 				txtParts.setText("2500 x " + GameData.parts);
 				txtParts.setEnabled(true);
 			}
-			else if(SF_CNT < 9){
+			else if(SF_CNT <= 9){
 				result = result * GameData.difficulty;
 				txtDifficulty.setText("Score x " + GameData.difficulty);
 				txtDifficulty.setEnabled(true);
 			}
-			if(SF_CNT < 10 ){
+			if(SF_CNT <= 10 ){
+				btnContinue.setEnabled(true);
 				textFinalScore.setEnabled(true);
 				textFinalScore.setText(EndGameStage.scoreFormat.format(result));
 			}

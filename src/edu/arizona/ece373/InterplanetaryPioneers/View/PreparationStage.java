@@ -126,7 +126,7 @@ public class PreparationStage extends JFrame {
 		contentPane.add(rdbtnOrion);
 		
 		JTextArea txtOrionData = new JTextArea();
-		txtOrionData.setText("> Crew slots: 4\r\n> Max transfer velocity: 55,000 KPH\r\n> Ship integrity: 3");
+		txtOrionData.setText("> Crew slots: 4\r\n> Max transfer velocity: 55,000 KPH\r\n> Ship integrity: 3\r\n> Score bonus");
 		txtOrionData.setFont(new Font("Slider", Font.PLAIN, 16));
 		txtOrionData.setForeground(Color.WHITE);
 		txtOrionData.setOpaque(false);

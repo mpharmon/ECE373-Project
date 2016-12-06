@@ -94,7 +94,7 @@ public class TransferStage extends JFrame {
 	
 	private EventPanel eventPanel;
 	private boolean event;
-	private double EVENT_CHANCE = 0.25;
+	private double EVENT_CHANCE = 0.35;
 	private boolean First_Event = false;
 	
 	private ResolutionPanel resultPanel;
@@ -304,7 +304,7 @@ public class TransferStage extends JFrame {
 		spaceTimer = new GameTimer();
 		sateliteTimer = new GameTimer(5000);
 		EventTimer = new GameTimer(15000);
-		if(Debug) EventTimer.getTimer().stop();
+		EventTimer.getTimer().stop();
 		shipBounds = new Rectangle();
 		thrustBounds = new Rectangle();
 		
@@ -461,6 +461,8 @@ public class TransferStage extends JFrame {
 			if(!EventTimer.getTimer().isRunning() && !Debug){
 				EventTimer.getTimer().restart();
 				EventTimer.getTimer().start();
+			}else if((GameData.currentDistance > GameData.EventStartDist) && !First_Event && !Debug){
+				EventTimer.getTimer().start();
 			}
 			
 		}else if(!eventPanel.isEventActive() && !getResultPanel().isUpdated()){
@@ -547,7 +549,7 @@ public class TransferStage extends JFrame {
 				satelite = true;
 				X5_pos = (int) (X5_pos + speed);
 				
-				if(!chance)lblSatelite1.setBounds(X5_pos, Y5_pos, 186, 120);
+				if(!chance)lblSatelite1.setBounds(X5_pos, Y5_pos, 186, 140);
 				else lblAsteroid1.setBounds(X5_pos, Y5_pos, 120, 150);
 			}else{
 				chance = (Math.random() > 0.50);

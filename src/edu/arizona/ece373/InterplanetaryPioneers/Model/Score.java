@@ -10,6 +10,7 @@ public class Score implements Serializable{
 	private int score;
 	private int difficulty;
 	private int destID;
+	private int shipID;
 	
 	public Score(){
 		captName = "Unknown";
@@ -51,6 +52,14 @@ public class Score implements Serializable{
 	}
 	public String toString(){
 		return (captName +" "+ destID +" "+ difficulty +" " + score);
+	}
+
+	public int getShipID() {
+		return shipID;
+	}
+
+	public void setShipID(int shipID) {
+		this.shipID = shipID;
 	}
 	
 }

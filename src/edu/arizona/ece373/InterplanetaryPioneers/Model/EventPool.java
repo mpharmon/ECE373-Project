@@ -109,7 +109,8 @@ public class EventPool {
          *	Event #6 - Satellite Salvage Opportunity
          */
     	newEvent = new Event(Event.Low, false, GameData.PARTS, 15, 0.25, Person.engineer, false, false);
-		newEvent.titleColor = Color.CYAN;
+    	newEvent.setTitle("Salvage Opportunity");
+		newEvent.titleColor = Color.GREEN;
 		newEvent.setDescription("You have encountered an abandoned satellite which appears to have been drifting in space for a long time. You"
 								+ " can \nattempt to salavge some parts off the satellite yourself or assign a qualified crew member to do so."
 								+ " The decision is \nyours captain.");
@@ -130,8 +131,8 @@ public class EventPool {
     	newEvent = new Event(Event.Moderate, true, GameData.PARTS, 25, 0.35, Person.engineer, true, false);
 		newEvent.titleColor = Color.YELLOW;
 		newEvent.setDescription("You have recieved reports from scientists on earth that dangerous solar winds are imminent. They recommend you"
-								+ "reinforce the ship with any parts available to reduce the risk of dangerous radiation levels. You may"
-								+ "perform the \nreinforcements yourself or assign an Engineer to do so.");
+								+ " \nreinforce the ship with any parts available to reduce the risk of dangerous radiation levels. You may"
+								+ " perform the \nreinforcements yourself or assign an Engineer to do so.");
 		//Set option text
 		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Attempt to rig the ship reinforcments yourself.");
 		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " " + Event.getTypeString(newEvent.getPenaltyType()) +"] Assign an Engineer to perform the required ship reinforcements.");
