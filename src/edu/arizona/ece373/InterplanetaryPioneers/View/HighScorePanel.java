@@ -13,7 +13,6 @@ import edu.arizona.ece373.InterplanetaryPioneers.Model.HighScore;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 public class HighScorePanel extends JPanel {
 	
@@ -23,10 +22,6 @@ public class HighScorePanel extends JPanel {
 	
 	private HighScore highScore;
 	
-	private ArrayList <JTextField> txtName;
-	private ArrayList <JTextField> txtDest;
-	private ArrayList <JTextField> txtDifficulty;
-	private ArrayList <JTextField> txtScore;
 	private JTextField txtName1;
 	private JTextField txtName2;
 	private JTextField txtName3;
@@ -152,15 +147,16 @@ public class HighScorePanel extends JPanel {
 		lblScore8.setBounds(108, 440, 157, 30);
 		add(lblScore8);
 		
-		txtName.get(0).setHorizontalAlignment(SwingConstants.CENTER);
-		txtName.get(0).setText("Andres Rebeil");
-		txtName.get(0).setOpaque(false);
-		txtName.get(0).setForeground(Color.WHITE);
-		txtName.get(0).setFont(new Font("Slider", Font.PLAIN, 22));
-		txtName.get(0).setEditable(false);
-		txtName.get(0).setBounds(275, 156, 222, 30);
-		add(txtName.get(0));
-		txtName.get(0).setColumns(10);
+		txtName1 = new JTextField();
+		txtName1.setHorizontalAlignment(SwingConstants.CENTER);
+		txtName1.setText("Andres Rebeil");
+		txtName1.setOpaque(false);
+		txtName1.setForeground(Color.WHITE);
+		txtName1.setFont(new Font("Slider", Font.PLAIN, 22));
+		txtName1.setEditable(false);
+		txtName1.setBounds(275, 156, 222, 30);
+		add(txtName1);
+		txtName1.setColumns(10);
 		
 		txtName2 = new JTextField();
 		txtName2.setText("--");
@@ -524,13 +520,6 @@ public class HighScorePanel extends JPanel {
 		
 		StartMenu = false;
 		setVisible(false);
-	}
-	
-	public void initPanelFields(){
-		txtName = new ArrayList <JTextField>(8);
-		txtDest = new ArrayList <JTextField>(8);;
-		txtDifficulty = new ArrayList <JTextField>(8);;
-		txtScore = new ArrayList <JTextField>(8);;
 	}
 	
 	public void autoLoad(){

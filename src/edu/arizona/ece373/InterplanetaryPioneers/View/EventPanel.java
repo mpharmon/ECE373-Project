@@ -24,11 +24,16 @@ public class EventPanel extends JPanel {
 	private final ButtonGroup btnGroupChoice = new ButtonGroup();
 	
 	private boolean EventActive;
+	//private int Severity;
 	private int Resolution;
+	//private boolean Penalty;
+	//private int penaltyType;
+	//private int skillType;
 	private int Cost;
 	private double Chance;
 	private boolean event;
 	private boolean Outcome;
+	//protected EventPool eventPool;
 	private Event currentEvent, prev1_Event, prev2_Event;
 	private static Random random;
 	
@@ -37,7 +42,7 @@ public class EventPanel extends JPanel {
 	private final static int CRITICAL = 3;
 	
 	private JButton btnConfirm; 
-	private Timer resultTimer;
+	Timer resultTimer;
 	
 	/**
 	 * Modular Event Panel Parameters
@@ -287,6 +292,21 @@ public class EventPanel extends JPanel {
 		
 		return null;
 	}
+	
+//	public String getTypeString(boolean override){
+//		
+//		if(override){
+//			if(penaltyType == GameData.fuel) return "Fuel";
+//			else if(penaltyType == GameData.food) return "Food";
+//			else if(penaltyType == GameData.water) return "Water";
+//			else if(penaltyType == GameData.parts) return "Spare parts";
+//		}
+//		return null;
+//	}
+//	
+//	public int getSeverity(){
+//		return Severity;
+//	}
 
 	public int getResolution() {
 		if(rdbtnOption1.isSelected()) return 1;
@@ -300,6 +320,14 @@ public class EventPanel extends JPanel {
 	public void setResolution(int resolution) {
 		Resolution = resolution;
 	}
+
+//	public boolean isPenalty() {
+//		return Penalty;
+//	}
+//
+//	public void setPenalty(boolean penalty) {
+//		Penalty = penalty;
+//	}
 
 	public int getCost() {
 		return Cost;
@@ -325,6 +353,14 @@ public class EventPanel extends JPanel {
 		Outcome = outcome;
 	}
 
+//	public int getPenaltyType() {
+//		return penaltyType;
+//	}
+//
+//	public void setPenaltyType(int penaltyType) {
+//		this.penaltyType = penaltyType;
+//	}
+
 	public boolean isEventActive() {
 		return EventActive;
 	}
@@ -332,6 +368,14 @@ public class EventPanel extends JPanel {
 	public void setEventActive(boolean eventActive) {
 		EventActive = eventActive;
 	}
+
+//	public int getSkillType() {
+//		return skillType;
+//	}
+//
+//	public void setSkillType(int skillType) {
+//		this.skillType = skillType;
+//	}
 	
 	public Event getCurrentEvent(){
 		return currentEvent;
