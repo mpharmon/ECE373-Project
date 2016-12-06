@@ -107,7 +107,10 @@ public class TransferStage extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public TransferStage() {
+	public TransferStage(boolean debug) {
+		
+		Debug = debug;
+		
 		setResizable(false);
 
 		Warp = false;

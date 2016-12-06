@@ -3,7 +3,7 @@ import edu.arizona.ece373.InterplanetaryPioneers.Controller.*;
 import edu.arizona.ece373.InterplanetaryPioneers.Model.Destination;
 import edu.arizona.ece373.InterplanetaryPioneers.View.*;
 
-public class GameDriver implements Runnable {
+public class DemoDriver implements Runnable {
 
 	boolean running = false;
 	private int track;
@@ -25,7 +25,7 @@ public class GameDriver implements Runnable {
 		PreparationStage preparationWindow = new PreparationStage();
 		SelectCrew selectCrewWindow = new SelectCrew();
 		SupplyStage supplyWindow = new SupplyStage();
-		TransferStage transferWindow = new TransferStage(false);
+		TransferStage transferWindow = new TransferStage(true);
 		EndGameStage endGameWindow = new EndGameStage();
 		
 		CustomPlayer player = new CustomPlayer();
@@ -35,7 +35,7 @@ public class GameDriver implements Runnable {
 		else System.out.println("Exit");
 		
 		int currentWindow = startWindow.getWindowId();
-
+		
 		while (running) {
 			try {
 				//More efficient on computer resources to limit loop to 1 KHz
@@ -139,7 +139,7 @@ public class GameDriver implements Runnable {
 						preparationWindow = new PreparationStage();
 						selectCrewWindow = new SelectCrew();
 						supplyWindow = new SupplyStage();
-						transferWindow = new TransferStage(false);
+						transferWindow = new TransferStage(true);
 						endGameWindow = new EndGameStage();
 						player.pause();
 						player = new CustomPlayer();
@@ -158,7 +158,7 @@ public class GameDriver implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		new GameDriver().start();
+		new DemoDriver().start();
 	}
 
 }
