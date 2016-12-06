@@ -70,7 +70,7 @@ public class EventPool {
         /*
          *	Event #4 - Black Hole
          */
-    	newEvent = new Event(Event.Critical, true, GameData.FUEL, 20, 0.20, Person.pilot, false, true);
+    	newEvent = new Event(Event.Critical, true, GameData.FUEL, 25, 0.20, Person.pilot, false, true);
 		newEvent.titleColor = Color.RED;
 		newEvent.setDescription("A rogue black hole will pass dangerously close to our path. A course correction is required in order to avoid it's"
 								+ "sphere of influence. Either assign a member of the crew to perform the course correction or perform it yourself."
@@ -162,6 +162,25 @@ public class EventPool {
 		newEvent.setIconBounds(420, 45, 420, 333); 
 		
         EventPool.events.add(newEvent);
+        
+		/*
+		*	Event #9 - Asteroid
+		*/
+		newEvent = new Event(Event.Low, true, GameData.FUEL, 20, 0.35, Person.pilot, false, true);
+		newEvent.titleColor = Color.CYAN;
+		newEvent.setDescription("You have encountered an asteroid along the way. The asteroid contains fuel that can be added your fuel supply. You can resolve the issue\n "
+								+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
+		//Set option text
+		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Attempt to gather the fuel from the asteroid yourself. Who needs a scientist?");
+		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15)+" "+ Event.getTypeString(newEvent.getPenaltyType()) +"] Assign a Scientist to gather the fuel from the asteroid. The fuel will be gathered from the asteroid at no cost.");
+		newEvent.setOption3("[0 - "+ newEvent.getCost()+" " + Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to resolve the issue. Your VIP will gather less or more fuel.");
+		newEvent.setOption4("You can ignore the asteroid and not gather extra fuel hoping that you make it to your destination.");
+		//Set Icon location
+		newEvent.iconLocation ="lib/images/IceAsteroid.jpg"; 
+		newEvent.setIconBounds(420,45,456,322);
+			
+		EventPool.events.add(newEvent);
+
 	}
     
     public static Event getRandomEvent(){
