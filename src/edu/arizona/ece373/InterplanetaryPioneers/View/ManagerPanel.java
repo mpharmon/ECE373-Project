@@ -2,6 +2,8 @@ package edu.arizona.ece373.InterplanetaryPioneers.View;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,11 +25,9 @@ public class ManagerPanel extends JPanel {
 	protected  JLabel lblWater;
 	protected  JLabel lblSpareParts;
 	
-	protected  JLabel crewSkill1; protected  JLabel crewName1; protected  JLabel CrewIcon3;
-	protected  JLabel crewSkill2; protected  JLabel crewName2; protected  JLabel CrewIcon2;
-	protected  JLabel crewSkill3; protected JLabel crewName3;  protected  JLabel CrewIcon4;
-	protected  JLabel crewSkill4; protected  JLabel crewName4; protected  JLabel CrewIcon1;
-	protected  JLabel crewSkill5; protected  JLabel crewName5; protected  JLabel CrewIcon5;
+	private ArrayList<JLabel> crewSkill;
+	private ArrayList<JLabel> crewName;
+	private ArrayList<JLabel> crewIcon;
 	
 	protected  JLabel shipIcon;
 	protected  JLabel hullStatus;
@@ -44,30 +44,37 @@ public class ManagerPanel extends JPanel {
 		setVisible(false);
 		setLayout(null);
 		
-		CrewIcon1 = new JLabel("");
-		CrewIcon1.setIcon(new ImageIcon("lib/images/crewNominal.png"));
-		CrewIcon1.setBounds(867, 16, 58, 57);
-		add(CrewIcon1);
+		crewSkill = new ArrayList<JLabel>(5);
+		crewName = new ArrayList<JLabel>(5);
+		crewIcon = new ArrayList<JLabel>(5);
 		
-		CrewIcon2 = new JLabel("");
-		CrewIcon2.setIcon(new ImageIcon("lib/images/crewNominal.png"));
-		CrewIcon2.setBounds(935, 16, 58, 57);
-		add(CrewIcon2);
+		JLabel temp;
+
+		for(int i = 0; i < 5; i++){
+			temp = new JLabel("");
+			crewIcon.add(temp);
+		}
+
+		crewIcon.get(0).setIcon(new ImageIcon("lib/images/crewNominal.png"));
+		crewIcon.get(0).setBounds(867, 16, 58, 57);
+		add(crewIcon.get(0));
 		
-		CrewIcon3 = new JLabel("");
-		CrewIcon3.setIcon(new ImageIcon("lib/images/crewNominal.png"));
-		CrewIcon3.setBounds(1003, 16, 58, 57);
-		add(CrewIcon3);
+		crewIcon.get(1).setIcon(new ImageIcon("lib/images/crewNominal.png"));
+		crewIcon.get(1).setBounds(935, 16, 58, 57);
+		add(crewIcon.get(1));
 		
-		CrewIcon4 = new JLabel("");
-		CrewIcon4.setIcon(new ImageIcon("lib/images/crewNominal.png"));
-		CrewIcon4.setBounds(1071, 16, 58, 57);
-		add(CrewIcon4);
+
+		crewIcon.get(2).setIcon(new ImageIcon("lib/images/crewNominal.png"));
+		crewIcon.get(2).setBounds(1003, 16, 58, 57);
+		add(crewIcon.get(2));
 		
-		CrewIcon5 = new JLabel("");
-		CrewIcon5.setIcon(new ImageIcon("lib/images/crewNominal.png"));
-		CrewIcon5.setBounds(1139, 16, 58, 57);
-		add(CrewIcon5);
+		crewIcon.get(3).setIcon(new ImageIcon("lib/images/crewNominal.png"));
+		crewIcon.get(3).setBounds(1071, 16, 58, 57);
+		add(crewIcon.get(3));
+		
+		crewIcon.get(4).setIcon(new ImageIcon("lib/images/crewNominal.png"));
+		crewIcon.get(4).setBounds(1139, 16, 58, 57);
+		add(crewIcon.get(4));
 		
 		FuelBar = new JProgressBar();
 		FuelBar.setForeground(new Color(0, 255, 0));
@@ -113,65 +120,70 @@ public class ManagerPanel extends JPanel {
 		lblSpareParts.setBounds(261, 394, 112, 14);
 		add(lblSpareParts);
 		
-		crewName1 = new JLabel("Decker");
-		crewName1.setForeground(Color.CYAN);
-		crewName1.setFont(new Font("Slider", Font.BOLD, 12));
-		crewName1.setBounds(880, 76, 58, 14);
-		add(crewName1);
+		for(int i = 0; i < 5; i++){
+			temp = new JLabel("");
+			crewName.add(temp);
+		}
 		
-		crewName2 = new JLabel("Maxx");
-		crewName2.setForeground(Color.CYAN);
-		crewName2.setFont(new Font("Slider", Font.BOLD, 12));
-		crewName2.setBounds(948, 76, 58, 14);
-		add(crewName2);
+		crewName.get(0).setForeground(Color.CYAN);
+		crewName.get(0).setFont(new Font("Slider", Font.BOLD, 12));
+		crewName.get(0).setBounds(880, 76, 58, 14);
+		add(crewName.get(0));
 		
-		crewName3 = new JLabel("Smith");
-		crewName3.setForeground(Color.CYAN);
-		crewName3.setFont(new Font("Slider", Font.BOLD, 12));
-		crewName3.setBounds(1016, 76, 58, 14);
-		add(crewName3);
+		crewName.get(1).setForeground(Color.CYAN);
+		crewName.get(1).setFont(new Font("Slider", Font.BOLD, 12));
+		crewName.get(1).setBounds(948, 76, 58, 14);
+		add(crewName.get(1));
 		
-		crewName4 = new JLabel("Jane");
-		crewName4.setForeground(Color.CYAN);
-		crewName4.setFont(new Font("Slider", Font.BOLD, 12));
-		crewName4.setBounds(1084, 76, 58, 14);
-		add(crewName4);
+		crewName.get(2).setForeground(Color.CYAN);
+		crewName.get(2).setFont(new Font("Slider", Font.BOLD, 12));
+		crewName.get(2).setBounds(1016, 76, 58, 14);
+		add(crewName.get(2));
 		
-		crewName5 = new JLabel("John");
-		crewName5.setForeground(Color.CYAN);
-		crewName5.setFont(new Font("Slider", Font.BOLD, 12));
-		crewName5.setBounds(1152, 76, 58, 14);
-		add(crewName5);
+		crewName.get(3).setForeground(Color.CYAN);
+		crewName.get(3).setFont(new Font("Slider", Font.BOLD, 12));
+		crewName.get(3).setBounds(1084, 76, 58, 14);
+		add(crewName.get(3));
 		
-		crewSkill1 = new JLabel("Pilot");
-		crewSkill1.setForeground(Color.CYAN);
-		crewSkill1.setFont(new Font("Slider", Font.BOLD, 12));
-		crewSkill1.setBounds(880, 92, 68, 14);
-		add(crewSkill1);
+		crewName.get(4).setForeground(Color.CYAN);
+		crewName.get(4).setFont(new Font("Slider", Font.BOLD, 12));
+		crewName.get(4).setBounds(1152, 76, 58, 14);
+		add(crewName.get(4));
 		
-		crewSkill2 = new JLabel("Engineer");
-		crewSkill2.setForeground(Color.CYAN);
-		crewSkill2.setFont(new Font("Slider", Font.BOLD, 12));
-		crewSkill2.setBounds(948, 92, 68, 14);
-		add(crewSkill2);
+		for(int i = 0; i < 5; i++){
+			temp = new JLabel("");
+			crewSkill.add(temp);
+		}
 		
-		crewSkill3 = new JLabel("Scientist");
-		crewSkill3.setForeground(Color.CYAN);
-		crewSkill3.setFont(new Font("Slider", Font.BOLD, 12));
-		crewSkill3.setBounds(1016, 92, 68, 14);
-		add(crewSkill3);
+		crewSkill.get(0).setText("Pilot");
+		crewSkill.get(0).setForeground(Color.CYAN);
+		crewSkill.get(0).setFont(new Font("Slider", Font.BOLD, 12));
+		crewSkill.get(0).setBounds(880, 92, 68, 14);
+		add(crewSkill.get(0));
 		
-		crewSkill4 = new JLabel("Doctor");
-		crewSkill4.setForeground(Color.CYAN);
-		crewSkill4.setFont(new Font("Slider", Font.BOLD, 12));
-		crewSkill4.setBounds(1084, 92, 68, 14);
-		add(crewSkill4);
+		crewSkill.get(1).setText("Engineer");
+		crewSkill.get(1).setForeground(Color.CYAN);
+		crewSkill.get(1).setFont(new Font("Slider", Font.BOLD, 12));
+		crewSkill.get(1).setBounds(948, 92, 68, 14);
+		add(crewSkill.get(1));
 		
-		crewSkill5 = new JLabel("Botanist");
-		crewSkill5.setForeground(Color.CYAN);
-		crewSkill5.setFont(new Font("Slider", Font.BOLD, 12));
-		crewSkill5.setBounds(1152, 92, 68, 14);
-		add(crewSkill5);
+		crewSkill.get(2).setText("Scientist");
+		crewSkill.get(2).setForeground(Color.CYAN);
+		crewSkill.get(2).setFont(new Font("Slider", Font.BOLD, 12));
+		crewSkill.get(2).setBounds(1016, 92, 68, 14);
+		add(crewSkill.get(2));
+		
+		crewSkill.get(3).setText("Doctor");
+		crewSkill.get(3).setForeground(Color.CYAN);
+		crewSkill.get(3).setFont(new Font("Slider", Font.BOLD, 12));
+		crewSkill.get(3).setBounds(1084, 92, 68, 14);
+		add(crewSkill.get(3));
+		
+		crewSkill.get(4).setText("Botanist");
+		crewSkill.get(4).setForeground(Color.CYAN);
+		crewSkill.get(4).setFont(new Font("Slider", Font.BOLD, 12));
+		crewSkill.get(4).setBounds(1152, 92, 68, 14);
+		add(crewSkill.get(4));
 		
 		shipIcon = new JLabel("");
 		shipIcon.setIcon(new ImageIcon("lib/images/spaceshipNominal.png"));
@@ -209,23 +221,23 @@ public class ManagerPanel extends JPanel {
 	public void ManagerSetup(){
 		seconds = 0;
 		//Set Crew Names in Manager UI
-		crewName1.setText(GameData.crew.get(0).getName());
-		crewName2.setText(GameData.crew.get(1).getName());
-		crewName3.setText(GameData.crew.get(2).getName());
-		crewName4.setText(GameData.crew.get(3).getName());
+		crewName.get(0).setText(GameData.crew.get(0).getName());
+		crewName.get(1).setText(GameData.crew.get(1).getName());
+		crewName.get(2).setText(GameData.crew.get(2).getName());
+		crewName.get(3).setText(GameData.crew.get(3).getName());
 
 		//Set Crew Skills in Manager UI
-		crewSkill1.setText(GameData.crew.get(0).getSkill(true));
-		crewSkill2.setText(GameData.crew.get(1).getSkill(true));
-		crewSkill3.setText(GameData.crew.get(2).getSkill(true));
-		crewSkill4.setText(GameData.crew.get(3).getSkill(true));
+		crewSkill.get(0).setText(GameData.crew.get(0).getSkill(true));
+		crewSkill.get(1).setText(GameData.crew.get(1).getSkill(true));
+		crewSkill.get(2).setText(GameData.crew.get(2).getSkill(true));
+		crewSkill.get(3).setText(GameData.crew.get(3).getSkill(true));
 		if(GameData.crew.size() > 4){
-			crewName5.setText(GameData.crew.get(4).getName());
-			crewSkill5.setText(GameData.crew.get(4).getSkill(true));
+			crewName.get(4).setText(GameData.crew.get(4).getName());
+			crewSkill.get(4).setText(GameData.crew.get(4).getSkill(true));
 		}else{
-			crewName5.setVisible(false);
-			crewSkill5.setVisible(false);
-			CrewIcon5.setVisible(false);
+			crewName.get(4).setVisible(false);
+			crewSkill.get(4).setVisible(false);
+			crewIcon.get(4).setVisible(false);
 		}
 	}
 	
@@ -259,17 +271,17 @@ public class ManagerPanel extends JPanel {
 	public JLabel getCrewIcon(int id){
 		switch(id){
 			case 0:
-				return CrewIcon1;
+				return crewIcon.get(0);
 			case 1:
-				return CrewIcon2;
+				return crewIcon.get(1);
 			case 2:
-				return CrewIcon3;
+				return crewIcon.get(2);
 			case 3:
-				return CrewIcon4;
+				return crewIcon.get(3);
 			case 4:
-				return CrewIcon5;
+				return crewIcon.get(4);
 			default:
-				return CrewIcon1;
+				return crewIcon.get(0);
 		}
 	}
 	
