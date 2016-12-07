@@ -12,6 +12,8 @@ import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
@@ -32,8 +34,8 @@ public class TransferStage extends JFrame {
 	public static double PERF_FACTOR = 4;   //Modify refresh rate to X number of ms
 	
 	private int windowId;
-			 
-	private int X0_pos, X1_pos, X2_pos, X3_pos, X4_pos, X5_pos, X6_pos, X7_pos, X8_pos, X9_pos;
+	
+	private ArrayList<Integer> x_Pos; //Tracks X position of all moving objects(JLabel Icons)
 	private int Y5_pos, Y6_pos, Y7_pos, Y9_pos;
 	
 	private boolean Warp;
@@ -118,17 +120,27 @@ public class TransferStage extends JFrame {
 		speed = 1;
 		
 		windowId = 5;
-		X0_pos = -1280; X0_temp = -1280;
-		X1_pos = 0;
-		X2_pos = -1280;
 		
-		X3_pos = 0;    X3_temp = 0;
-		X4_pos = 0;    X4_temp = -257;
-		X5_pos = -186; Y5_pos = 125;
-		X6_pos = 999;  Y6_pos = 295;
-		X7_pos = 1189; Y7_pos =  282;
-		X8_pos = -476;    X8_temp = -476;
-		X9_pos = -370;    X9_temp = -370; 
+		x_Pos = new ArrayList<Integer>(10);
+		x_Pos.add(new Integer(-1280));  // x0
+		x_Pos.add(new Integer(0));      // x1
+		x_Pos.add(new Integer(-1280));  // x2
+		x_Pos.add(new Integer(0));      // x3
+		x_Pos.add(new Integer(0));  	// x4
+		x_Pos.add(new Integer(-186));   // x5
+		x_Pos.add(new Integer(999));   // x6
+		x_Pos.add(new Integer(1189));  // x7
+		x_Pos.add(new Integer(-476));  // x8
+		x_Pos.add(new Integer(-370));  // x9
+		
+		X0_temp = -1280;
+		X3_temp = 0;
+		X4_temp = -257;
+		Y5_pos = 125;
+		Y6_pos = 295;
+		Y7_pos =  282;
+		X8_temp = -476;
+		X9_temp = -370; 
 		Y9_pos = 100;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -202,12 +214,12 @@ public class TransferStage extends JFrame {
 		
 		lblSpaceFrame1 = new JLabel("New label");
 		lblSpaceFrame1.setIcon(new ImageIcon("lib/images/Space_MoveFrame.png"));
-		lblSpaceFrame1.setBounds(X1_pos, 0, 1264, 682);
+		lblSpaceFrame1.setBounds(x_Pos.get(1), 0, 1264, 682);
 		transferPane.add(lblSpaceFrame1);
 		
 		lblSpaceFrame2 = new JLabel("New label");
 		lblSpaceFrame2.setIcon(new ImageIcon("lib/images/Space_MoveFrame.png"));
-		lblSpaceFrame2.setBounds(X2_pos, 0, 1264, 682);
+		lblSpaceFrame2.setBounds(x_Pos.get(2), 0, 1264, 682);
 		transferPane.add(lblSpaceFrame2);
 		
 		lblDays = new JLabel("Days in Space");
@@ -272,7 +284,7 @@ public class TransferStage extends JFrame {
 		transferPane.add(lblAsteroid1);
 		
 		lblDestination = new JLabel("");
-		lblDestination.setBounds(X9_pos, Y9_pos, 270, 284);
+		lblDestination.setBounds(x_Pos.get(9), Y9_pos, 270, 284);
 		lblDestination.setIcon(new ImageIcon("lib/images/MarsTransparent.png"));
 		transferPane.add(lblDestination);
 		
@@ -339,19 +351,19 @@ public class TransferStage extends JFrame {
 		factor_3 = 0.075;          //Scales Earths movement
 		factor_4 = 0.015;          //Scales Moons movement
 		if(GameData.spacecraft.getId() == 2){
-			X6_pos = 999;  Y6_pos = 295;
-			X7_pos = 1189; Y7_pos =  282;
+			x_Pos.set(6, 999); Y6_pos = 295;
+			x_Pos.set(7, 1189); Y7_pos =  282;
 			lblSpacecraft.setIcon(new ImageIcon("lib/images/SpaceXModel.png"));
-			shipBounds.setBounds(X6_pos, Y6_pos , 255, 82);
+			shipBounds.setBounds(x_Pos.get(6), Y6_pos , 255, 82);
 			lblThruster.setIcon(new ImageIcon("lib/images/thrustSmall.png"));
-			thrustBounds.setBounds(X7_pos, Y7_pos, 196, 108);
+			thrustBounds.setBounds(x_Pos.get(7), Y7_pos, 196, 108);
 		}else{
-			X6_pos = 999;  Y6_pos = 176;
-			X7_pos = 1125; Y7_pos =  282;
+			x_Pos.set(6, 999); Y6_pos = 176; 
+			x_Pos.set(7, 1125); Y7_pos =  282;
 			lblSpacecraft.setIcon(new ImageIcon("lib/images/OrionModel.png"));
-			shipBounds.setBounds(X6_pos, Y6_pos, 255, 320);
+			shipBounds.setBounds(x_Pos.get(6), Y6_pos, 255, 320);
 			lblThruster.setIcon(new ImageIcon("lib/images/glowEffectSmall.png"));
-			thrustBounds.setBounds(X7_pos, Y7_pos, 196, 108);
+			thrustBounds.setBounds(x_Pos.get(7), Y7_pos, 196, 108);
 			factor_0 = factor_0*1.10;
 			factor_3 = factor_3*1.10;
 			factor_4 = factor_4*1.10;
@@ -366,8 +378,8 @@ public class TransferStage extends JFrame {
 		if(Destination.getId() == Destination.MARS) factor_9 = 0.0125;
 		
 		END_SEQUENCE_DIST = Destination.getDistance() - Destination.PROXIMITY;
-		lblDestination.setBounds(X9_pos, Y9_pos, 270, 284);
-		lblJupiter.setBounds(X8_pos, 0, 476, 435);
+		lblDestination.setBounds(x_Pos.get(9), Y9_pos, 270, 284);
+		lblJupiter.setBounds(x_Pos.get(8), 0, 476, 435);
 		if(Destination.getId() == 1){
 			lblDestination.setIcon(new ImageIcon("lib/images/MarsTransparent.png"));
 			transferPane.remove(lblJupiter);
@@ -486,28 +498,28 @@ public class TransferStage extends JFrame {
 	}
 	
 	public void moveSpace(){
-		if(X1_pos >= 1280) X1_pos = 0;
-		if(X2_pos >= 0) X2_pos = -1280;
+		if(x_Pos.get(1) >= 1280) x_Pos.set(1, 0);
+		if(x_Pos.get(2) >= 0) x_Pos.set(2, -1280);
 		
 		if(spaceTimer.isUpdate()){
 			
 			checkTimeWarp();
 			
 			X0_temp = X0_temp + (speed*factor_0);
-			X0_pos = (int) Math.round(X0_temp);
+ 
+			x_Pos.set(0, (int) Math.round(X0_temp));
+			 
+			x_Pos.set(1, (int) (x_Pos.get(1) + speed)); 
+			x_Pos.set(2, (int) (x_Pos.get(2) + speed));
 			
-			X1_pos = (int) (X1_pos + speed);
-			X2_pos = (int) (X2_pos + speed);
-			
-			lblSpaceFrame1.setLocation(X2_pos, 0);
-			lblSpaceFrame2.setLocation(X1_pos, 0);
-			lblBackground.setLocation(X0_pos, 0);
+			lblSpaceFrame1.setLocation(x_Pos.get(2), 0);
+			lblSpaceFrame2.setLocation(x_Pos.get(1), 0);
+			lblBackground.setLocation(x_Pos.get(0), 0);
 			
 			moveSpacecraft();
 			movePlanets();
 			moveSatelites();
 			
-			//textDistance.setText(String.format(java.util.Locale.US, "%.0f" , gameData.getCurrentDistance()));
 			textDistance.setText(Destination.distFormat.format(GameData.currentDistance));
 			textDays.setText(String.format("%.2f", GameData.days));
 			
@@ -519,22 +531,22 @@ public class TransferStage extends JFrame {
 	
 	public boolean movePlanets(){
 		
-		if(X3_pos < 1280) {
+		if(x_Pos.get(3) < 1280) {
 			X3_temp = (X3_temp) + (speed*factor_3);
-			X3_pos = (int) Math.round(X3_temp);
-			lblEarth.setBounds(X3_pos, 0, 362, 384);
-		}else if (X4_pos < 1280) {
+			x_Pos.set(3, (int) Math.round(X3_temp));
+			lblEarth.setBounds(x_Pos.get(3), 0, 362, 384);
+		}else if (x_Pos.get(4) < 1280) {
 			X4_temp = (X4_temp) + (speed*factor_3);
-			X4_pos = (int) Math.round(X4_temp);
-			lblMoon.setBounds(X4_pos, 0, 362, 384);
+			x_Pos.set(4, (int) Math.round(X4_temp));
+			lblMoon.setBounds(x_Pos.get(4), 0, 362, 384);
 		}else {
 			if(destinationSequence(GameData.currentDistance) == Destination.DESTINATION_APPROACH ){
 				X8_temp = (X8_temp) + (speed*factor_8);
-				X8_pos = (int) Math.round(X8_temp);
+				x_Pos.set(8, (int) Math.round(X8_temp));
 				X9_temp = (X9_temp) + (speed*factor_9);
-				X9_pos = (int) Math.round(X9_temp);
-				lblDestination.setLocation(X9_pos, Y9_pos);
-				if(Destination.getId() == Destination.EUROPA) lblJupiter.setLocation(X8_pos, 0);
+				x_Pos.set(9, (int) Math.round(X9_temp));
+				lblDestination.setLocation(x_Pos.get(9), Y9_pos);
+				if(Destination.getId() == Destination.EUROPA) lblJupiter.setLocation(x_Pos.get(8), 0);
 			}
 		}
 		return false;
@@ -543,21 +555,19 @@ public class TransferStage extends JFrame {
 	public void moveSatelites(){
 		
 		if(sateliteTimer.isUpdate() && !satelite) chance = (Math.random() < SAT_CHANCE);
-		//System.out.println(X5_temp);
 		
 		if(chance || satelite){
-			if(X5_pos < 1280){
-				if(X5_pos == -186) chance = (Math.random() < AST_CHANCE);
+			if(x_Pos.get(5) < 1280){
+				if(x_Pos.get(5) == -186) chance = (Math.random() < AST_CHANCE);
 				
 				satelite = true;
-				X5_pos = (int) (X5_pos + speed);
-				
-				if(!chance)lblSatelite1.setBounds(X5_pos, Y5_pos, 186, 140);
-				else lblAsteroid1.setBounds(X5_pos, Y5_pos, 120, 150);
+				x_Pos.set(5, (int) (x_Pos.get(5) + speed));
+				if(!chance)lblSatelite1.setBounds(x_Pos.get(5), Y5_pos, 186, 140);
+				else lblAsteroid1.setBounds(x_Pos.get(5), Y5_pos, 120, 150);
 			}else{
 				chance = (Math.random() > 0.50);
 				satelite = false;
-				X5_pos = -186;
+				x_Pos.set(5, -186);
 				shuffleSatelites();
 				if(chance) Y5_pos = 125;
 				else Y5_pos = 450;	
@@ -585,12 +595,12 @@ public class TransferStage extends JFrame {
 		if(Warp){
 			offset = oscillate(offset.intValue(), offset_temp, oscillate, 25, 0.05)*1.0;
 		
-			if(X6_pos > 800){ 
-				X6_pos = (int) (X6_pos - cruise*PERF_FACTOR);
-				X7_pos = (int) (X7_pos - cruise*PERF_FACTOR);
+			if(x_Pos.get(6) > 800){ 
+				x_Pos.set(6, (int) (x_Pos.get(6) - cruise*PERF_FACTOR));
+				x_Pos.set(7, (int) (x_Pos.get(7) - cruise*PERF_FACTOR));
 			}
-			lblSpacecraft.setLocation(X6_pos, Y6_pos + offset.intValue());
-			lblThruster.setLocation(X7_pos, Y7_pos + offset.intValue());
+			lblSpacecraft.setLocation(x_Pos.get(6), Y6_pos + offset.intValue());
+			lblThruster.setLocation(x_Pos.get(7), Y7_pos + offset.intValue());
 			WarpOut = true;
 		}else{
 			if(WarpOut){
@@ -602,12 +612,12 @@ public class TransferStage extends JFrame {
 				offset = oscillate(offset.intValue(), offset_temp, oscillate, 2, 0.05)*1.0;
 			}
 			
-			if(X6_pos < 999){
-				X6_pos = (int) (X6_pos + speed*0.5);
-				X7_pos = (int) (X7_pos + speed*0.5);				
+			if(x_Pos.get(6) < 999){
+				x_Pos.set(6, (int) (x_Pos.get(6) + speed*0.5));
+				x_Pos.set(7, (int) (x_Pos.get(7) + speed*0.5));
 			}
-			lblSpacecraft.setLocation(X6_pos, Y6_pos + offset.intValue());
-			lblThruster.setLocation(X7_pos, Y7_pos + offset.intValue());
+			lblSpacecraft.setLocation(x_Pos.get(6), Y6_pos + offset.intValue());
+			lblThruster.setLocation(x_Pos.get(7), Y7_pos + offset.intValue());
 		}
 		
 	}
