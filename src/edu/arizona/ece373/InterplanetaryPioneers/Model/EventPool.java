@@ -72,7 +72,7 @@ public class EventPool {
          */
     	newEvent = new Event(Event.Critical, true, GameData.FUEL, 20, 0.20, Person.pilot, false, true);
 		newEvent.titleColor = Color.RED;
-		newEvent.setDescription("A rogue black hole will pass dangerously close to our path. A course correction is required in order to avoid it's"
+		newEvent.setDescription("A rogue black hole will pass dangerously close to our path. A course correction is required in order to avoid it's\n "
 								+ "sphere of influence. Either assign a member of the crew to perform the course correction or perform it yourself."
 								+ " The \ndecision is yours captain.");
 		//Set option text
