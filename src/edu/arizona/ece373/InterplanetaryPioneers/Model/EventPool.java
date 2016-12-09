@@ -40,7 +40,7 @@ public class EventPool {
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
 		//Set option text
 		newEvent.setOption1("[Success chance "+ newEvent.chance * 100 +"%] Attempt to resolve ship fire youself. Your not afraid of no fire.");
-		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " "+ Event.getTypeString(newEvent.getPenaltyType()) +"] Assign a Scientist to fix the problem. The fire will be resolved at no cost to resources.");
+		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " "+ Event.getTypeString(newEvent.getPenaltyType()) +"] Assign a Scientist to fix the problem. The fire will be resolved at minimal cost to resources.");
 		newEvent.setOption3("[0 - "+ newEvent.getCost()+" "+ Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to resolve the issue. Theres a chance your VIP will use less or more water.");
 		newEvent.setOption4("You hope nothing will go wrong and ignore the fire.");
 		//Set Icon location
@@ -161,6 +161,43 @@ public class EventPool {
 		//Set Icon location
 		newEvent.iconLocation = "lib/images/Space_Anamoly_1.jpg";
 		newEvent.setIconBounds(420, 45, 420, 333); 
+		
+        EventPool.events.add(newEvent);
+        
+        /*
+         *	Event #9 - Asteroid
+         */
+    	newEvent = new Event(Event.Moderate, true, GameData.FUEL, 25, 0.35, Person.pilot, false, true);
+		newEvent.titleColor = Color.YELLOW;
+		newEvent.setDescription("There appears to be an asteroid that is dangerously close to the ships path to " + Destination.getName() +"."
+								+ " A collision is very likely if you \ndo not perform a course correction captain. Mission control advises"
+								+ " a course correction by a qualified crew member.");
+		//Set option text
+		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Attempt to navigate around the asteroid yourself. You claim your the best pilot there every was.");
+		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " " + Event.getTypeString(newEvent.getPenaltyType()) +"] Assign a Pilot to perform the optimal manuever at minimal cost.");
+		newEvent.setOption3("[0 - "+ newEvent.getCost()+" " + Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to oversee the course correction. Potentially more or less fuel consumption.");
+		newEvent.setOption4("You decide not to perform the course correction and tell the crew not to look out the window.");
+		//Set Icon location
+		newEvent.iconLocation = "lib/images/iceAsteroid.jpg";
+		newEvent.setIconBounds(360, 45, 600, 335); 
+		
+        EventPool.events.add(newEvent);
+        
+        /*
+         *	Event #10 - Gamma Ray Burst
+         */
+    	newEvent = new Event(Event.Moderate, true, GameData.PARTS, 30, 0.35, Person.scientist, true, true);
+		newEvent.titleColor = Color.YELLOW;
+		newEvent.setDescription("An important transmission from earth reports that the ships is at risk of being hit by a gamma ray burst resulting \nfrom a near by star going supernova. The ship could be"
+								+ " severely damaged. Mission control recommends you have a scientist determine which of your available materials can be used to insulate the ship and the crew.");
+		//Set option text
+		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Attempt to macgyver the required ship insulations yourself. You claim to be a material science expert.");
+		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " " + Event.getTypeString(newEvent.getPenaltyType()) +"] Assign a scientist to determine the required materials.");
+		newEvent.setOption3("[0 - "+ newEvent.getCost()+" " + Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to handle or oversee the required ship insulation.");
+		newEvent.setOption4("You ignore the reports and keep the entire crew oblivious of the impending doom.");
+		//Set Icon location
+		newEvent.iconLocation = "lib/images/superNova.jpg";
+		newEvent.setIconBounds(400, 45, 518, 327); 
 		
         EventPool.events.add(newEvent);
 	}

@@ -228,9 +228,11 @@ public class ResolutionPanel extends JPanel {
 				usedField.setText(String.valueOf(0) +" "+ Event.getTypeString(event.getPenaltyType()));
 				recoveredField.setText(String.valueOf(0) +" ");
 				crewInjuryField.setText(String.valueOf(0) +" ");
+				crewLostField.setText(String.valueOf(0)   +" "+ "none");
+				shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
 				if(event.isInjury()){
 					System.out.println("Crew Injury.");
-					shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
+					
 					if(event.getSeverity() == Event.Low){
 						if(GameData.updateCrewInjury(event)) 
 							crewLostField.setText(String.valueOf(0) +" ");
@@ -252,9 +254,9 @@ public class ResolutionPanel extends JPanel {
 						}
 						crewInjuryField.setText(alive + " total");
 					}
-				}else if(event.isDamage()){
+				}
+				if(event.isDamage()){
 					GameData.updateShipDamage(event.getSeverity()); //Ship damage scaled by event severity 1-3
-					crewLostField.setText(String.valueOf(0)   +" "+ "none");
 					shipDamageField.setText(String.valueOf(event.getSeverity()) +" "+ "sustained");
 					System.out.println("Ship Damaged");
 				}
