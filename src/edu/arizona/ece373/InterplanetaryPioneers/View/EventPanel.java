@@ -17,6 +17,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JTextArea;
+
+import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.SwingConstants;
 
@@ -34,6 +36,9 @@ public class EventPanel extends JPanel {
 	private double Chance;
 	private boolean event;
 	private boolean Outcome;
+	private static int queueSize = 8;
+	private ArrayList<Event> eventQueue;
+	private boolean wormhole = false;
 	//protected EventPool eventPool;
 	private Event currentEvent, prev1_Event, prev2_Event, prev3_Event;
 	private static Random random;
@@ -151,6 +156,7 @@ public class EventPanel extends JPanel {
 	
 	public void initEventData(){
 		random = new Random();
+		eventQueue  = new ArrayList<Event>(queueSize); 
 		//Severity =   Low;		// Lowest Risk
 		setResolution(1); 	    // Option A
 		//setPenalty(false);     //  No penalty
@@ -181,15 +187,24 @@ public class EventPanel extends JPanel {
 	
 	public void setEventPanel(){
 		//Prevent duplicates more event variety
-		prev3_Event = prev2_Event;
-		prev2_Event = prev1_Event;
-		prev1_Event = currentEvent;
 		int i = 0;
-		while(prev1_Event == currentEvent || prev2_Event == currentEvent || prev3_Event == currentEvent){
-			currentEvent = EventPool.getRandomEvent();
-			i++;
+		currentEvent = EventPool.getRandomEvent();
+		if(eventQueue.size() == 0){
+			eventQueue.add(currentEvent);
+		}else{	
+			while(eventQueue.contains(currentEvent) || (currentEvent.isWormHole() && wormhole)){
+				currentEvent = EventPool.getRandomEvent();
+				i++;
+			}
+			if(eventQueue.size() < queueSize){
+				eventQueue.add(0, currentEvent);
+			}else{
+				eventQueue.remove(queueSize - 1);
+				eventQueue.add(0, currentEvent);
+			}
 		}
-		System.out.println("Event Generations: "+ i);
+		if(currentEvent.isWormHole()) wormhole = true;
+		System.out.println("Event Generations: "+ i + " Event Queue Size: " + eventQueue.size());
 		//currentEvent = EventPool.getEvent(7);			//For debugging specific event
 		//Set color based off severity
 		lblTitle.setText(currentEvent.getTitle());

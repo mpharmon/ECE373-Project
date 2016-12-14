@@ -113,7 +113,7 @@ public class GameData{
 	public static boolean checkCrewForSkill(int skill){
 		System.out.println("Looking for skill: " + skill);
 		for(int i = 0; i < crew.size(); i++){
-			System.out.println("Crew member "+i+": " + crew.get(i).getSkill() + " skill");
+			System.out.println("Crew member "+i+": " + " skill "+ crew.get(i).getSkill());
 			if(skill == crew.get(i).getSkill() && crew.get(i).Alive()) return true;
 		}
 		return false;

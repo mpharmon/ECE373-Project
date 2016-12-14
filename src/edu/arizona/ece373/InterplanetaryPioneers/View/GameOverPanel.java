@@ -201,7 +201,7 @@ public class GameOverPanel extends JPanel {
 		}else if(noWater){
 			txtCondition.setText("The water reserves were depleted. The crew died of dehydration.");
 		}else if(lowFuel){
-			txtCondition.setText("The fuel reserves were depleted. The crew died shortly after life support failed.");
+			txtCondition.setText("The fuel reserves were depleted. Life support failed.");
 		}else{
 			txtCondition.setText("An anomaly occured which ended your voyage early.");
 		}

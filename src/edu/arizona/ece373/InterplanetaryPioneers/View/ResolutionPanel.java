@@ -11,6 +11,7 @@ import edu.arizona.ece373.InterplanetaryPioneers.Model.Event;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.SwingConstants;
 
 public class ResolutionPanel extends JPanel {
 	private JTextField ResultField;
@@ -48,13 +49,14 @@ public class ResolutionPanel extends JPanel {
 		add(lblEvent);
 		
 		ResultField = new JTextField();
+		ResultField.setHorizontalAlignment(SwingConstants.CENTER);
 		ResultField.setBorder(null);
 		ResultField.setEditable(false);
 		ResultField.setForeground(new Color(0, 255, 0));
 		ResultField.setText("Resolved!");
-		ResultField.setFont(new Font("Slider", Font.PLAIN, 44));
+		ResultField.setFont(new Font("Slider", Font.PLAIN, 36));
 		ResultField.setOpaque(false);
-		ResultField.setBounds(545, 137, 280, 96);
+		ResultField.setBounds(445, 137, 380, 96);
 		add(ResultField);
 		ResultField.setColumns(10);
 		
@@ -204,23 +206,29 @@ public class ResolutionPanel extends JPanel {
 		dataReady = false;
 		
 		if(!updated){
+			ResultField.setFont(new Font("Slider", Font.PLAIN, 42));
 			if(Outcome){
 				GameData.resolvedEvents += 1;
 				ResultField.setForeground(Color.GREEN);
 				ResultField.setText("Resolved!");
+
 				if(event.isPenalty()){
 					usedField.setText(cost    +" "+ Event.getTypeString(event.getPenaltyType()));
 					recoveredField.setText(String.valueOf(0)  +" ");
-					crewInjuryField.setText(String.valueOf(0)   +" ");
-					crewLostField.setText(String.valueOf(0)   +" ");
-					shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
 				}else{
 					usedField.setText(String.valueOf(0)    +" ");
 					recoveredField.setText(cost  +" "+ Event.getTypeString(event.getPenaltyType()));
-					crewInjuryField.setText(String.valueOf(0)   +" "+ "none");
-					crewLostField.setText(String.valueOf(0)   +" "+ "none");
-					shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
-				}	
+				}
+
+				if(event.isWormHole()){
+					ResultField.setFont(new Font("Slider", Font.PLAIN, 22));
+					ResultField.setText("Wormhole jump: +10% Distance");
+					System.out.println("Pre-Jump Distance: " +GameData.currentDistance + "Post-Jump: "+ (GameData.currentDistance + GameData.voyageDistance * 0.10));
+					GameData.currentDistance = (GameData.currentDistance + GameData.voyageDistance * 0.10);
+				}
+				crewInjuryField.setText(String.valueOf(0)   +" "+ "none");
+				crewLostField.setText(String.valueOf(0)   +" "+ "none");
+				shipDamageField.setText(String.valueOf(0) +" "+ "sustained");
 			}else if(!penaltyUpdated){
 				penaltyUpdated = true;
 				ResultField.setForeground(Color.RED);
@@ -259,6 +267,12 @@ public class ResolutionPanel extends JPanel {
 					GameData.updateShipDamage(event.getSeverity()); //Ship damage scaled by event severity 1-3
 					shipDamageField.setText(String.valueOf(event.getSeverity()) +" "+ "sustained");
 					System.out.println("Ship Damaged");
+				}
+				if(event.isWormHole()){
+					ResultField.setFont(new Font("Slider", Font.PLAIN, 22));
+					ResultField.setText("Wormhole jump: -10% Distance");
+					System.out.println("Pre-Jump Distance: " +GameData.currentDistance + "Post-Jump: "+ (GameData.currentDistance - GameData.voyageDistance * 0.10));
+					GameData.currentDistance = (GameData.currentDistance - GameData.voyageDistance * 0.10);
 				}
 				System.out.println("Crew Alive: " + GameData.liveCrew() + "\nShip Integrity: " + GameData.spacecraft.getHull());
 			}

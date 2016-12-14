@@ -30,6 +30,7 @@ public class Event {
 	private boolean Damage;        //Ship Damage flag
 	public boolean GAMEOVER; //Game over flag
 	private boolean Outcome; //update upon event resolution
+	private boolean wormHole;
 
 	//Event severity definitions
 	public final static int Low = 1;
@@ -52,6 +53,7 @@ public class Event {
 		setPenaltyType(GameData.PARTS);
 		setCost(0);
 		chance = 0.50;
+		wormHole = false;
 		setSkillType(Person.none);
 		description = "Event info goes here...";
 		option1 = "Resolve yourself";
@@ -62,7 +64,7 @@ public class Event {
 		this.titleColor = new Color(0,255,255);
 	}
 	//Custom Constructor
-	public Event(int severity, boolean penalty, int penaltyType, int cost, double chance, int skillType, boolean injury, boolean damage) {
+	public Event(int severity, boolean penalty, int penaltyType, int cost, double chance, int skillType, boolean injury, boolean damage, boolean wormHole) {
 		title = "Event Encounter";
 		this.setSeverity(severity);
 		this.setPenalty(penalty);
@@ -82,6 +84,7 @@ public class Event {
 		if(severity == Critical) GAMEOVER = true;
 		else  GAMEOVER = false;
 		Outcome = false;
+		this.wormHole = wormHole;
 		reward = 0;
 	}
 	
@@ -205,6 +208,12 @@ public class Event {
 	}
 	public void setReward(int reward) {
 		this.reward = reward;
+	}
+	public boolean isWormHole() {
+		return wormHole;
+	}
+	public void setWormHole(boolean wormHole) {
+		this.wormHole = wormHole;
 	}
 	
 }

@@ -96,7 +96,7 @@ public class TransferStage extends JFrame {
 	
 	private EventPanel eventPanel;
 	private boolean event;
-	private double EVENT_CHANCE = 0.35;
+	private double EVENT_CHANCE = 0.30;
 	private boolean First_Event = false;
 	
 	private ResolutionPanel resultPanel;
@@ -323,8 +323,8 @@ public class TransferStage extends JFrame {
 		shipBounds = new Rectangle();
 		thrustBounds = new Rectangle();
 		
-		if(GameData.difficulty == DifficultySet.Normal) EVENT_CHANCE = EVENT_CHANCE + 0.10;
-		else if(GameData.difficulty == DifficultySet.Hard) EVENT_CHANCE = EVENT_CHANCE + 0.15;
+		if(GameData.difficulty == DifficultySet.Normal) EVENT_CHANCE = EVENT_CHANCE + 0.100;
+		else if(GameData.difficulty == DifficultySet.Hard) EVENT_CHANCE = EVENT_CHANCE + 0.200;
 		
 	}
 	

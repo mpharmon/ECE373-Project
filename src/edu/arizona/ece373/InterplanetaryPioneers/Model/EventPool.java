@@ -16,7 +16,7 @@ public class EventPool {
         /*
          *	Event #1 - Power Malfunction
          */
-		newEvent = new Event(Event.Low, true, GameData.PARTS, 25, 0.25, Person.engineer, false, true);
+		newEvent = new Event(Event.Low, true, GameData.PARTS, 25, 0.25, Person.engineer, false, true, false);
 		//Set event text
 		newEvent.setDescription("The ship is experiencing minor power malfunctions. Currently the severity is low. You can resolve the issue\n "
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
@@ -27,14 +27,14 @@ public class EventPool {
 		newEvent.setOption4("The severity of the malfunction is low. You decide to ignore the problem for now.");
 		//Set Icon location
 		newEvent.iconLocation = "lib/images/powerLoss.png";
-		newEvent.setIconBounds(466, 95, 300, 300); 
+		newEvent.setIconBounds(500, 95, 300, 300); 
         
 		EventPool.events.add(newEvent);
         
 		/*
 		 *	Event #2 - Fire
 		 */
-		newEvent = new Event(Event.Moderate, true, GameData.WATER, 20, 0.35, Person.scientist, true, false);
+		newEvent = new Event(Event.Moderate, true, GameData.WATER, 20, 0.35, Person.scientist, true, false, false);
 		newEvent.titleColor = Color.YELLOW;
 		newEvent.setDescription("There is a fire in the cargo area. The fire must be put out to avoid ship damage. You can resolve the issue\n "
 							+ "yourself or assign a crew member to resolve it. The decision is yours captain.");
@@ -52,7 +52,7 @@ public class EventPool {
         /*
          *	Event #3 - Infectious Agent 1
          */
-    	newEvent = new Event(Event.Moderate, true, GameData.WATER, 20, 0.35, Person.doctor, true, false);
+    	newEvent = new Event(Event.Moderate, true, GameData.WATER, 20, 0.35, Person.doctor, true, false, false);
 		newEvent.titleColor = Color.YELLOW;
 		newEvent.setDescription("There appears to be an infectious agent on board. The infectious agent must be contained before it infects someone.\n "
 				                + "You can resolve the issue yourself or assign a crew member to resolve it. The decision is yours captain.");
@@ -70,7 +70,7 @@ public class EventPool {
         /*
          *	Event #4 - Black Hole
          */
-    	newEvent = new Event(Event.Critical, true, GameData.FUEL, 20, 0.20, Person.pilot, false, true);
+    	newEvent = new Event(Event.Critical, true, GameData.FUEL, 20, 0.20, Person.pilot, false, true, false);
 		newEvent.titleColor = Color.RED;
 		newEvent.setDescription("A rogue black hole will pass dangerously close to our path. A course correction is required in order to avoid it's\n "
 								+ "sphere of influence. Either assign a member of the crew to perform the course correction or perform it yourself."
@@ -89,7 +89,7 @@ public class EventPool {
         /*
          *	Event #5 - Rogue AI
          */
-    	newEvent = new Event(Event.Moderate, true, GameData.PARTS, 25, 0.25, Person.engineer, true, false);
+    	newEvent = new Event(Event.Moderate, true, GameData.PARTS, 25, 0.25, Person.engineer, true, false, false);
 		newEvent.titleColor = Color.YELLOW;
 		newEvent.setDescription("The ships AI has gone rogue. It seems to ignore all commands given and is causing glitches in all the ship's "
 								+ "systems. \nLife support is among the systems at risk. Shutdown the AI yourself or assign an engineer to bypass "
@@ -101,14 +101,14 @@ public class EventPool {
 		newEvent.setOption4("You threaten the AI and demand it to shut itself down.");
 		//Set Icon location
 		newEvent.iconLocation = "lib/images/rogueAI.png";
-		newEvent.setIconBounds(360, 45, 524, 300); 
+		newEvent.setIconBounds(420, 45, 524, 300); 
 		
         EventPool.events.add(newEvent);
         
         /*
          *	Event #6 - Satellite Salvage Opportunity
          */
-    	newEvent = new Event(Event.Low, false, GameData.PARTS, 15, 0.25, Person.engineer, false, false);
+    	newEvent = new Event(Event.Low, false, GameData.PARTS, 15, 0.25, Person.engineer, false, false, false);
     	newEvent.setTitle("Salvage Opportunity");
 		newEvent.titleColor = Color.GREEN;
 		newEvent.setDescription("You have encountered an abandoned satellite which appears to have been drifting in space for a long time. You"
@@ -128,7 +128,7 @@ public class EventPool {
         /*
          *	Event #7 - Solar Wind Radiation
          */
-    	newEvent = new Event(Event.Moderate, true, GameData.PARTS, 25, 0.35, Person.engineer, true, false);
+    	newEvent = new Event(Event.Moderate, true, GameData.PARTS, 25, 0.35, Person.engineer, true, false, false);
 		newEvent.titleColor = Color.YELLOW;
 		newEvent.setDescription("You have recieved reports from scientists on earth that dangerous solar winds are imminent. They recommend you"
 								+ " \nreinforce the ship with any parts available to reduce the risk of dangerous radiation levels. You may"
@@ -147,7 +147,7 @@ public class EventPool {
         /*
          *	Event #8 - Space Anomaly
          */
-    	newEvent = new Event(Event.Moderate, true, GameData.FOOD, 25, 0.35, Person.botanist, true, false);
+    	newEvent = new Event(Event.Moderate, true, GameData.FOOD, 25, 0.35, Person.botanist, true, false, false);
 		newEvent.titleColor = Color.YELLOW;
 		newEvent.setDescription("There appears to be a spatial anomaly dangerously close to the ships path to " + Destination.getName() +"."
 								+ " The anomaly appears to\n drain energy. Earth scientists recommend you temporarily power down all"
@@ -167,7 +167,7 @@ public class EventPool {
         /*
          *	Event #9 - Asteroid
          */
-    	newEvent = new Event(Event.Moderate, true, GameData.FUEL, 25, 0.35, Person.pilot, false, true);
+    	newEvent = new Event(Event.Moderate, true, GameData.FUEL, 25, 0.35, Person.pilot, false, true, false);
 		newEvent.titleColor = Color.YELLOW;
 		newEvent.setDescription("There appears to be an asteroid that is dangerously close to the ships path to " + Destination.getName() +"."
 								+ " A collision is very likely if you \ndo not perform a course correction captain. Mission control advises"
@@ -186,7 +186,7 @@ public class EventPool {
         /*
          *	Event #10 - Gamma Ray Burst
          */
-    	newEvent = new Event(Event.Moderate, true, GameData.PARTS, 30, 0.35, Person.scientist, true, true);
+    	newEvent = new Event(Event.Moderate, true, GameData.PARTS, 30, 0.35, Person.scientist, true, true, false);
 		newEvent.titleColor = Color.YELLOW;
 		newEvent.setDescription("An important transmission from earth reports that the ships is at risk of being hit by a gamma ray burst resulting \nfrom a near by star going supernova. The ship could be"
 								+ " severely damaged. Mission control recommends you have a scientist determine which of your available materials can be used to insulate the ship and the crew.");
@@ -198,6 +198,24 @@ public class EventPool {
 		//Set Icon location
 		newEvent.iconLocation = "lib/images/superNova.jpg";
 		newEvent.setIconBounds(400, 45, 518, 327); 
+		
+        EventPool.events.add(newEvent);
+        
+        /*
+         *	Event #11 - WormHole
+         */
+    	newEvent = new Event(Event.Low, true, GameData.FUEL, 25, 0.35, Person.pilot, false, false, true);
+		newEvent.titleColor = Color.CYAN;
+		newEvent.setDescription("You have recieved an important transmission from mission control mentioning the anamolous appearance of a wormhole on your trajectory to "+ Destination.getName() + "."+
+								" No one knows where it leads. You may try to enter it but it is very likely that it will \nevaporate shortly after since it appears highly unstable. There is a chance it may increase or decrease your voyage.");
+		//Set option text
+		newEvent.setOption1("[Success chance "+ newEvent.chance*100 +"%] Pilot the ship into the wormhole yourself.");
+		newEvent.setOption2("["+ String.valueOf(newEvent.getCost() - 15) + " " + Event.getTypeString(newEvent.getPenaltyType()) +"] Assign a Pilot to perform the optimal manuever into the wormhole.");
+		newEvent.setOption3("[0 - "+ newEvent.getCost()+" " + Event.getTypeString(newEvent.penaltyType) +"] Assign your VIP to oversee the course correction. Potentially more or less fuel consumption.");
+		newEvent.setOption4("You decide not to enter the wormhole and maintain your current trajectory to " + Destination.getName() + ".");
+		//Set Icon location
+		newEvent.iconLocation = "lib/images/wormHole.jpg";
+		newEvent.setIconBounds(450, 45, 408, 337); 
 		
         EventPool.events.add(newEvent);
 	}
