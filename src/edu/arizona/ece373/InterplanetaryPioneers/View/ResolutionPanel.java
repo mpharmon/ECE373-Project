@@ -223,7 +223,7 @@ public class ResolutionPanel extends JPanel {
 				if(event.isWormHole()){
 					ResultField.setFont(new Font("Slider", Font.PLAIN, 22));
 					ResultField.setText("Wormhole jump: +10% Distance");
-					System.out.println("Pre-Jump Distance: " +GameData.currentDistance + "Post-Jump: "+ (GameData.currentDistance + GameData.voyageDistance * 0.10));
+					System.out.println("Pre-Jump Distance: " +GameData.currentDistance + " Post-Jump: "+ (GameData.currentDistance + GameData.voyageDistance * 0.10));
 					GameData.currentDistance = (GameData.currentDistance + GameData.voyageDistance * 0.10);
 				}
 				crewInjuryField.setText(String.valueOf(0)   +" "+ "none");
@@ -270,9 +270,14 @@ public class ResolutionPanel extends JPanel {
 				}
 				if(event.isWormHole()){
 					ResultField.setFont(new Font("Slider", Font.PLAIN, 22));
-					ResultField.setText("Wormhole jump: -10% Distance");
-					System.out.println("Pre-Jump Distance: " +GameData.currentDistance + "Post-Jump: "+ (GameData.currentDistance - GameData.voyageDistance * 0.10));
-					GameData.currentDistance = (GameData.currentDistance - GameData.voyageDistance * 0.10);
+					if(event.Option4 != resolution){
+						ResultField.setText("Wormhole jump: -10% Distance");
+						System.out.println("Pre-Jump Distance: " +GameData.currentDistance + " Post-Jump: "+ (GameData.currentDistance - GameData.voyageDistance * 0.10));
+						GameData.currentDistance = (GameData.currentDistance - GameData.voyageDistance * 0.10);
+					}else{
+						ResultField.setForeground(Color.CYAN);
+						ResultField.setText("Wormhole Avoided!");
+					}
 				}
 				System.out.println("Crew Alive: " + GameData.liveCrew() + "\nShip Integrity: " + GameData.spacecraft.getHull());
 			}
